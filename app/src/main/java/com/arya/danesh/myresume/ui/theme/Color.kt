@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 
 val bg = Color(0xFF2B2D45)
 val surface = Color(0xFF25253B)
-val section = Color(0xFF)
+val section = Color(0xFF3B3C50)
 val item = Color(0xFF2B2D45)
 val navbarLight = Color(0xFF3B3C50)
 val navbarDark = Color(0xFF272841)
