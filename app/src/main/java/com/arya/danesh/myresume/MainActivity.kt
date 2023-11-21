@@ -6,19 +6,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
-import com.arya.danesh.myresume.pages.sections.NavBar.navBar
-import com.arya.danesh.myresume.pages.sections.Toolbar.ToolBar
+import com.arya.danesh.myresume.pages.sections.navigation.NavigationBar
+import com.arya.danesh.myresume.pages.sections.toolbar.ToolBar
 import com.arya.danesh.myresume.ui.theme.MyResumeTheme
 import com.arya.danesh.myresume.ui.theme.appDark
 import com.arya.danesh.myresume.ui.theme.appLight
@@ -34,6 +33,23 @@ class MainActivity : ComponentActivity() {
             val state = rememberScrollState()
             val currentPage = remember { mutableStateOf("home") }
             val isExpended = remember { mutableStateOf(true) }
+            val lazyState = rememberLazyListState()
+            val isAnimationToolBarFinished = remember { mutableStateOf(true) }
+
+            if (lazyState.isScrollInProgress) {
+                if (lazyState.canScrollBackward) {
+                    if (isExpended.value!=false)
+                        isAnimationToolBarFinished.value = false
+                    isExpended.value = false
+                }
+                else
+                {
+                    if (isExpended.value!=true)
+                        isAnimationToolBarFinished.value = false
+                    isExpended.value = true
+                }
+            }
+
 
             MyResumeTheme(darkTheme = true) {
                 // A surface container using the 'background' color from the theme
@@ -53,11 +69,11 @@ class MainActivity : ComponentActivity() {
                     backgroundColor = Color.Transparent,
                     scaffoldState = rememberScaffoldState(),
                     topBar = {
-                        ToolBar(state,currentPage,isExpended)
+                        ToolBar(state,currentPage,isExpended,isAnimationToolBarFinished)
                     },
-                    bottomBar = { navBar(navHostController = navController, currentPage,isExpended) },
+                    bottomBar = { NavigationBar(navHostController = navController, currentPage,isExpended,isAnimationToolBarFinished) },
                     content = {
-                        pageController(navController = navController,currentPage)
+                        PageController(navController = navController,currentPage,lazyState)
                     }
                 )
 

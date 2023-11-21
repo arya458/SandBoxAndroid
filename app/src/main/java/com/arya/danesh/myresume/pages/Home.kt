@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
@@ -31,12 +32,21 @@ import com.arya.danesh.myresume.ui.theme.section
 import com.arya.danesh.myresume.ui.theme.title
 
 @Composable
-fun home(name: String, currentPage: MutableState<String>, modifier: Modifier = Modifier) {
+fun HomePage(
+    name: String,
+    currentPage: MutableState<String>,
+    modifier: Modifier = Modifier,
+    lazyState: LazyListState,
+) {
     currentPage.value = name
+
+
+
     LazyColumn(
         Modifier
             .fillMaxSize()
             .padding(bottom = 60.dp),
+        state=lazyState,
         contentPadding = PaddingValues(top = 20.dp , bottom = 20.dp)
     ) {
 

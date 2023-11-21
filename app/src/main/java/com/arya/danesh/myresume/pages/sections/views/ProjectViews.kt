@@ -25,7 +25,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.ui.theme.appLight
@@ -39,7 +38,7 @@ fun Project(modifier: Modifier) {
 
     Card(
         modifier
-            .padding(10.dp),
+            .padding(start=10.dp , top = 10.dp,bottom = 10.dp),
         backgroundColor = item,
         elevation = 2.dp,
         shape = RoundedCornerShape(15.dp)
@@ -82,13 +81,13 @@ fun Project(modifier: Modifier) {
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, bottom = 5.dp, top = 5.dp)
+                    .padding(start = 10.dp, bottom = 5.dp, top = 5.dp, end = 10.dp)
                     .wrapContentHeight(),
                 softWrap = true,
                 maxLines = 7,
                 minLines = 5,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Start,
+                textAlign = TextAlign.Justify,
                 color = text,
             )
 

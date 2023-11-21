@@ -1,21 +1,19 @@
-package com.arya.danesh.vazife.ui.uiComponents
+package com.arya.danesh.myresume.pages.sections.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -26,7 +24,11 @@ fun NavigationButton(
     modifier: Modifier,
     @DrawableRes drawableIdDef: Int,
     @DrawableRes drawableIdActive: Int,
-    name: String, currentPage: MutableState<String>, nav: NavHostController,isExpended: MutableState<Boolean>
+    name: String,
+    currentPage: MutableState<String>,
+    nav: NavHostController,
+    isExpended: MutableState<Boolean>,
+    isAnimationToolBarFinished: MutableState<Boolean>
 ) {
 
     Button(
@@ -35,7 +37,10 @@ fun NavigationButton(
                 nav.navigate(name) {
                     nav.clearBackStack("home")
                     this.popUpTo("home")
+                    if (isExpended.value)
+                        isAnimationToolBarFinished.value = false
                     isExpended.value = false
+
                 }
 
         },

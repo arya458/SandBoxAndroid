@@ -21,7 +21,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.ui.theme.appLight
@@ -49,7 +48,7 @@ fun Blog(modifier: Modifier) {
         ) {
             //todo add text size
             Text(
-                "SkillName",
+                "PostTitle",
                 Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
@@ -81,7 +80,7 @@ fun Blog(modifier: Modifier) {
                 maxLines = 7,
                 minLines = 5,
                 overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Start,
+                textAlign = TextAlign.Justify,
                 color = text,
             )
             Text(

@@ -1,9 +1,6 @@
 package com.arya.danesh.myresume.ui.theme
 
-import android.annotation.SuppressLint
 import androidx.compose.ui.graphics.Color
-
-
 
 
 val bg = Color(0xFF2B2D45)
