@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.pages.sections.NavBar
+package com.arya.danesh.myresume.pages.sections.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,14 +19,13 @@ import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.ui.theme.navbarDark
 import com.arya.danesh.myresume.ui.theme.navbarLight
 
-import com.arya.danesh.vazife.ui.uiComponents.NavigationButton
-
 
 @Composable
-fun navBar(
+fun NavigationBar(
     navHostController: NavHostController,
     currentpage: MutableState<String>,
-    isExpended: MutableState<Boolean>
+    isExpended: MutableState<Boolean>,
+    isAnimationToolBarFinished: MutableState<Boolean>
 ) {
     Box(
         modifier = Modifier
@@ -53,7 +52,8 @@ fun navBar(
                 name = "blog",
                 currentPage = currentpage,
                 nav = navHostController,
-                isExpended=isExpended
+                isExpended=isExpended,
+                isAnimationToolBarFinished = isAnimationToolBarFinished
             )
             NavigationButton(
                 modifier = Modifier.size(65.dp),
@@ -62,7 +62,8 @@ fun navBar(
                 name = "skills",
                 currentPage = currentpage,
                 nav = navHostController,
-                isExpended=isExpended
+                isExpended=isExpended,
+                isAnimationToolBarFinished = isAnimationToolBarFinished
             )
             NavigationButton(
                 modifier = Modifier.size(65.dp),
@@ -71,7 +72,8 @@ fun navBar(
                 name = "home",
                 currentPage = currentpage,
                 nav = navHostController,
-                isExpended=isExpended
+                isExpended=isExpended,
+                isAnimationToolBarFinished = isAnimationToolBarFinished
             )
             NavigationButton(
                 modifier = Modifier.size(65.dp),
@@ -80,7 +82,8 @@ fun navBar(
                 name = "aboutUs",
                 currentPage = currentpage,
                 nav = navHostController,
-                isExpended=isExpended
+                isExpended=isExpended,
+                isAnimationToolBarFinished = isAnimationToolBarFinished
             )
             NavigationButton(
                 modifier = Modifier.size(65.dp),
@@ -89,7 +92,8 @@ fun navBar(
                 name = "contactUs",
                 currentPage = currentpage,
                 nav = navHostController,
-                isExpended=isExpended
+                isExpended=isExpended,
+                isAnimationToolBarFinished = isAnimationToolBarFinished
             )
 
         }

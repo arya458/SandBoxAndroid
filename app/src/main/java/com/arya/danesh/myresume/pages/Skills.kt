@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.pages.sections.views.SkillBig
@@ -19,6 +21,10 @@ fun SkillsPage(
     lazyState: LazyListState,
 ) {
     currentPage.value = name
+    val visibleItems = remember { derivedStateOf { lazyState.layoutInfo } }
+
+
+
 
     LazyColumn(
         Modifier.padding(bottom = 60.dp).fillMaxSize(),
@@ -26,7 +32,7 @@ fun SkillsPage(
 
     ) {
         items((1..500).toList()) {
-            SkillBig()
+            SkillBig(visibleItems.value.visibleItemsInfo.size,visibleItems.value.visibleItemsInfo.first().index,it)
         }
     }
 

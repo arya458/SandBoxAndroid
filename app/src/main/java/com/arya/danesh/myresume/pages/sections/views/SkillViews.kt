@@ -1,5 +1,9 @@
 package com.arya.danesh.myresume.pages.sections.views
 
+import android.util.Log
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +19,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -23,7 +28,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.ui.theme.item
@@ -34,7 +38,7 @@ import com.arya.danesh.myresume.ui.theme.title
 
 
 @Composable
-fun SkillSmall(){
+fun SkillSmall() {
 
     Card(
         Modifier
@@ -45,7 +49,7 @@ fun SkillSmall(){
         shape = RoundedCornerShape(15.dp)
     ) {
 
-        Column(Modifier.fillMaxSize(),Arrangement.Top) {
+        Column(Modifier.fillMaxSize(), Arrangement.Top) {
 
             Image(
                 painterResource(R.drawable.kotlin),
@@ -56,7 +60,7 @@ fun SkillSmall(){
                     .clip(RoundedCornerShape(15.dp))
                     .padding(bottom = 10.dp)
                     .shadow(5.dp, RoundedCornerShape(15.dp), clip = true)
-                )
+            )
             Text(
                 "SkillName",
                 Modifier
@@ -71,20 +75,29 @@ fun SkillSmall(){
         }
 
 
-
     }
 
 }
 
-@Preview()
 @Composable
-fun SkillBig(){
+fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
+
+    val isShowing = lazyListItemInfo <= itemNumber && itemNumber < lazyListItemInfo+1 + size
+
+    Log.d("tester", "$lazyListItemInfo $itemNumber $size $isShowing")
+    val progressbarAnimation by animateFloatAsState(
+        targetValue = if (isShowing) 0.5f else 0.0f,
+        animationSpec = tween(
+            durationMillis = 300,
+            delayMillis = 200,
+            easing = FastOutSlowInEasing
+        ),
+        label = "")
     Card(
         Modifier
             .padding(10.dp)
             .fillMaxWidth()
-            .wrapContentHeight()
-        ,
+            .wrapContentHeight(),
         backgroundColor = item,
         elevation = 2.dp,
         shape = RoundedCornerShape(15.dp)
@@ -94,7 +107,8 @@ fun SkillBig(){
             Modifier
                 .fillMaxWidth()
                 .padding(bottom = 10.dp)
-                .wrapContentHeight(),Arrangement.Top) {
+                .wrapContentHeight(), Arrangement.Top
+        ) {
 
             Row() {
                 Image(
@@ -132,7 +146,7 @@ fun SkillBig(){
                         softWrap = true,
                         maxLines = 5,
                         minLines = 3,
-                        overflow  = TextOverflow.Ellipsis,
+                        overflow = TextOverflow.Ellipsis,
                         textAlign = TextAlign.Start,
                         color = text,
                     )
@@ -154,7 +168,7 @@ fun SkillBig(){
                     color = title,
                 )
                 LinearProgressIndicator(
-                    progress = 0.5f,
+                    progress = progressbarAnimation,
                     Modifier
                         .fillMaxWidth()
                         .height(20.dp)
@@ -179,7 +193,7 @@ fun SkillBig(){
                     color = title,
                 )
                 LinearProgressIndicator(
-                    progress = 0.5f,
+                    progress = progressbarAnimation,
                     Modifier
                         .fillMaxWidth()
                         .height(20.dp)
@@ -204,7 +218,7 @@ fun SkillBig(){
                     color = title,
                 )
                 LinearProgressIndicator(
-                    progress = 0.5f,
+                    progress = progressbarAnimation,
                     Modifier
                         .fillMaxWidth()
                         .height(20.dp)

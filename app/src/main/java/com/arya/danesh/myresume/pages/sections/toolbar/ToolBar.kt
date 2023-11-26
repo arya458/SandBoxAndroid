@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -84,6 +85,28 @@ fun ToolBar(
 
         )
 
+    val textVisibilityExpended by animateFloatAsState(
+        targetValue = if (!isExpended.value) 1f else 0f,
+        animationSpec = tween(
+            durationMillis = 300,
+            delayMillis = if (isExpended.value) 50 else 200,
+            easing = FastOutSlowInEasing
+        ),
+        label = "",
+
+
+        )
+    val textVisibilityCollapsed by animateFloatAsState(
+        targetValue = if (isExpended.value) 1f else 0f,
+        animationSpec = tween(
+            durationMillis = 300,
+            delayMillis = if (isExpended.value) 50 else 200,
+            easing = FastOutSlowInEasing
+        ),
+        label = "",
+
+
+        )
 
 
 
@@ -97,7 +120,7 @@ fun ToolBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (!isExpended.value) Text(
-            text = currentPage.value, modifier = Modifier,
+            text = currentPage.value, modifier = Modifier.alpha(textVisibilityExpended),
             color = title
         )
         Column(
@@ -125,12 +148,12 @@ fun ToolBar(
 
             if (isExpended.value) Text(
                 text = "Arya", modifier = Modifier
-                    .padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 0.dp),
+                    .padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 0.dp).alpha(textVisibilityCollapsed),
                 color = title
             )
             if (isExpended.value) Text(
                 text = "TestTestTest", modifier = Modifier
-                    .padding(top = 5.dp, start = 10.dp, end = 10.dp, bottom = 20.dp),
+                    .padding(top = 5.dp, start = 10.dp, end = 10.dp, bottom = 20.dp).alpha(textVisibilityCollapsed),
                 color = text
             )
 
