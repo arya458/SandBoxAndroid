@@ -10,15 +10,51 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+//private val DarkColorScheme = darkColorScheme(
+//    primary = appDark,
+//    secondary = appLight,
+//    tertiary = appLight,
+//    background = bg,
+//    surface = surface,
+//
+//)
+// Material 3 color schemes
 private val DarkColorScheme = darkColorScheme(
-    primary = appDark,
-    secondary = appLight,
-    tertiary = appLight,
-    background = bg,
-    surface = surface,
-
+    primary = Purple80,
+    secondary = PurpleGrey80,
+    tertiary = Pink80
 )
 
+//private val LightColorScheme = lightColorScheme(
+//    primary = Purple40,
+//    secondary = PurpleGrey40,
+//    tertiary = Pink40
+//
+//)
+
+//@Composable
+//fun MyResumeTheme(
+//    darkTheme: Boolean = true,
+//    // Dynamic color is available on Android 12+
+//    dynamicColor: Boolean = true,
+//    content: @Composable () -> Unit
+//) {
+//    val colorScheme = DarkColorScheme
+//    val view = LocalView.current
+//    if (!view.isInEditMode) {
+//        SideEffect {
+//            val window = (view.context as Activity).window
+//            window.statusBarColor = Color(0xFF303362).toArgb()
+//            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+//        }
+//    }
+//
+//    MaterialTheme(
+//        colorScheme = colorScheme,
+//        typography = Typography,
+//        content = content
+//    )
+//}
 @Composable
 fun MyResumeTheme(
     darkTheme: Boolean = true,

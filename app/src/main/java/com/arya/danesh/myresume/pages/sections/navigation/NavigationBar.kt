@@ -1,24 +1,39 @@
 package com.arya.danesh.myresume.pages.sections.navigation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.theme.navbarDark
-import com.arya.danesh.myresume.ui.theme.navbarLight
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.arya.danesh.myresume.MainNavigation
+import kotlinx.coroutines.delay
+import kotlin.concurrent.timerTask
+import kotlin.time.Duration
 
+//import com.arya.danesh.myresume.ui.theme.navbarDark
+//import com.arya.danesh.myresume.ui.theme.navbarLight
+
+
+val items = listOf(
+    MainNavigation.Blog,
+    MainNavigation.Skills,
+    MainNavigation.Home,
+    MainNavigation.AboutUs,
+    MainNavigation.ContactUs,
+)
 
 @Composable
 fun NavigationBar(
@@ -27,76 +42,82 @@ fun NavigationBar(
     isExpended: MutableState<Boolean>,
     isAnimationToolBarFinished: MutableState<Boolean>
 ) {
-    Box(
-        modifier = Modifier
+
+
+    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+
+
+
+    Card(
+        Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .shadow(20.dp)
-            .background(brush = Brush.verticalGradient(colors = listOf(navbarLight,navbarDark)))
-    )
-    {
-        Row(
-            Modifier
+            .padding(bottom = 10.dp, end = 10.dp, start = 10.dp),
+//            .background(brush = Brush.verticalGradient(colors = listOf(navbarLight,navbarDark)))
+        shape = RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp),
+        elevation = 3.dp,
+    ) {
+
+
+        BottomNavigation(
+            modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
-//            .background(colors.surface)
-            Arrangement.SpaceEvenly,
-            Alignment.CenterVertically,
+                .wrapContentHeight()
+        ) {
+//        NavigationButton(
+//            modifier = Modifier.size(60.dp),
+//            drawableIdActive = R.drawable.blog_blue,
+//            drawableIdDef = R.drawable.blog_gray,
+//            name = "blog",
+//            currentPage = currentpage,
+//            nav = navHostController,
+//            isExpended=isExpended,
+//            isAnimationToolBarFinished = isAnimationToolBarFinished
+//        )
+            items.forEach { mainItem ->
 
-            ) {
+                NavigationButton(
+                    modifier = Modifier.size(60.dp),
+                    drawable =
+                    if (currentDestination?.hierarchy?.any { it.route == mainItem.route } == true)
+                        mainItem.pressedImage
+                    else
+                        mainItem.defImage
+                ) {
+                    if (isAnimationToolBarFinished.value)
+                        if (currentDestination?.hierarchy?.any { it.route == mainItem.route } == false) {
+                            navHostController.navigate(mainItem.route) {
+                                // Pop up to the start destination of the graph to
+                                // avoid building up a large stack of destinations
+                                // on the back stack as users select items
+                                currentpage.value = mainItem.route
 
-            NavigationButton(
-                modifier = Modifier.size(65.dp),
-                drawableIdActive = R.drawable.blog_blue,
-                drawableIdDef = R.drawable.blog_gray,
-                name = "blog",
-                currentPage = currentpage,
-                nav = navHostController,
-                isExpended=isExpended,
-                isAnimationToolBarFinished = isAnimationToolBarFinished
-            )
-            NavigationButton(
-                modifier = Modifier.size(65.dp),
-                drawableIdActive = R.drawable.idea_blue,
-                drawableIdDef = R.drawable.idea_gray,
-                name = "skills",
-                currentPage = currentpage,
-                nav = navHostController,
-                isExpended=isExpended,
-                isAnimationToolBarFinished = isAnimationToolBarFinished
-            )
-            NavigationButton(
-                modifier = Modifier.size(65.dp),
-                drawableIdActive = R.drawable.home_blue,
-                drawableIdDef = R.drawable.home_gray,
-                name = "home",
-                currentPage = currentpage,
-                nav = navHostController,
-                isExpended=isExpended,
-                isAnimationToolBarFinished = isAnimationToolBarFinished
-            )
-            NavigationButton(
-                modifier = Modifier.size(65.dp),
-                drawableIdActive = R.drawable.newinfo_blue,
-                drawableIdDef = R.drawable.newinfo_gray,
-                name = "aboutUs",
-                currentPage = currentpage,
-                nav = navHostController,
-                isExpended=isExpended,
-                isAnimationToolBarFinished = isAnimationToolBarFinished
-            )
-            NavigationButton(
-                modifier = Modifier.size(65.dp),
-                drawableIdActive = R.drawable.newmessage_blue,
-                drawableIdDef = R.drawable.newmessage_gray,
-                name = "contactUs",
-                currentPage = currentpage,
-                nav = navHostController,
-                isExpended=isExpended,
-                isAnimationToolBarFinished = isAnimationToolBarFinished
-            )
+                                popUpTo(navHostController.graph.findStartDestination().id) {
+                                    saveState = false
 
+                                }
+
+                                // Avoid multiple copies of the same destination when
+                                // reselecting the same item
+                                launchSingleTop = true
+                                // Restore state when reselecting a previously selected item
+                                restoreState = true
+
+//                                if (isExpended.value)
+//                                    isAnimationToolBarFinished.value = false
+//                                isExpended.value = false
+                            }
+
+                        }
+                }
+
+
+            }
         }
+
     }
+
 
 }

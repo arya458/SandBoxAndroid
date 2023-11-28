@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.pages.sections.toolbar
+package com.arya.danesh.myresume.pages.sections.customToolbar
 
 import android.util.Log
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -31,12 +32,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.theme.text
-import com.arya.danesh.myresume.ui.theme.title
+//import com.arya.danesh.myresume.ui.theme.text
+//import com.arya.danesh.myresume.ui.theme.title
 
 
 @Composable
-fun ToolBar(
+fun CustomToolBar(
     state: ScrollState,
     currentPage: MutableState<String>,
     isExpended: MutableState<Boolean>,
@@ -111,6 +112,7 @@ fun ToolBar(
 
 
 
+
     Row(
 
         Modifier
@@ -121,7 +123,7 @@ fun ToolBar(
     ) {
         if (!isExpended.value) Text(
             text = currentPage.value, modifier = Modifier.alpha(textVisibilityExpended),
-            color = title
+            color = MaterialTheme.colors.onPrimary,
         )
         Column(
             horizontalAlignment = BiasAlignment.Horizontal(columnAlignment),
@@ -149,12 +151,12 @@ fun ToolBar(
             if (isExpended.value) Text(
                 text = "Arya", modifier = Modifier
                     .padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 0.dp).alpha(textVisibilityCollapsed),
-                color = title
+                color = MaterialTheme.colors.onPrimary,
             )
             if (isExpended.value) Text(
                 text = "TestTestTest", modifier = Modifier
                     .padding(top = 5.dp, start = 10.dp, end = 10.dp, bottom = 20.dp).alpha(textVisibilityCollapsed),
-                color = text
+                color = MaterialTheme.colors.onPrimary.copy(0.6f),
             )
 
 

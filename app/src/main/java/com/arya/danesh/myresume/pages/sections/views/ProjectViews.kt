@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,10 +29,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.theme.appLight
-import com.arya.danesh.myresume.ui.theme.item
-import com.arya.danesh.myresume.ui.theme.text
-import com.arya.danesh.myresume.ui.theme.title
+//import com.arya.danesh.myresume.ui.theme.appLight
+//import com.arya.danesh.myresume.ui.theme.item
+//import com.arya.danesh.myresume.ui.theme.text
+//import com.arya.danesh.myresume.ui.theme.title
 
 
 @Composable
@@ -39,7 +41,7 @@ fun Project(modifier: Modifier) {
     Card(
         modifier
             .padding(start=10.dp , top = 10.dp,bottom = 10.dp),
-        backgroundColor = item,
+        backgroundColor = MaterialTheme.colors.surface,
         elevation = 2.dp,
         shape = RoundedCornerShape(15.dp)
     ) {
@@ -61,7 +63,7 @@ fun Project(modifier: Modifier) {
                     .wrapContentHeight()
                     .clip(RoundedCornerShape(15.dp))
                     .padding(bottom = 10.dp)
-                    .shadow(5.dp, RoundedCornerShape(15.dp), clip = true)
+                    .shadow(3.dp, RoundedCornerShape(15.dp), clip = true)
             )
             //todo add text size
             Text(
@@ -71,7 +73,7 @@ fun Project(modifier: Modifier) {
                     .padding(start = 10.dp, bottom = 5.dp, top = 10.dp)
                     .wrapContentHeight(),
                 textAlign = TextAlign.Start,
-                color = title
+                color = MaterialTheme.colors.onSurface,
 
             )
 
@@ -88,16 +90,16 @@ fun Project(modifier: Modifier) {
                 minLines = 5,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
-                color = text,
+                color = MaterialTheme.colors.onSurface.copy(0.6f),
             )
 
-            LazyRow(Modifier.fillMaxWidth().wrapContentHeight().padding(bottom = 5.dp, top = 5.dp), reverseLayout = true) {
+            LazyRow(Modifier.fillMaxWidth().wrapContentHeight().padding(bottom = 5.dp, top = 5.dp), contentPadding = PaddingValues(start = 5.dp,end=5.dp), reverseLayout = true) {
                 items((1..5).toList()) {
                     Card(Modifier
                         .wrapContentSize()
                         .padding(2.dp),
-                        backgroundColor = item,
-                        border = BorderStroke(1.dp, appLight),
+                        backgroundColor = MaterialTheme.colors.surface,
+                        border = BorderStroke(1.dp, MaterialTheme.colors.primary),
                         shape = RoundedCornerShape(15.dp),
                         elevation = 2.dp
 
@@ -120,7 +122,7 @@ fun Project(modifier: Modifier) {
                                     )
                                 )
                             ),
-                            color = appLight
+                            color = MaterialTheme.colors.primary
                         )
                     }
                 }

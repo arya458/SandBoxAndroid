@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.mutableStateOf
@@ -17,10 +18,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.arya.danesh.myresume.pages.sections.navigation.NavigationBar
-import com.arya.danesh.myresume.pages.sections.toolbar.ToolBar
+import com.arya.danesh.myresume.pages.sections.customToolbar.CustomToolBar
 import com.arya.danesh.myresume.ui.theme.MyResumeTheme
-import com.arya.danesh.myresume.ui.theme.appDark
-import com.arya.danesh.myresume.ui.theme.appLight
+
 
 class MainActivity : ComponentActivity() {
 
@@ -38,20 +38,20 @@ class MainActivity : ComponentActivity() {
 
             if (lazyState.isScrollInProgress) {
                 if (lazyState.canScrollBackward) {
-                    if (isExpended.value!=false)
+                    if (isExpended.value)
                         isAnimationToolBarFinished.value = false
                     isExpended.value = false
                 }
                 else
                 {
-                    if (isExpended.value!=true)
+                    if (!isExpended.value)
                         isAnimationToolBarFinished.value = false
                     isExpended.value = true
                 }
             }
 
 
-            MyResumeTheme(darkTheme = true) {
+            MyResumeTheme(darkTheme = true,dynamicColor = true) {
                 // A surface container using the 'background' color from the theme
 
 
@@ -61,19 +61,19 @@ class MainActivity : ComponentActivity() {
                         .background(
                             brush = Brush.verticalGradient(
                                 colors = listOf(
-                                    appDark,
-                                    appLight
+                                    MaterialTheme.colors.primary,
+                                    MaterialTheme.colors.secondary
                                 )
                             )
                         ),
                     backgroundColor = Color.Transparent,
                     scaffoldState = rememberScaffoldState(),
                     topBar = {
-                        ToolBar(state,currentPage,isExpended,isAnimationToolBarFinished)
+                        CustomToolBar(state,currentPage,isExpended,isAnimationToolBarFinished)
                     },
                     bottomBar = { NavigationBar(navHostController = navController, currentPage,isExpended,isAnimationToolBarFinished) },
                     content = {
-                        PageController(navController = navController,currentPage,lazyState)
+                        PageController(navController = navController,lazyState,isExpended)
                     }
                 )
 

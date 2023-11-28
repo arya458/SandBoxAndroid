@@ -1,48 +1,84 @@
 package com.arya.danesh.myresume
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import com.arya.danesh.myresume.pages.AboutUsPage
 import com.arya.danesh.myresume.pages.BlogPage
 import com.arya.danesh.myresume.pages.HomePage
 import com.arya.danesh.myresume.pages.SkillsPage
 import com.arya.danesh.myresume.pages.ContactUsPage
-import com.arya.danesh.myresume.ui.theme.surface
+import kotlinx.coroutines.delay
+
+//import com.arya.danesh.myresume.ui.theme.surface
 
 @Composable
 fun PageController(
     navController: NavHostController,
-    currentPage: MutableState<String>,
     lazyState: LazyListState,
+    isExpended: MutableState<Boolean>,
 ) {
 
 
+    NavHost(navController = navController, startDestination = "main") {
 
-    Surface(Modifier
-        .fillMaxSize()
-        .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp))
-        .shadow(5.dp, clip = true), color = surface) {
-        NavHost(navController = navController, startDestination = "home") {
-            composable("blog") { BlogPage("blog", currentPage = currentPage,lazyState = lazyState) }
-            composable("skills") { SkillsPage("skills", currentPage = currentPage,lazyState = lazyState) }
-            composable("home") { HomePage("home", currentPage = currentPage,lazyState = lazyState) }
-            composable("aboutUs") { AboutUsPage("aboutUs", currentPage = currentPage,lazyState = lazyState) }
-            composable("contactUs") { ContactUsPage("contactUs", currentPage = currentPage,lazyState = lazyState) }
-            /*...*/
-        }
+        homeGraph(lazyState)
     }
 
 
+}
 
+fun NavGraphBuilder.homeGraph(lazyState: LazyListState) {
+    navigation(startDestination = "home", route = "main",
+        enterTransition = {
+
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Companion.Up,
+                animationSpec = tween(durationMillis = 400, delayMillis = 200)
+
+            )
+
+        },
+        exitTransition = {
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Companion.Down,
+                animationSpec = tween(durationMillis = 200, delayMillis = 20)
+            )
+        },
+        popEnterTransition = {
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Companion.Up,
+                animationSpec = tween(durationMillis = 400, delayMillis = 200)
+            )
+        },
+        popExitTransition = {
+            slideOutOfContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Companion.Down,
+                animationSpec = tween(durationMillis = 200, delayMillis = 20)
+            )
+        }
+    ) {
+        composable("blog") { BlogPage(lazyState = lazyState) }
+        composable("skills") { SkillsPage(lazyState = lazyState) }
+        composable("home") { HomePage(lazyState = lazyState) }
+        composable("aboutUs") { AboutUsPage(lazyState = lazyState) }
+        composable("contactUs") { ContactUsPage(lazyState = lazyState) }
+    }
+}
+
+
+sealed class MainNavigation(val route: String, val pressedImage: Int, val defImage: Int) {
+    object Blog : MainNavigation("blog", R.drawable.blog_blue, R.drawable.blog_gray)
+    object Skills : MainNavigation("skills", R.drawable.idea_blue, R.drawable.idea_gray)
+    object Home : MainNavigation("home", R.drawable.home_blue, R.drawable.home_gray)
+    object AboutUs : MainNavigation("aboutUs", R.drawable.newinfo_blue, R.drawable.newinfo_gray)
+    object ContactUs :
+        MainNavigation("contactUs", R.drawable.newmessage_blue, R.drawable.newmessage_gray)
 }

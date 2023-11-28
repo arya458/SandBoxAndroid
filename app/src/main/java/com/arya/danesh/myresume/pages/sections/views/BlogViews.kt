@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,10 +24,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.theme.appLight
-import com.arya.danesh.myresume.ui.theme.item
-import com.arya.danesh.myresume.ui.theme.text
-import com.arya.danesh.myresume.ui.theme.title
+//import com.arya.danesh.myresume.ui.theme.appLight
+//import com.arya.danesh.myresume.ui.theme.item
+//import com.arya.danesh.myresume.ui.theme.text
+//import com.arya.danesh.myresume.ui.theme.title
 
 
 @Composable
@@ -34,7 +35,7 @@ fun Blog(modifier: Modifier) {
     Card(
         modifier
             .padding(10.dp),
-        backgroundColor = item,
+        backgroundColor = MaterialTheme.colors.surface,
         elevation = 2.dp,
         shape = RoundedCornerShape(15.dp)
     ) {
@@ -54,7 +55,7 @@ fun Blog(modifier: Modifier) {
                     .padding(10.dp)
                     .wrapContentHeight(),
                 textAlign = TextAlign.Center,
-                color = title
+                color = MaterialTheme.colors.onSurface,
 
             )
             Image(
@@ -66,7 +67,7 @@ fun Blog(modifier: Modifier) {
                     .wrapContentHeight()
                     .clip(RoundedCornerShape(15.dp))
                     .padding(bottom = 10.dp)
-                    .shadow(5.dp, RoundedCornerShape(15.dp), clip = true)
+                    .shadow(3.dp, RoundedCornerShape(15.dp), clip = true)
             )
             Text(
                 text = "To make an image fit into a shape, use the built-in clip modifier. To crop an image into a circle shape, use To make an image fit into a shape, use the built-in clip modifier. To crop an image into a circle shape, use".repeat(
@@ -81,7 +82,7 @@ fun Blog(modifier: Modifier) {
                 minLines = 5,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
-                color = text,
+                color = MaterialTheme.colors.onSurface.copy(0.6f),
             )
             Text(
                 text = "ReadMore",
@@ -101,7 +102,7 @@ fun Blog(modifier: Modifier) {
                         )
                     )
                 ),
-                color = appLight
+                color = MaterialTheme.colors.primary,
             )
         }
 
