@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.pages.sections.views
+package com.arya.danesh.myresume.compose.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,6 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
+import com.arya.danesh.myresume.ui.theme.elv_2
+import com.arya.danesh.myresume.ui.theme.elv_3
+
 //import com.arya.danesh.myresume.ui.theme.appLight
 //import com.arya.danesh.myresume.ui.theme.item
 //import com.arya.danesh.myresume.ui.theme.text
@@ -35,8 +38,8 @@ fun Blog(modifier: Modifier) {
     Card(
         modifier
             .padding(10.dp),
-        backgroundColor = MaterialTheme.colors.surface,
-        elevation = 2.dp,
+        backgroundColor = MaterialTheme.colorScheme.surface,
+        elevation = elv_3,
         shape = RoundedCornerShape(15.dp)
     ) {
 
@@ -54,8 +57,9 @@ fun Blog(modifier: Modifier) {
                     .fillMaxWidth()
                     .padding(10.dp)
                     .wrapContentHeight(),
+                style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.onSurface,
+                color = MaterialTheme.colorScheme.onSurface,
 
             )
             Image(
@@ -82,8 +86,10 @@ fun Blog(modifier: Modifier) {
                 minLines = 5,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
-                color = MaterialTheme.colors.onSurface.copy(0.6f),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(0.6f),
             )
+            //todo add textStyle as Global in MaterialTheme
             Text(
                 text = "ReadMore",
                 modifier = Modifier
@@ -102,7 +108,7 @@ fun Blog(modifier: Modifier) {
                         )
                     )
                 ),
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
             )
         }
 

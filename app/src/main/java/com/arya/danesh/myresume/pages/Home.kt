@@ -17,11 +17,10 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,9 +28,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.pages.sections.views.Blog
-import com.arya.danesh.myresume.pages.sections.views.Project
-import com.arya.danesh.myresume.pages.sections.views.SkillSmall
+import com.arya.danesh.myresume.compose.views.Blog
+import com.arya.danesh.myresume.compose.views.GuideView
+import com.arya.danesh.myresume.compose.views.Project
+import com.arya.danesh.myresume.compose.views.SkillSmall
+import com.arya.danesh.myresume.ui.theme.elv_1
+
 //import com.arya.danesh.myresume.ui.theme.section
 //import com.arya.danesh.myresume.ui.theme.title
 
@@ -42,12 +44,13 @@ fun HomePage(
 ) {
 
 
-    Surface(Modifier
+    Surface(
+        Modifier
 //        .shadow((-20).dp, clip = true)
-        .fillMaxSize()
-        .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),
-//        elevation = (-5).dp,
-        color = MaterialTheme.colors.background,
+            .fillMaxSize()
+            .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),
+        elevation = 0.dp,
+        color = MaterialTheme.colorScheme.background,
     ) {
 
 
@@ -58,7 +61,9 @@ fun HomePage(
             contentPadding = PaddingValues(top = 20.dp, bottom = 70.dp)
         ) {
 
+
             item {
+                GuideView()
 
                 //Skills
                 Surface(
@@ -66,8 +71,8 @@ fun HomePage(
                         .padding(bottom = 20.dp)
                         .fillMaxWidth()
                         .wrapContentHeight(),
-                    color = MaterialTheme.colors.surface,
-                    elevation = 2.dp
+                    color = MaterialTheme.colorScheme.surface,
+                    elevation = elv_1
                 ) {
 
                     Column(
@@ -85,11 +90,11 @@ fun HomePage(
                         )
                         {
                             //todo Set a Good Icon and Text Size and Good Elevation
-                            Image(
-                                modifier = Modifier.size(20.dp),
-                                painter = painterResource(R.drawable.idea_blue),
-                                contentDescription = ""
-                            )
+//                            Image(
+//                                modifier = Modifier.size(20.dp),
+//                                painter = painterResource(R.drawable.idea_blue),
+//                                contentDescription = ""
+//                            )
 
                             Text(
                                 "Skills",
@@ -98,7 +103,7 @@ fun HomePage(
                                     .padding(start = 10.dp, end = 10.dp)
                                     .wrapContentHeight(),
                                 textAlign = TextAlign.Start,
-//                            color = title
+                                color = MaterialTheme.colorScheme.onSurface
 
                             )
 
@@ -131,8 +136,8 @@ fun HomePage(
                         .padding(bottom = 20.dp)
                         .fillMaxWidth()
                         .wrapContentHeight(),
-//                color = section,
-                    elevation = 2.dp
+                    color = MaterialTheme.colorScheme.surface,
+                    elevation = elv_1
                 ) {
 
                     Column(
@@ -150,11 +155,11 @@ fun HomePage(
                         )
                         {
                             //todo Set a Good Icon and Text Size and Good Elevation
-                            Image(
-                                modifier = Modifier.size(20.dp),
-                                painter = painterResource(R.drawable.idea_blue),
-                                contentDescription = ""
-                            )
+//                            Image(
+//                                modifier = Modifier.size(20.dp),
+//                                painter = painterResource(R.drawable.idea_blue),
+//                                contentDescription = ""
+//                            )
 
                             Text(
                                 "MyProjects",
@@ -163,9 +168,9 @@ fun HomePage(
                                     .padding(start = 10.dp, end = 10.dp)
                                     .wrapContentHeight(),
                                 textAlign = TextAlign.Start,
-//                            color = title
+                                color = MaterialTheme.colorScheme.onSurface,
 
-                            )
+                                )
 
                         }
 
@@ -197,8 +202,8 @@ fun HomePage(
                         .padding(bottom = 20.dp)
                         .fillMaxWidth()
                         .wrapContentHeight(),
-//                color = section,
-                    elevation = 2.dp
+                    color = MaterialTheme.colorScheme.surface,
+                    elevation = elv_1
                 ) {
 
                     Column(
@@ -216,11 +221,11 @@ fun HomePage(
                         )
                         {
                             //todo Set a Good Icon and Text Size and Good Elevation
-                            Image(
-                                modifier = Modifier.size(20.dp),
-                                painter = painterResource(R.drawable.idea_blue),
-                                contentDescription = ""
-                            )
+//                            Image(
+//                                modifier = Modifier.size(20.dp),
+//                                painter = painterResource(R.drawable.idea_blue),
+//                                contentDescription = ""
+//                            )
 
                             Text(
                                 "Blog",
@@ -229,9 +234,9 @@ fun HomePage(
                                     .padding(start = 10.dp, end = 10.dp)
                                     .wrapContentHeight(),
                                 textAlign = TextAlign.Start,
-//                            color = title
+                                color = MaterialTheme.colorScheme.onSurface,
 
-                            )
+                                )
 
                         }
 
@@ -257,6 +262,7 @@ fun HomePage(
 
                 }
             }
+
 
         }
     }

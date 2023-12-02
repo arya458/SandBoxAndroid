@@ -1,8 +1,7 @@
-package com.arya.danesh.myresume.pages.sections.views
+package com.arya.danesh.myresume.compose.views
 
 import android.util.Log
 import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -15,13 +14,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -34,6 +31,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
+import com.arya.danesh.myresume.ui.theme.elv_3
+
 //import com.arya.danesh.myresume.ui.theme.item
 //import com.arya.danesh.myresume.ui.theme.progressBarEmpty
 //import com.arya.danesh.myresume.ui.theme.progressBarFill
@@ -48,8 +47,8 @@ fun SkillSmall() {
         Modifier
             .padding(start = 10.dp, top = 10.dp)
             .size(140.dp, 180.dp),
-        backgroundColor = MaterialTheme.colors.surface,
-        elevation = 2.dp,
+        backgroundColor = MaterialTheme.colorScheme.surface,
+        elevation = elv_3,
         shape = RoundedCornerShape(15.dp)
     ) {
 
@@ -71,7 +70,7 @@ fun SkillSmall() {
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.onSurface,
+                color = MaterialTheme.colorScheme.onSurface,
 
             )
 
@@ -102,8 +101,8 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
             .padding(10.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
-        backgroundColor = MaterialTheme.colors.surface,
-        elevation = 2.dp,
+        backgroundColor = MaterialTheme.colorScheme.surface,
+        elevation = elv_3,
         shape = RoundedCornerShape(15.dp)
     ) {
 
@@ -114,7 +113,7 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                 .wrapContentHeight(), Arrangement.Top
         ) {
 
-            Row() {
+            Row {
                 Image(
                     painterResource(R.drawable.kotlin),
                     contentDescription = "",
@@ -138,7 +137,8 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                             .padding(5.dp)
                             .wrapContentHeight(),
                         textAlign = TextAlign.Start,
-                        color = MaterialTheme.colors.onSurface,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
 
                     )
                     Text(
@@ -152,7 +152,8 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                         minLines = 3,
                         overflow = TextOverflow.Ellipsis,
                         textAlign = TextAlign.Start,
-                        color = MaterialTheme.colors.onSurface.copy(0.6f),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurface.copy(0.6f),
 
                     )
                 }
@@ -170,7 +171,8 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                         .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
                         .wrapContentHeight(),
                     textAlign = TextAlign.Start,
-                    color = MaterialTheme.colors.onSurface,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 LinearProgressIndicator(
                     progress = progressbarAnimation,
@@ -179,7 +181,7 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                         .height(20.dp)
                         .padding(bottom = 10.dp, start = 30.dp, end = 30.dp)
                         .shadow(3.dp, RoundedCornerShape(15.dp), clip = true),
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     strokeCap = StrokeCap.Round,
 //                    backgroundColor = progressBarEmpty.copy(0.5f)
 
@@ -195,7 +197,8 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                         .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
                         .wrapContentHeight(),
                     textAlign = TextAlign.Start,
-                    color = MaterialTheme.colors.onSurface,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 LinearProgressIndicator(
                     progress = progressbarAnimation,
@@ -204,7 +207,7 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                         .height(20.dp)
                         .padding(bottom = 10.dp, start = 30.dp, end = 30.dp)
                         .shadow(3.dp, RoundedCornerShape(15.dp), clip = true),
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     strokeCap = StrokeCap.Round,
 //                    backgroundColor = progressBarEmpty.copy(0.5f)
 
@@ -220,7 +223,8 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                         .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
                         .wrapContentHeight(),
                     textAlign = TextAlign.Start,
-                    color = MaterialTheme.colors.onSurface,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 LinearProgressIndicator(
                     progress = progressbarAnimation,
@@ -229,7 +233,7 @@ fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
                         .height(20.dp)
                         .padding(bottom = 10.dp, start = 30.dp, end = 30.dp)
                         .shadow(3.dp, RoundedCornerShape(15.dp), clip = true),
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     strokeCap = StrokeCap.Round,
 //                    backgroundColor = progressBarEmpty.copy(0.5f)
 

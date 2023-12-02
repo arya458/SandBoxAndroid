@@ -1,12 +1,10 @@
-package com.arya.danesh.myresume.pages.sections.customToolbar
+package com.arya.danesh.myresume.compose.customToolbar
 
-import android.util.Log
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,10 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
@@ -38,36 +35,34 @@ import com.arya.danesh.myresume.R
 
 @Composable
 fun CustomToolBar(
-    state: ScrollState,
-    currentPage: MutableState<String>,
-    isExpended: MutableState<Boolean>,
-    isAnimationToolBarFinished: MutableState<Boolean>
+    currentPage: String,
+    isExpended: Boolean,
+    isAnimationToolBarFinished: Boolean,
+    setIsAnimationToolBarFinished: (Boolean) -> Unit,
+    onClick: () -> Unit,
 ) {
 
 
 
 
     val rowSize by animateDpAsState(
-        targetValue = if (isExpended.value) 260.dp else 45.dp,
+        targetValue = if (isExpended) 260.dp else 45.dp,
         animationSpec = tween(
             durationMillis = 300,
-            delayMillis = if (isExpended.value) 200 else 50,
+            delayMillis = if (isExpended) 200 else 50,
             easing = FastOutSlowInEasing
         ), label = ""
     )
     val imageSize by animateDpAsState(
-        targetValue = if (isExpended.value) 100.dp else 30.dp,
+        targetValue = if (isExpended) 100.dp else 30.dp,
         animationSpec = tween(
             durationMillis = 300,
-            delayMillis = if (isExpended.value) 50 else 200,
+            delayMillis = if (isExpended) 50 else 200,
             easing = FastOutSlowInEasing
         ), label = "",
-        finishedListener = {
-            isAnimationToolBarFinished.value = true
-        }
     )
     val imageBlur by animateDpAsState(
-        targetValue = if (isAnimationToolBarFinished.value) 0.dp else 50.dp,
+        targetValue = if (isAnimationToolBarFinished) 0.dp else 50.dp,
         animationSpec = tween(
             durationMillis = 300,
             delayMillis = 0,
@@ -75,22 +70,22 @@ fun CustomToolBar(
         ), label = "",)
 
     val columnAlignment by animateFloatAsState(
-        targetValue = if (!isExpended.value) 1f else 0f,
+        targetValue = if (!isExpended) 1f else 0f,
         animationSpec = tween(
             durationMillis = 300,
-            delayMillis = if (isExpended.value) 50 else 200,
+            delayMillis = if (isExpended) 50 else 200,
             easing = FastOutSlowInEasing
         ),
         label = "",
 
-
+        finishedListener = {setIsAnimationToolBarFinished(true)}
         )
 
     val textVisibilityExpended by animateFloatAsState(
-        targetValue = if (!isExpended.value) 1f else 0f,
+        targetValue = if (!isExpended) 1f else 0f,
         animationSpec = tween(
             durationMillis = 300,
-            delayMillis = if (isExpended.value) 50 else 200,
+            delayMillis = if (isExpended) 50 else 200,
             easing = FastOutSlowInEasing
         ),
         label = "",
@@ -98,10 +93,10 @@ fun CustomToolBar(
 
         )
     val textVisibilityCollapsed by animateFloatAsState(
-        targetValue = if (isExpended.value) 1f else 0f,
+        targetValue = if (isExpended) 1f else 0f,
         animationSpec = tween(
             durationMillis = 300,
-            delayMillis = if (isExpended.value) 50 else 200,
+            delayMillis = if (isExpended) 50 else 200,
             easing = FastOutSlowInEasing
         ),
         label = "",
@@ -121,10 +116,11 @@ fun CustomToolBar(
             .height(rowSize),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (!isExpended.value) Text(
-            text = currentPage.value, modifier = Modifier.alpha(textVisibilityExpended),
-            color = MaterialTheme.colors.onPrimary,
-        )
+        if (!isExpended) Text(
+            text = currentPage, modifier = Modifier.alpha(textVisibilityExpended),
+            color = MaterialTheme.colorScheme.onPrimary,
+            style = MaterialTheme.typography.titleMedium,
+            )
         Column(
             horizontalAlignment = BiasAlignment.Horizontal(columnAlignment),
             modifier = Modifier
@@ -132,7 +128,6 @@ fun CustomToolBar(
                 .wrapContentHeight()
                 .padding(5.dp)
         ) {
-            //todo Remove onclick and set scroll handler
             Image(
                 painter = painterResource(R.drawable.kotlin),
                 contentDescription = "",
@@ -142,22 +137,24 @@ fun CustomToolBar(
                     .clip(CircleShape)
                     .shadow(5.dp, CircleShape, clip = true)
                     .blur(imageBlur)
-                    .clickable { isExpended.value = !isExpended.value
-                               Log.d("tester", state.value.toString())
-                            isAnimationToolBarFinished.value = false
-                               },
+                    .clickable { onClick() },
             )
 
-            if (isExpended.value) Text(
+            if (isExpended) Text(
                 text = "Arya", modifier = Modifier
-                    .padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 0.dp).alpha(textVisibilityCollapsed),
-                color = MaterialTheme.colors.onPrimary,
+                    .padding(top = 20.dp, start = 10.dp, end = 10.dp, bottom = 0.dp)
+                    .alpha(textVisibilityCollapsed),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onPrimary,
             )
-            if (isExpended.value) Text(
+            if (isExpended) Text(
                 text = "TestTestTest", modifier = Modifier
-                    .padding(top = 5.dp, start = 10.dp, end = 10.dp, bottom = 20.dp).alpha(textVisibilityCollapsed),
-                color = MaterialTheme.colors.onPrimary.copy(0.6f),
+                    .padding(top = 5.dp, start = 10.dp, end = 10.dp, bottom = 20.dp)
+                    .alpha(textVisibilityCollapsed),
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onPrimary.copy(0.6f),
             )
+            //todo Add ContactUs Buttons (git , Email, Telegram,LikedIn)
 
 
         }

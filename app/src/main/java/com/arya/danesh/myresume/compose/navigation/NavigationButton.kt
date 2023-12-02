@@ -1,31 +1,25 @@
-package com.arya.danesh.myresume.pages.sections.navigation
+package com.arya.danesh.myresume.compose.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 
 
 @Composable
 fun NavigationButton(
     modifier: Modifier,
     @DrawableRes drawable: Int,
+    color:Color,
     onClick: () -> Unit
 ) {
 
@@ -60,7 +54,9 @@ fun NavigationButton(
                 painter = painterResource(drawable),
                 contentDescription = "",
                 Modifier
-                    .fillMaxSize()
+                    .fillMaxSize(),
+                colorFilter = ColorFilter.tint(color),
+                contentScale = ContentScale.Inside
 
             )
 //        }

@@ -4,18 +4,16 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.arya.danesh.myresume.pages.AboutUsPage
+import com.arya.danesh.myresume.pages.AiChatPage
+import com.arya.danesh.myresume.pages.AppsPage
 import com.arya.danesh.myresume.pages.BlogPage
 import com.arya.danesh.myresume.pages.HomePage
 import com.arya.danesh.myresume.pages.SkillsPage
-import com.arya.danesh.myresume.pages.ContactUsPage
-import kotlinx.coroutines.delay
 
 //import com.arya.danesh.myresume.ui.theme.surface
 
@@ -23,7 +21,6 @@ import kotlinx.coroutines.delay
 fun PageController(
     navController: NavHostController,
     lazyState: LazyListState,
-    isExpended: MutableState<Boolean>,
 ) {
 
 
@@ -68,17 +65,17 @@ fun NavGraphBuilder.homeGraph(lazyState: LazyListState) {
         composable("blog") { BlogPage(lazyState = lazyState) }
         composable("skills") { SkillsPage(lazyState = lazyState) }
         composable("home") { HomePage(lazyState = lazyState) }
-        composable("aboutUs") { AboutUsPage(lazyState = lazyState) }
-        composable("contactUs") { ContactUsPage(lazyState = lazyState) }
+        composable("apps") { AppsPage(lazyState = lazyState) }
+        composable("ai") { AiChatPage(lazyState = lazyState) }
     }
 }
 
 
-sealed class MainNavigation(val route: String, val pressedImage: Int, val defImage: Int) {
-    object Blog : MainNavigation("blog", R.drawable.blog_blue, R.drawable.blog_gray)
-    object Skills : MainNavigation("skills", R.drawable.idea_blue, R.drawable.idea_gray)
-    object Home : MainNavigation("home", R.drawable.home_blue, R.drawable.home_gray)
-    object AboutUs : MainNavigation("aboutUs", R.drawable.newinfo_blue, R.drawable.newinfo_gray)
+sealed class MainNavigation(val route: String, val Image: Int) {
+    object Blog : MainNavigation("blog", R.drawable.news)
+    object Skills : MainNavigation("skills", R.drawable.idea)
+    object Home : MainNavigation("home", R.drawable.home)
+    object AboutUs : MainNavigation("apps", R.drawable.apps)
     object ContactUs :
-        MainNavigation("contactUs", R.drawable.newmessage_blue, R.drawable.newmessage_gray)
+        MainNavigation("ai", R.drawable.bot)
 }
