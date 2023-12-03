@@ -1,7 +1,6 @@
 package com.arya.danesh.myresume.compose.navigation
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -66,7 +65,7 @@ fun NavigationBar(
                         modifier = Modifier
                             .size(60.dp)
                             .padding(2.dp),
-                        drawable = mainItem.Image,
+                        drawable = mainItem.image,
                         color =
                         if (currentDestination?.hierarchy?.any { it.route == mainItem.route } == true)
                             MaterialTheme.colorScheme.primary

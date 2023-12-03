@@ -2,11 +2,7 @@ package com.arya.danesh.myresume
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.arya.danesh.myresume.pages.AiChatPage
@@ -17,23 +13,11 @@ import com.arya.danesh.myresume.pages.SkillsPage
 
 //import com.arya.danesh.myresume.ui.theme.surface
 
-@Composable
-fun PageController(
-    navController: NavHostController,
-    lazyState: LazyListState,
-) {
 
 
-    NavHost(navController = navController, startDestination = "main") {
+fun NavGraphBuilder.homeGraph(isCollapseListener: (Boolean,Boolean) -> Unit) {
 
-        homeGraph(lazyState)
-    }
-
-
-}
-
-fun NavGraphBuilder.homeGraph(lazyState: LazyListState) {
-    navigation(startDestination = "home", route = "main",
+    navigation(startDestination = "Home", route = "Main",
         enterTransition = {
 
             slideIntoContainer(
@@ -62,20 +46,19 @@ fun NavGraphBuilder.homeGraph(lazyState: LazyListState) {
             )
         }
     ) {
-        composable("blog") { BlogPage(lazyState = lazyState) }
-        composable("skills") { SkillsPage(lazyState = lazyState) }
-        composable("home") { HomePage(lazyState = lazyState) }
-        composable("apps") { AppsPage(lazyState = lazyState) }
-        composable("ai") { AiChatPage(lazyState = lazyState) }
+        composable("News") { BlogPage(isCollapseListener=isCollapseListener) }
+        composable("Skills") { SkillsPage(isCollapseListener=isCollapseListener) }
+        composable("Home") { HomePage(isCollapseListener=isCollapseListener) }
+        composable("Apps") { AppsPage(isCollapseListener=isCollapseListener) }
+        composable("ChatBot") { AiChatPage(isCollapseListener=isCollapseListener) }
     }
 }
 
 
-sealed class MainNavigation(val route: String, val Image: Int) {
-    object Blog : MainNavigation("blog", R.drawable.news)
-    object Skills : MainNavigation("skills", R.drawable.idea)
-    object Home : MainNavigation("home", R.drawable.home)
-    object AboutUs : MainNavigation("apps", R.drawable.apps)
-    object ContactUs :
-        MainNavigation("ai", R.drawable.bot)
+sealed class MainNavigation(val route: String, val image: Int) {
+    object Blog : MainNavigation("News", R.drawable.news)
+    object Skills : MainNavigation("Skills", R.drawable.idea)
+    object Home : MainNavigation("Home", R.drawable.home)
+    object AboutUs : MainNavigation("Apps", R.drawable.apps)
+    object ContactUs : MainNavigation("ChatBot", R.drawable.bot)
 }
