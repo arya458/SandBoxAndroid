@@ -1,9 +1,9 @@
-package com.arya.danesh.myresume.compose.views
+package com.arya.danesh.myresume.compose
 
-import android.util.Log
 import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,8 +17,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -31,13 +31,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
+import com.arya.danesh.myresume.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.theme.elv_3
-
-//import com.arya.danesh.myresume.ui.theme.item
-//import com.arya.danesh.myresume.ui.theme.progressBarEmpty
-//import com.arya.danesh.myresume.ui.theme.progressBarFill
-//import com.arya.danesh.myresume.ui.theme.text
-//import com.arya.danesh.myresume.ui.theme.title
 
 
 @Composable
@@ -83,19 +78,37 @@ fun SkillSmall() {
 }
 
 @Composable
-fun SkillBig(size: Int, lazyListItemInfo: Int, itemNumber: Int) {
+fun SkillBig(size:Int, isShowing: (Int) -> ComposeItemAnimationState) {
 
-    val isShowing = lazyListItemInfo <= itemNumber && itemNumber < lazyListItemInfo+1 + size
 
-    Log.d("tester", "$lazyListItemInfo $itemNumber $size $isShowing")
-    val progressbarAnimation by animateFloatAsState(
-        targetValue = if (isShowing) 0.5f else 0.0f,
-        animationSpec = tween(
-            durationMillis = 300,
-            delayMillis = 200,
-            easing = FastOutSlowInEasing
-        ),
-        label = "")
+    val transition = updateTransition(isShowing(size), label = "ToolBar State")
+
+
+    val progressbarAnimation by transition.animateFloat(
+        transitionSpec = {
+            tween(
+                durationMillis = 300,
+                delayMillis = 50,
+                easing = FastOutSlowInEasing
+            )
+        }, label = "color"
+
+
+    ) { state ->
+
+        when (state) {
+            ComposeItemAnimationState.HIDDEN -> 0.0f
+            ComposeItemAnimationState.VISIBLE -> 0.5f
+            else -> {
+                0.0f
+            }
+        }
+
+
+    }
+
+
+
     Card(
         Modifier
             .padding(10.dp)

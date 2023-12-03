@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.compose.views
+package com.arya.danesh.myresume.compose
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -32,13 +32,14 @@ import com.arya.danesh.myresume.ui.theme.elv_3
 
 @Preview
 @Composable
-fun GuideView() {
+fun Guide() {
 
     Surface (
         Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(bottom = 10.dp, start = 10.dp,end = 10.dp)
+            .padding(bottom = 10.dp, start = 10.dp,end = 10.dp),
+        color = Color.Transparent
 
     ) {
 

@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.compose.views
+package com.arya.danesh.myresume.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.LocalTextStyle
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.theme.elv_2
 import com.arya.danesh.myresume.ui.theme.elv_3
 
 //import com.arya.danesh.myresume.ui.theme.appLight
