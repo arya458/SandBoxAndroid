@@ -39,237 +39,230 @@ import com.arya.danesh.myresume.ui.theme.elv_1
 
 @Composable
 fun HomePage(
-    isCollapseListener: (Boolean,Boolean) -> Unit,
-    ) {
+    isCollapseListener: (Boolean, Boolean) -> Unit,
+) {
 
     val lazyState = rememberLazyListState()
     val visibleItems = remember { derivedStateOf { lazyState.layoutInfo } }
     val listener by rememberUpdatedState(isCollapseListener)
 
-    listener(lazyState.isScrollInProgress,lazyState.canScrollBackward)
+    listener(lazyState.isScrollInProgress, lazyState.canScrollBackward)
 
 
-    Surface(
+
+
+
+    LazyColumn(
         Modifier
-//        .shadow((-20).dp, clip = true)
-            .fillMaxSize()
-            .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),
-        elevation = 0.dp,
-        color = MaterialTheme.colorScheme.background,
+            .fillMaxSize(),
+        state = lazyState,
+        contentPadding = PaddingValues(top = 20.dp, bottom = 70.dp)
     ) {
 
 
-        LazyColumn(
-            Modifier
-                .fillMaxSize(),
-            state = lazyState,
-            contentPadding = PaddingValues(top = 20.dp, bottom = 70.dp)
-        ) {
+        item {
+            Guide()
 
+            //Skills
+            Surface(
+                Modifier
+                    .padding(bottom = 20.dp)
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                color = MaterialTheme.colorScheme.surface,
+                elevation = elv_1
+            ) {
 
-            item {
-                Guide()
-
-                //Skills
-                Surface(
+                Column(
                     Modifier
-                        .padding(bottom = 20.dp)
                         .fillMaxWidth()
-                        .wrapContentHeight(),
-                    color = MaterialTheme.colorScheme.surface,
-                    elevation = elv_1
+                        .padding(bottom = 10.dp, top = 10.dp)
+                        .wrapContentHeight()
                 ) {
 
-                    Column(
+                    Row(
                         Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 10.dp, top = 10.dp)
-                            .wrapContentHeight()
-                    ) {
-
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(start = 10.dp)
-                                .wrapContentHeight(), Arrangement.Start, Alignment.CenterVertically
-                        )
-                        {
-                            //todo Set a Good Icon and Text Size and Good Elevation
+                            .padding(start = 10.dp)
+                            .wrapContentHeight(), Arrangement.Start, Alignment.CenterVertically
+                    )
+                    {
+                        //todo Set a Good Icon and Text Size and Good Elevation
 //                            Image(
 //                                modifier = Modifier.size(20.dp),
 //                                painter = painterResource(R.drawable.idea_blue),
 //                                contentDescription = ""
 //                            )
 
-                            Text(
-                                "Skills",
-                                Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 10.dp, end = 10.dp)
-                                    .wrapContentHeight(),
-                                textAlign = TextAlign.Start,
-                                color = MaterialTheme.colorScheme.onSurface
-
-                            )
-
-                        }
-
-                        LazyRow(
+                        Text(
+                            "Skills",
                             Modifier
                                 .fillMaxWidth()
-                                .wrapContentHeight()
-                                .animateContentSize()
-                                .padding(bottom = 5.dp, top = 5.dp),
-                            reverseLayout = false,
-                        ) {
+                                .padding(start = 10.dp, end = 10.dp)
+                                .wrapContentHeight(),
+                            textAlign = TextAlign.Start,
+                            color = MaterialTheme.colorScheme.onSurface
 
-                            items((1..20).toList()) {
-
-                                SkillSmall()
-                            }
-
-                        }
+                        )
 
                     }
 
-                }
-
-
-                //Projects
-                Surface(
-                    Modifier
-                        .padding(bottom = 20.dp)
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    color = MaterialTheme.colorScheme.surface,
-                    elevation = elv_1
-                ) {
-
-                    Column(
+                    LazyRow(
                         Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 10.dp, top = 10.dp)
                             .wrapContentHeight()
+                            .animateContentSize()
+                            .padding(bottom = 5.dp, top = 5.dp),
+                        reverseLayout = false,
                     ) {
 
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(start = 10.dp)
-                                .wrapContentHeight(), Arrangement.Start, Alignment.CenterVertically
-                        )
-                        {
-                            //todo Set a Good Icon and Text Size and Good Elevation
-//                            Image(
-//                                modifier = Modifier.size(20.dp),
-//                                painter = painterResource(R.drawable.idea_blue),
-//                                contentDescription = ""
-//                            )
+                        items((1..20).toList()) {
 
-                            Text(
-                                "MyProjects",
-                                Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 10.dp, end = 10.dp)
-                                    .wrapContentHeight(),
-                                textAlign = TextAlign.Start,
-                                color = MaterialTheme.colorScheme.onSurface,
-
-                                )
-
-                        }
-
-                        LazyRow(
-                            Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight()
-                                .padding(bottom = 5.dp, top = 5.dp),
-                            reverseLayout = false,
-
-                            ) {
-                            items((1..20).toList()) {
-                                Project(
-                                    Modifier
-                                        .wrapContentHeight()
-                                        .width(300.dp)
-                                )
-                            }
-
+                            SkillSmall()
                         }
 
                     }
 
                 }
 
-                //News
-                Surface(
-                    Modifier
-                        .padding(bottom = 20.dp)
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    color = MaterialTheme.colorScheme.surface,
-                    elevation = elv_1
-                ) {
-
-                    Column(
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 10.dp, top = 10.dp)
-                            .wrapContentHeight()
-                    ) {
-
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(start = 10.dp)
-                                .wrapContentHeight(), Arrangement.Start, Alignment.CenterVertically
-                        )
-                        {
-                            //todo Set a Good Icon and Text Size and Good Elevation
-//                            Image(
-//                                modifier = Modifier.size(20.dp),
-//                                painter = painterResource(R.drawable.idea_blue),
-//                                contentDescription = ""
-//                            )
-
-                            Text(
-                                "Blog",
-                                Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 10.dp, end = 10.dp)
-                                    .wrapContentHeight(),
-                                textAlign = TextAlign.Start,
-                                color = MaterialTheme.colorScheme.onSurface,
-
-                                )
-
-                        }
-
-                        LazyRow(
-                            Modifier
-                                .fillMaxWidth()
-                                .wrapContentHeight()
-                                .padding(top = 5.dp),
-                            reverseLayout = false,
-
-                            ) {
-                            items((1..20).toList()) {
-                                Blog(
-                                    modifier = Modifier
-                                        .wrapContentHeight()
-                                        .width(340.dp)
-                                )
-                            }
-
-                        }
-
-                    }
-
-                }
             }
 
 
+            //Projects
+            Surface(
+                Modifier
+                    .padding(bottom = 20.dp)
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                color = MaterialTheme.colorScheme.surface,
+                elevation = elv_1
+            ) {
+
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp, top = 10.dp)
+                        .wrapContentHeight()
+                ) {
+
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(start = 10.dp)
+                            .wrapContentHeight(), Arrangement.Start, Alignment.CenterVertically
+                    )
+                    {
+                        //todo Set a Good Icon and Text Size and Good Elevation
+//                            Image(
+//                                modifier = Modifier.size(20.dp),
+//                                painter = painterResource(R.drawable.idea_blue),
+//                                contentDescription = ""
+//                            )
+
+                        Text(
+                            "MyProjects",
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(start = 10.dp, end = 10.dp)
+                                .wrapContentHeight(),
+                            textAlign = TextAlign.Start,
+                            color = MaterialTheme.colorScheme.onSurface,
+
+                            )
+
+                    }
+
+                    LazyRow(
+                        Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(bottom = 5.dp, top = 5.dp),
+                        reverseLayout = false,
+
+                        ) {
+                        items((1..20).toList()) {
+                            Project(
+                                Modifier
+                                    .wrapContentHeight()
+                                    .width(300.dp)
+                            )
+                        }
+
+                    }
+
+                }
+
+            }
+
+            //News
+            Surface(
+                Modifier
+                    .padding(bottom = 20.dp)
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                color = MaterialTheme.colorScheme.surface,
+                elevation = elv_1
+            ) {
+
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp, top = 10.dp)
+                        .wrapContentHeight()
+                ) {
+
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(start = 10.dp)
+                            .wrapContentHeight(), Arrangement.Start, Alignment.CenterVertically
+                    )
+                    {
+                        //todo Set a Good Icon and Text Size and Good Elevation
+//                            Image(
+//                                modifier = Modifier.size(20.dp),
+//                                painter = painterResource(R.drawable.idea_blue),
+//                                contentDescription = ""
+//                            )
+
+                        Text(
+                            "Blog",
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(start = 10.dp, end = 10.dp)
+                                .wrapContentHeight(),
+                            textAlign = TextAlign.Start,
+                            color = MaterialTheme.colorScheme.onSurface,
+
+                            )
+
+                    }
+
+                    LazyRow(
+                        Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(top = 5.dp),
+                        reverseLayout = false,
+
+                        ) {
+                        items((1..20).toList()) {
+                            Blog(
+                                modifier = Modifier
+                                    .wrapContentHeight()
+                                    .width(340.dp)
+                            )
+                        }
+
+                    }
+
+                }
+
+            }
         }
+
+
     }
+
 
 }

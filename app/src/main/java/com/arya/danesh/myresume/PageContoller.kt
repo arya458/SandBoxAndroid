@@ -2,6 +2,7 @@ package com.arya.danesh.myresume
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
@@ -15,7 +16,9 @@ import com.arya.danesh.myresume.pages.SkillsPage
 
 
 
-fun NavGraphBuilder.homeGraph(isCollapseListener: (Boolean,Boolean) -> Unit) {
+fun NavGraphBuilder.homeGraph(isCollapseListener: (Boolean, Boolean) -> Unit) {
+
+
 
     navigation(startDestination = "Home", route = "Main",
         enterTransition = {

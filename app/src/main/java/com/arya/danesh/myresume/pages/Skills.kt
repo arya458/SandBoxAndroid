@@ -31,32 +31,25 @@ fun SkillsPage(
     listener(lazyState.isScrollInProgress, lazyState.canScrollBackward)
 
 
-    Surface(
-        Modifier
-//        .shadow((-20).dp, clip = true)
-            .fillMaxSize()
-            .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),
-//        elevation = (-5).dp,
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        LazyColumn(
-            Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(top = 20.dp, bottom = 70.dp),
-            state = lazyState,
 
-            ) {
-            items((1..50).toList()) {
-                SkillBig(size = it) { itemNumber ->
-                    if (visibleItems.visibleItemsInfo.isNotEmpty())
-                        if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber < visibleItems.visibleItemsInfo.first().index + visibleItems.visibleItemsInfo.size+1)
-                            ComposeItemAnimationState.VISIBLE
-                        else
-                            ComposeItemAnimationState.HIDDEN
+    LazyColumn(
+        Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(top = 20.dp, bottom = 70.dp),
+        state = lazyState,
+
+        ) {
+        items((1..50).toList()) {
+            SkillBig(size = it) { itemNumber ->
+                if (visibleItems.visibleItemsInfo.isNotEmpty())
+                    if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber < visibleItems.visibleItemsInfo.first().index + visibleItems.visibleItemsInfo.size + 1)
+                        ComposeItemAnimationState.VISIBLE
                     else
                         ComposeItemAnimationState.HIDDEN
-                }
+                else
+                    ComposeItemAnimationState.HIDDEN
             }
         }
     }
+
 
 }

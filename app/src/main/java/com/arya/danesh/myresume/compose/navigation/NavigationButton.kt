@@ -1,86 +1,82 @@
 package com.arya.danesh.myresume.compose.navigation
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Surface
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.arya.danesh.myresume.state.NavButtonAnimationState
+import com.arya.danesh.myresume.state.ToolBarAnimationState
 
 
 @Composable
 fun NavigationButton(
     modifier: Modifier,
     @DrawableRes drawable: Int,
-    color:Color,
+    buttonState: NavButtonAnimationState,
     onClick: () -> Unit
 ) {
 
-    Button(
-        onClick = onClick,
-        modifier,
-        true,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Transparent,
-            disabledBackgroundColor = Color.Transparent,
-            disabledContentColor = Color.Transparent,
-            contentColor = Color.Transparent
-        ),
 
-        shape = CircleShape,
-//        contentPadding = PaddingValues(0.dp),
-        elevation = ButtonDefaults.elevation(
-            defaultElevation = 0.dp,
-            disabledElevation = 0.dp,
-            pressedElevation = 1.dp,
-            focusedElevation = 5.dp
-        ),
+    val transition = updateTransition(buttonState, label = "Color State")
+    val color by transition.animateColor(
+        transitionSpec = {
+            tween(
+                durationMillis = 500,
+                delayMillis = 0,
+                easing = FastOutSlowInEasing
+            )
+        }, label = "color"
+    )
+    {
+            state ->
 
+        when (state) {
+            NavButtonAnimationState.ACTIVE -> MaterialTheme.colorScheme.primary
+            NavButtonAnimationState.DEFAULT -> MaterialTheme.colorScheme.outline
+        }
+    }
+
+    Surface(
+        modifier
+            .background(Color.Transparent)
+            .clip(RoundedCornerShape(15.dp))
+            .clickable { onClick() },
+        color = Color.Transparent,
         ) {
-//        Card(
-//            modifier
-//                .fillMaxSize().padding(10.dp),
-//            shape =CircleShape,
-//            elevation = if (currentPage.value == name) 5.dp else 0.dp
-//        ) {
             Image(
                 painter = painterResource(drawable),
                 contentDescription = "",
                 Modifier
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .padding(14.dp)
+                    .background(Color.Transparent),
                 colorFilter = ColorFilter.tint(color),
                 contentScale = ContentScale.Inside
 
             )
-//        }
-
-//        Column(modifier.fillMaxSize(),Arrangement.Center,Alignment.CenterHorizontally) {
-//            Image(painter = painterResource(drawableId),
-//                    contentDescription ="",
-//                    Modifier
-//                            .size(25.dp),
-//                    colorFilter =
-//                    if (currentPage.value == pageName)
-//                        ColorFilter.tint(MaterialTheme.colors.secondary)
-//                    else
-//                        ColorFilter.tint(Color(0x998C8C8C))
-//            )
-//            if (currentPage.value == pageName)
-//            Text(
-//                    text = name,
-//                    textAlign = TextAlign.Center,
-//                    color = MaterialTheme.colors.secondary,
-//                    fontSize = MaterialTheme.typography.subtitle1.fontSize
-//            )
-//        }
-
 
     }
 

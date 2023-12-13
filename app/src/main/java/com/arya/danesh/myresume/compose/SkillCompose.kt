@@ -87,8 +87,8 @@ fun SkillBig(size:Int, isShowing: (Int) -> ComposeItemAnimationState) {
     val progressbarAnimation by transition.animateFloat(
         transitionSpec = {
             tween(
-                durationMillis = 300,
-                delayMillis = 50,
+                durationMillis = 600,
+                delayMillis = 0,
                 easing = FastOutSlowInEasing
             )
         }, label = "color"

@@ -17,24 +17,17 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AiChatPage(
-    isCollapseListener: (Boolean,Boolean) -> Unit,
+    isCollapseListener: (Boolean, Boolean) -> Unit,
 ) {
 
     val lazyState = rememberLazyListState()
     val visibleItems = remember { derivedStateOf { lazyState.layoutInfo } }
     val listener by rememberUpdatedState(isCollapseListener)
 
-    listener(lazyState.isScrollInProgress,lazyState.canScrollBackward)
+    listener(lazyState.isScrollInProgress, lazyState.canScrollBackward)
 
-    Surface(Modifier
-//        .shadow((-20).dp, clip = true)
-        .fillMaxSize()
-        .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),
-//        elevation = (-5).dp,
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        Text(
-            text = "ContactUs",
-        )
-    }
+    Text(
+        text = "ContactUs",
+    )
+
 }

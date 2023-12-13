@@ -19,6 +19,9 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.arya.danesh.myresume.MainNavigation
 import com.arya.danesh.myresume.ui.theme.elv_2
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.animateColorAsState
+import com.arya.danesh.myresume.state.NavButtonAnimationState
 
 //import com.arya.danesh.myresume.ui.theme.navbarDark
 //import com.arya.danesh.myresume.ui.theme.navbarLight
@@ -39,7 +42,12 @@ fun NavigationBar(
 ) {
 
 
-    Row(Modifier.wrapContentHeight().fillMaxWidth(),Arrangement.Center,Alignment.CenterVertically) {
+
+
+    Row(
+        Modifier
+            .wrapContentHeight()
+            .fillMaxWidth(),Arrangement.Center,Alignment.CenterVertically) {
 
 
         Card(
@@ -66,11 +74,11 @@ fun NavigationBar(
                             .size(60.dp)
                             .padding(2.dp),
                         drawable = mainItem.image,
-                        color =
+                        buttonState =
                         if (currentDestination?.hierarchy?.any { it.route == mainItem.route } == true)
-                            MaterialTheme.colorScheme.primary
+                            NavButtonAnimationState.ACTIVE
                         else
-                            MaterialTheme.colorScheme.outline
+                            NavButtonAnimationState.DEFAULT
                     ) {
                         onClick(mainItem)
                     }

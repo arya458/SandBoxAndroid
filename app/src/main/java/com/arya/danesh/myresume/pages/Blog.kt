@@ -22,7 +22,7 @@ import com.arya.danesh.myresume.compose.Blog
 
 @Composable
 fun BlogPage(
-    isCollapseListener: (Boolean,Boolean) -> Unit,
+    isCollapseListener: (Boolean, Boolean) -> Unit,
 ) {
 
     val lazyState = rememberLazyListState()
@@ -31,13 +31,7 @@ fun BlogPage(
 
     listener(lazyState.isScrollInProgress,lazyState.canScrollBackward)
 
-    Surface(Modifier
-//        .shadow((-20).dp, clip = true)
-        .fillMaxSize()
-        .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),
-//        elevation = (-5).dp,
-        color = MaterialTheme.colorScheme.background,
-    ) {
+
         LazyColumn(
             Modifier.fillMaxSize(),
             contentPadding = PaddingValues(top = 20.dp, bottom = 70.dp),
@@ -51,5 +45,5 @@ fun BlogPage(
                 )
             }
         }
-    }
+
 }
