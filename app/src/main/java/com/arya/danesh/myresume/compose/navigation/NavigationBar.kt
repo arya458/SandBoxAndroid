@@ -23,8 +23,6 @@ import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
 import com.arya.danesh.myresume.state.NavButtonAnimationState
 
-//import com.arya.danesh.myresume.ui.theme.navbarDark
-//import com.arya.danesh.myresume.ui.theme.navbarLight
 
 
 val items = listOf(
@@ -47,6 +45,7 @@ fun NavigationBar(
     Row(
         Modifier
             .wrapContentHeight()
+            .padding(bottom = 40.dp)
             .fillMaxWidth(),Arrangement.Center,Alignment.CenterVertically) {
 
 

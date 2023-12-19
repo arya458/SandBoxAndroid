@@ -209,6 +209,7 @@ fun CustomToolBar(
 
         Modifier
             .fillMaxWidth()
+            .padding(top = 45.dp)
             .requiredHeightIn(min = 45.dp)
             .height(rowSize)
         
