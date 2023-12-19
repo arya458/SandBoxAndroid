@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.pages
+package com.arya.danesh.myresume.pages.subPages
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.rememberLazyListState
