@@ -43,6 +43,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInteropFilter
@@ -131,25 +132,32 @@ fun LoadingPage(navigateTo: (SplashNavigation) -> Unit) {
             )
     )
 
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.blob_anim_demo))
+    val composition1 by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.min_3))
+    val composition2 by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_4))
+    val composition3 by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.blob_anim_demo))
+
     val dynamicProperties = rememberLottieDynamicProperties(dynamicProperty)
 
 
-    Surface(Modifier
+    Surface(
+        Modifier
             .fillMaxSize(1f)
             .animateContentSize(),
             color = MaterialTheme.colorScheme.background
     ) {
-        Box(Modifier
-                .size(400.dp)
+//        LiveBG()
+
+
+        Box(
+            Modifier
+                .size(100.dp)
                 .background(MaterialTheme.colorScheme.background),
                 contentAlignment = Alignment.Center) {
             LottieAnimation(
-                    composition = composition,
+                    composition = composition1,
                     modifier = Modifier
-                            .fillMaxSize()
-                            .padding(20.dp)
-                            .alpha(0.35f),
+                        .fillMaxSize()
+                        .alpha(0.35f),
                     iterations = LottieConstants.IterateForever,
                     dynamicProperties = dynamicProperties,
                     reverseOnRepeat = true,
@@ -157,11 +165,10 @@ fun LoadingPage(navigateTo: (SplashNavigation) -> Unit) {
 
             )
             LottieAnimation(
-                    composition = composition,
+                    composition = composition2,
                     modifier = Modifier
-                            .fillMaxSize()
-                            .padding(50.dp)
-                            .alpha(0.35f),
+                        .fillMaxSize()
+                        .alpha(0.35f),
                     iterations = LottieConstants.IterateForever,
                     dynamicProperties = dynamicProperties,
                     reverseOnRepeat = true,
@@ -169,11 +176,10 @@ fun LoadingPage(navigateTo: (SplashNavigation) -> Unit) {
 
             )
             LottieAnimation(
-                    composition = composition,
+                    composition = composition3,
                     modifier = Modifier
-                            .fillMaxSize()
-                            .padding(80.dp)
-                            .alpha(0.35f),
+                        .fillMaxSize()
+                        .alpha(0.35f),
                     iterations = LottieConstants.IterateForever,
                     dynamicProperties = dynamicProperties,
                     reverseOnRepeat = true,
@@ -185,12 +191,12 @@ fun LoadingPage(navigateTo: (SplashNavigation) -> Unit) {
                     contentDescription = "",
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
-                            .size(150.dp)
-                            .clip(CircleShape)
-                            .shadow(5.dp, CircleShape, clip = true)
-                            .clickable {
-                                navigateTo(SplashNavigation.Main)
-                            }
+                        .size(150.dp)
+                        .clip(CircleShape)
+                        .shadow(5.dp, CircleShape, clip = true)
+                        .clickable {
+                            navigateTo(SplashNavigation.Main)
+                        }
 
             )
         }
@@ -198,23 +204,25 @@ fun LoadingPage(navigateTo: (SplashNavigation) -> Unit) {
                 .fillMaxSize(), Arrangement.Bottom)
         {
 
-            Box(Modifier
+            Box(
+                Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(), contentAlignment = Alignment.Center) {
 
 
-                Column(Modifier
+                Column(
+                    Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
                         .padding(bottom = 40.dp), Arrangement.Bottom) {
                     Text(
                             text = "Loading",
                             modifier = Modifier
-                                    .fillMaxWidth()
-                                    .scale(loadingAlpha)
-                                    .alpha(loadingAlpha)
-                                    .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
-                                    .wrapContentHeight(),
+                                .fillMaxWidth()
+                                .scale(loadingAlpha)
+                                .alpha(loadingAlpha)
+                                .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
+                                .wrapContentHeight(),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.primary,
@@ -256,7 +264,7 @@ fun LoadingPage(navigateTo: (SplashNavigation) -> Unit) {
                             .scale(errorAlpha)
                             .alpha(errorAlpha)
                             .align(Alignment.CenterHorizontally),
-                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.error),
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.errorContainer),
                             colors = ButtonDefaults.buttonColors(
                                     backgroundColor = Color.Transparent,
                                     contentColor = MaterialTheme.colorScheme.error,
@@ -273,7 +281,7 @@ fun LoadingPage(navigateTo: (SplashNavigation) -> Unit) {
                                         .wrapContentHeight(),
                                 textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.error,
+                                color = MaterialTheme.colorScheme.errorContainer,
                         )
                     }
                 }

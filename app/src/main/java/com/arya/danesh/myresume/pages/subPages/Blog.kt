@@ -14,15 +14,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.arya.danesh.myresume.SplashNavigation
 import com.arya.danesh.myresume.compose.Blog
+import com.arya.danesh.myresume.state.ComposeItemAnimationState
 
 @Composable
 fun BlogPage(
     isCollapseListener: (Boolean, Boolean) -> Unit,
+    navigateTo: (SplashNavigation) -> Unit,
 ) {
 
     val lazyState = rememberLazyListState()
-    val visibleItems = remember { derivedStateOf { lazyState.layoutInfo } }
+    val visibleItems by remember { derivedStateOf { lazyState.layoutInfo } }
     val listener by rememberUpdatedState(isCollapseListener)
 
     listener(lazyState.isScrollInProgress,lazyState.canScrollBackward)
@@ -37,8 +40,16 @@ fun BlogPage(
                 Blog(
                     Modifier
                         .wrapContentHeight()
-                        .fillMaxWidth()
-                )
+                        .fillMaxWidth(),navigateTo
+                    ,size = it) { itemNumber ->
+                        if (visibleItems.visibleItemsInfo.isNotEmpty())
+                            if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber < visibleItems.visibleItemsInfo.first().index + visibleItems.visibleItemsInfo.size + 1)
+                                ComposeItemAnimationState.VISIBLE
+                            else
+                                ComposeItemAnimationState.HIDDEN
+                        else
+                            ComposeItemAnimationState.HIDDEN
+                    }
             }
         }
 

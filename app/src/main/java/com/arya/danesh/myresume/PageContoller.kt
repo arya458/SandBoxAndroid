@@ -11,13 +11,14 @@ import com.arya.danesh.myresume.pages.subPages.AppsPage
 import com.arya.danesh.myresume.pages.subPages.BlogPage
 import com.arya.danesh.myresume.pages.subPages.HomePage
 import com.arya.danesh.myresume.pages.subPages.LoadingPage
+import com.arya.danesh.myresume.pages.subPages.ReadBlog
 import com.arya.danesh.myresume.pages.subPages.SkillsPage
 import com.arya.danesh.myresume.pages.subPages.SplashPage
 
 
 
 
-fun NavGraphBuilder.homeGraph(isCollapseListener: (Boolean, Boolean) -> Unit) {
+fun NavGraphBuilder.homeGraph(navigateTo: (SplashNavigation) -> Unit, isCollapseListener: (Boolean, Boolean) -> Unit) {
 
 
 
@@ -52,11 +53,11 @@ fun NavGraphBuilder.homeGraph(isCollapseListener: (Boolean, Boolean) -> Unit) {
     ) {
 
         //Main
-        composable("News") { BlogPage(isCollapseListener=isCollapseListener) }
-        composable("Skills") { SkillsPage(isCollapseListener=isCollapseListener) }
-        composable("Home") { HomePage(isCollapseListener=isCollapseListener) }
-        composable("Apps") { AppsPage(isCollapseListener=isCollapseListener) }
-        composable("ChatBot") { AiChatPage(isCollapseListener=isCollapseListener) }
+        composable("News") { BlogPage(isCollapseListener=isCollapseListener,navigateTo) }
+        composable("Skills") { SkillsPage(isCollapseListener=isCollapseListener,navigateTo) }
+        composable("Home") { HomePage(isCollapseListener=isCollapseListener,navigateTo) }
+        composable("Apps") { AppsPage(isCollapseListener=isCollapseListener,navigateTo) }
+        composable("ChatBot") { AiChatPage(isCollapseListener=isCollapseListener,navigateTo) }
     }
 
 }
@@ -96,7 +97,8 @@ fun NavGraphBuilder.intoGraph(navigateTo: (SplashNavigation) -> Unit) {
     ) {
         composable("Loading") { LoadingPage(navigateTo) }
         composable("Splash") { SplashPage(navigateTo) }
-        composable("MainPages") { Main()}
+        composable("MainPages") { Main(navigateTo)}
+        composable("Read") { ReadBlog(navigateTo)}
     }
 
 }
@@ -114,4 +116,6 @@ sealed class SplashNavigation(val route: String){
     object Splash : SplashNavigation("Splash")
     object Loading : SplashNavigation("Loading")
     object Main : SplashNavigation("MainPages")
+
+    object Read : SplashNavigation("Read")
 }

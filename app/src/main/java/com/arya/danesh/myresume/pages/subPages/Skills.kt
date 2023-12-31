@@ -12,12 +12,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.arya.danesh.myresume.SplashNavigation
 import com.arya.danesh.myresume.compose.SkillBig
 import com.arya.danesh.myresume.state.ComposeItemAnimationState
 
 @Composable
 fun SkillsPage(
-    isCollapseListener: (Boolean, Boolean) -> Unit,
+        isCollapseListener: (Boolean, Boolean) -> Unit,
+        navigateTo: (SplashNavigation) -> Unit,
 ) {
 
     val lazyState = rememberLazyListState()

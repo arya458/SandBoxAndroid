@@ -56,6 +56,7 @@ import com.arya.danesh.myresume.state.ToolBarAnimationState
 
 @Composable
 fun CustomToolBar(
+    modifier: Modifier,
     currentPage: String,
     toolBarState: ToolBarAnimationState,
     isAnimationRunningListener: (Boolean) -> Unit,
@@ -207,7 +208,7 @@ fun CustomToolBar(
 
     Row(
 
-        Modifier
+        modifier
             .fillMaxWidth()
             .padding(top = 45.dp)
             .requiredHeightIn(min = 45.dp)

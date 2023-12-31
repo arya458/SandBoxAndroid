@@ -35,6 +35,7 @@ val items = listOf(
 
 @Composable
 fun NavigationBar(
+    modifier: Modifier,
     currentDestination: NavDestination?,
     onClick: (MainNavigation) -> Unit
 ) {
@@ -43,7 +44,7 @@ fun NavigationBar(
 
 
     Row(
-        Modifier
+        modifier
             .wrapContentHeight()
             .padding(bottom = 40.dp)
             .fillMaxWidth(),Arrangement.Center,Alignment.CenterVertically) {

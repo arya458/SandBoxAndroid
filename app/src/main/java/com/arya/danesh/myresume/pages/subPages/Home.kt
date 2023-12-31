@@ -26,7 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.myresume.compose.Blog
+import com.arya.danesh.myresume.SplashNavigation
 import com.arya.danesh.myresume.compose.Guide
 import com.arya.danesh.myresume.compose.Project
 import com.arya.danesh.myresume.compose.SkillSmall
@@ -37,7 +37,8 @@ import com.arya.danesh.myresume.ui.theme.elv_1
 
 @Composable
 fun HomePage(
-    isCollapseListener: (Boolean, Boolean) -> Unit,
+        isCollapseListener: (Boolean, Boolean) -> Unit,
+        navigateTo: (SplashNavigation) -> Unit,
 ) {
 
     val lazyState = rememberLazyListState()
@@ -244,13 +245,13 @@ fun HomePage(
                         reverseLayout = false,
 
                         ) {
-                        items((1..20).toList()) {
-                            Blog(
-                                modifier = Modifier
-                                    .wrapContentHeight()
-                                    .width(340.dp)
-                            )
-                        }
+//                        items((1..20).toList()) {
+//                            Blog(
+//                                modifier = Modifier
+//                                    .wrapContentHeight()
+//                                    .width(340.dp)
+//                            )
+//                        }
 
                     }
 
