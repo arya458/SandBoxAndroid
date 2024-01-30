@@ -1,19 +1,20 @@
-package com.arya.danesh.myresume
+package com.arya.danesh.myresume.ui.controller
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.arya.danesh.myresume.pages.Main
-import com.arya.danesh.myresume.pages.subPages.AiChatPage
-import com.arya.danesh.myresume.pages.subPages.AppsPage
-import com.arya.danesh.myresume.pages.subPages.BlogPage
-import com.arya.danesh.myresume.pages.subPages.HomePage
-import com.arya.danesh.myresume.pages.subPages.LoadingPage
-import com.arya.danesh.myresume.pages.subPages.ReadBlog
-import com.arya.danesh.myresume.pages.subPages.SkillsPage
-import com.arya.danesh.myresume.pages.subPages.SplashPage
+import com.arya.danesh.myresume.R
+import com.arya.danesh.myresume.ui.pages.rootPages.Main
+import com.arya.danesh.myresume.ui.pages.subPages.messenger.AiChatPage
+import com.arya.danesh.myresume.ui.pages.subPages.apps.AppsPage
+import com.arya.danesh.myresume.ui.pages.subPages.blog.BlogPage
+import com.arya.danesh.myresume.ui.pages.subPages.home.HomePage
+import com.arya.danesh.myresume.ui.pages.subPages.splash.LoadingPage
+import com.arya.danesh.myresume.ui.pages.subPages.blog.ReadBlog
+import com.arya.danesh.myresume.ui.pages.subPages.skills.SkillsPage
+import com.arya.danesh.myresume.ui.pages.subPages.splash.SplashPage
 
 
 
@@ -97,8 +98,8 @@ fun NavGraphBuilder.intoGraph(navigateTo: (SplashNavigation) -> Unit) {
     ) {
         composable("Loading") { LoadingPage(navigateTo) }
         composable("Splash") { SplashPage(navigateTo) }
-        composable("MainPages") { Main(navigateTo)}
-        composable("Read") { ReadBlog(navigateTo)}
+        composable("MainPages") { Main(navigateTo) }
+        composable("Read") { ReadBlog(navigateTo) }
     }
 
 }

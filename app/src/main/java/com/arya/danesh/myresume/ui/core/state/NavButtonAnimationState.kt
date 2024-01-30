@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.state
+package com.arya.danesh.myresume.ui.core.state
 
 enum class NavButtonAnimationState {
 

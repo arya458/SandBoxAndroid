@@ -1,7 +1,5 @@
-package com.arya.danesh.myresume.pages.subPages
+package com.arya.danesh.myresume.ui.pages.subPages.blog
 
-import android.graphics.BlurMaskFilter.Blur
-import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
@@ -10,11 +8,6 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.clipScrollableContainer
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.animateScrollBy
-import androidx.compose.foundation.gestures.scrollBy
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -39,30 +32,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.SplashNavigation
-import com.arya.danesh.myresume.compose.AnimText
-import com.arya.danesh.myresume.state.ComposeItemAnimationState
-import com.arya.danesh.myresume.state.ReadState
-import kotlin.math.log
+import com.arya.danesh.myresume.ui.controller.SplashNavigation
+import com.arya.danesh.myresume.ui.core.compose.AnimText
+import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
+import com.arya.danesh.myresume.ui.core.state.ReadState
 
 
 @Composable

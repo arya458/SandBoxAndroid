@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.pages.subPages
+package com.arya.danesh.myresume.ui.pages.subPages.apps
 
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
@@ -7,7 +7,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import com.arya.danesh.myresume.SplashNavigation
+import com.arya.danesh.myresume.ui.controller.SplashNavigation
 
 @Composable
 fun AppsPage(

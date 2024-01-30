@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.compose.navigation
+package com.arya.danesh.myresume.ui.core.compose.navigation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -17,11 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.arya.danesh.myresume.MainNavigation
+import com.arya.danesh.myresume.ui.controller.MainNavigation
 import com.arya.danesh.myresume.ui.theme.elv_2
-import androidx.compose.animation.animateColor
-import androidx.compose.animation.animateColorAsState
-import com.arya.danesh.myresume.state.NavButtonAnimationState
+import androidx.core.view.WindowInsetsCompat
+import com.arya.danesh.myresume.ui.core.state.NavButtonAnimationState
 
 
 
@@ -41,12 +40,12 @@ fun NavigationBar(
 ) {
 
 
-
+    val insets = WindowInsetsCompat.Type.systemGestures()
 
     Row(
         modifier
             .wrapContentHeight()
-            .padding(bottom = 40.dp)
+            .padding(insets.dp)
             .fillMaxWidth(),Arrangement.Center,Alignment.CenterVertically) {
 
 

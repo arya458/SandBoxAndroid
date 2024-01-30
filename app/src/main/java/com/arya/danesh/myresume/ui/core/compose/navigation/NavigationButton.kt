@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.compose.navigation
+package com.arya.danesh.myresume.ui.core.compose.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateColor
@@ -10,16 +10,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -27,16 +22,15 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.myresume.state.NavButtonAnimationState
-import com.arya.danesh.myresume.state.ToolBarAnimationState
+import com.arya.danesh.myresume.ui.core.state.NavButtonAnimationState
 
 
 @Composable
 fun NavigationButton(
-    modifier: Modifier,
-    @DrawableRes drawable: Int,
-    buttonState: NavButtonAnimationState,
-    onClick: () -> Unit
+        modifier: Modifier,
+        @DrawableRes drawable: Int,
+        buttonState: NavButtonAnimationState,
+        onClick: () -> Unit
 ) {
 
 

@@ -1,28 +1,19 @@
-package com.arya.danesh.myresume.compose.customToolbar
+package com.arya.danesh.myresume.ui.core.compose.customToolbar
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateOffset
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -32,39 +23,35 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowInsetsCompat
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.state.ToolBarAnimationState
+import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 
 
 @Composable
 fun CustomToolBar(
-    modifier: Modifier,
-    currentPage: String,
-    toolBarState: ToolBarAnimationState,
-    isAnimationRunningListener: (Boolean) -> Unit,
-    onClick: () -> Unit,
+        modifier: Modifier,
+        currentPage: String,
+        toolBarState: ToolBarAnimationState,
+        isAnimationRunningListener: (Boolean) -> Unit,
+        onClick: () -> Unit,
 ) {
     val transition = updateTransition(toolBarState, label = "ToolBar State")
     val listener by rememberUpdatedState(isAnimationRunningListener)
 
+    val insets = WindowInsetsCompat.Type.systemGestures()
 //    val rowSize = remember {
 //        Animatable(0.3f)
 //    }
@@ -210,7 +197,7 @@ fun CustomToolBar(
 
         modifier
             .fillMaxWidth()
-            .padding(top = 45.dp)
+            .padding(top = insets.dp + 10.dp)
             .requiredHeightIn(min = 45.dp)
             .height(rowSize)
         
@@ -239,7 +226,7 @@ fun CustomToolBar(
                                 .scale(textVisibilityTitle, textVisibilityTitle)
                                 .fillMaxWidth(textVisibilityTitle / 2)
                             ,
-                            color = MaterialTheme.colorScheme.onPrimary,
+                            color = if (android.os.Build.VERSION.SDK_INT <= 31) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground,
                             style = MaterialTheme.typography.titleMedium,
                             textAlign = TextAlign.Justify,
                             )
@@ -278,7 +265,7 @@ fun CustomToolBar(
                 ,
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.R) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground,
             )
 //            if (ToolBarAnimationState.EXPENDED == toolBarState)
             Text(
@@ -291,7 +278,7 @@ fun CustomToolBar(
                     .scale(textVisibilityName, textVisibilityName),
                 style = MaterialTheme.typography.titleSmall,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onPrimary.copy(0.6f),
+                color = (if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.R) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground).copy(0.6f),
             )
             //todo Add ContactUs Buttons (git , Email, Telegram,LikedIn)
 
