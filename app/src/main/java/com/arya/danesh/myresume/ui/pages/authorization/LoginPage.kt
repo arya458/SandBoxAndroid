@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.pages.landing.sub.authorization
+package com.arya.danesh.myresume.ui.pages.authorization
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement

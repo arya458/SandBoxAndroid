@@ -80,6 +80,10 @@ object Dependencies {
     //    kapt("com.google.dagger:hilt-android-compiler:2.44")
     val hiltAndroidCompiler by lazy { "com.google.dagger:hilt-android-compiler:${Versions.hiltAndroidCompiler}" }
 
+    val hiltNavigationCompose by lazy { "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigationCompose}" }
+
+    val hiltLifecycleViewModel by lazy { "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltLifecycleViewModel}" }
+
 }
 
 object Modules{

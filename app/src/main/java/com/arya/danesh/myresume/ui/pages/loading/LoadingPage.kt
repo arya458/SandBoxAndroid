@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.pages.landing.sub.loading
+package com.arya.danesh.myresume.ui.pages.loading
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateContentSize
@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.controller.route.RootNavigation
 import com.arya.danesh.myresume.data.viewModels.SharedViewModel
@@ -42,13 +43,12 @@ import com.arya.danesh.myresume.ui.core.compose.AnimLogo
 import com.arya.danesh.myresume.ui.core.state.AppState
 
 @Composable
-fun LoadingPage(navigateTo: (RootNavigation) -> Unit) {
+fun LoadingPage(navigateTo: (RootNavigation) -> Unit,sharedData: SharedViewModel = hiltViewModel()) {
 
 
-    val sharedData: SharedViewModel = viewModel()
 
 //    val loadingState = remember { mutableStateOf(state) }
-    val transition = updateTransition(sharedData.appState.value, label = "Color State")
+    val transition = updateTransition(sharedData.getAppState(), label = "Color State")
     val color by transition.animateColor(
             transitionSpec = {
                 tween(
@@ -198,7 +198,7 @@ fun LoadingPage(navigateTo: (RootNavigation) -> Unit) {
                                     disabledContentColor = Color.Transparent,
                             ),
 
-                            onClick = { sharedData.appState.value=AppState.Normal }) {
+                            onClick = { sharedData.setAppState(AppState.Normal) }) {
                         Text(
                                 text = "Try Again",
                                 modifier = Modifier

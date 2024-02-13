@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.data.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 
@@ -25,18 +25,19 @@ fun AlphaAnimText(
         isViewOnCollapse :Boolean,
         color : Color = if (Build.VERSION.SDK_INT <= 31) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground,
         style : TextStyle = MaterialTheme.typography.titleMedium,
-        textAlign : TextAlign = TextAlign.Justify
+        textAlign : TextAlign = TextAlign.Justify,
+        sharedData: SharedViewModel = hiltViewModel()
         ) {
 
-    val sharedData: SharedViewModel = viewModel()
 
 
-    val transition = updateTransition(sharedData.toolBarState.value, label = "ToolBar State")
+
+    val transition = updateTransition(sharedData.getToolBarState(), label = "ToolBar State")
 
     val textVisibilityTitle by transition.animateFloat(
             transitionSpec = {
                 spring(
-                        stiffness = if (sharedData.toolBarState.value == ToolBarAnimationState.COLLAPSE) 400f else 200f,
+                        stiffness = if (sharedData.getToolBarState() == ToolBarAnimationState.COLLAPSE) 400f else 200f,
                         dampingRatio = 0.36f,
                 )
 //            tween(

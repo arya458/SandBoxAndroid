@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -39,10 +40,9 @@ import com.arya.danesh.myresume.ui.theme.elv_1
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Main(navigateTo: (RootNavigation) -> Unit) {
+fun Main(navigateTo: (RootNavigation) -> Unit,sharedData: SharedViewModel = hiltViewModel()) {
 
 
-    val sharedData: SharedViewModel = viewModel()
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -82,7 +82,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit) {
                                 // Pop up to the start destination of the graph to
                                 // avoid building up a large stack of destinations
                                 // on the back stack as users select items
-                                sharedData.currentPage.value = mainItemNavigation.route
+                                sharedData.setCurrentPage(mainItemNavigation.route)
                                 popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = false
 
@@ -124,9 +124,9 @@ fun Main(navigateTo: (RootNavigation) -> Unit) {
                 mainGraph(navigateTo) { isScrollInProgress, canScrollBackward ->
                     if (isScrollInProgress) {
                         if (canScrollBackward) {
-                            sharedData.toolBarState.value = ToolBarAnimationState.COLLAPSE
+                            sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)
                         } else {
-                            sharedData.toolBarState.value = ToolBarAnimationState.EXPENDED
+                            sharedData.setToolBarState(ToolBarAnimationState.EXPENDED)
                         }
 
                     }

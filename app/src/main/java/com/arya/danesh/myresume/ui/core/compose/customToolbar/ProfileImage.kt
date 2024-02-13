@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.viewModels.SharedViewModel
@@ -27,16 +28,15 @@ import com.arya.danesh.myresume.ui.theme.elv_3
 
 
 @Composable
-fun ProfileImage(@DrawableRes id: Int = R.drawable.kotlin, onClick: () -> Unit) {
+fun ProfileImage(@DrawableRes id: Int = R.drawable.kotlin,sharedData: SharedViewModel = hiltViewModel(), onClick: () -> Unit) {
 
-    val sharedData: SharedViewModel = viewModel()
 
-    val transition = updateTransition(sharedData.toolBarState.value, label = "Color State")
+    val transition = updateTransition(sharedData.getToolBarState(), label = "Color State")
     val imageSize by transition.animateDp(
             transitionSpec = {
 
                 spring(
-                        stiffness = if (sharedData.toolBarState.value == ToolBarAnimationState.COLLAPSE) 200f else 400f,
+                        stiffness = if (sharedData.getToolBarState() == ToolBarAnimationState.COLLAPSE) 200f else 400f,
                         dampingRatio = 0.36f,
                 )
 //            tween(

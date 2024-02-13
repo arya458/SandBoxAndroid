@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.compose.LottieAnimation
@@ -32,11 +33,10 @@ import com.arya.danesh.myresume.ui.core.state.AppState
 
 
 @Composable
-fun Background(){
+fun Background(sharedData: SharedViewModel = hiltViewModel()){
 
 
-    val sharedData: SharedViewModel = viewModel()
-    val appTransition = updateTransition(sharedData.appState.value, label = "App State")
+    val appTransition = updateTransition(sharedData.getAppState(), label = "App State")
 
 
 

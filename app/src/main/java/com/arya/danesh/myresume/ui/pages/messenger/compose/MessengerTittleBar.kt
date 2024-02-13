@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.viewModels.SharedViewModel
@@ -28,11 +29,10 @@ import com.arya.danesh.myresume.ui.theme.elv_3
 
 
 @Composable
-fun MessengerTittleBar(username:String,isOnline:Boolean,onBackClick:()->Unit,userOnClick:()->Unit){
+fun MessengerTittleBar(username:String,isOnline:Boolean,onBackClick:()->Unit,userOnClick:()->Unit,sharedData: SharedViewModel = hiltViewModel()){
 
     val insets = WindowInsetsCompat.Type.systemGestures()
-    val sharedData: SharedViewModel = viewModel()
-    sharedData.toolBarState.value=ToolBarAnimationState.COLLAPSE
+    sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)
     Surface(Modifier
             .fillMaxWidth()
             .wrapContentHeight()

@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.viewModels.SharedViewModel
@@ -34,17 +35,17 @@ fun GroupButtons(
                 .padding(5.dp)
                 .size(50.dp),
         imagePadding: Dp = 14.dp,
+        sharedData: SharedViewModel = hiltViewModel()
 ) {
 
 
-    val sharedData: SharedViewModel = viewModel()
 
-    val transition = updateTransition(sharedData.toolBarState.value, label = "ToolBar State")
+    val transition = updateTransition(sharedData.getToolBarState(), label = "ToolBar State")
 
     val visibility by transition.animateFloat(
             transitionSpec = {
                 spring(
-                        stiffness = if (sharedData.toolBarState.value == ToolBarAnimationState.COLLAPSE) 400f else 200f,
+                        stiffness = if (sharedData.getToolBarState() == ToolBarAnimationState.COLLAPSE) 400f else 200f,
                         dampingRatio = 0.36f,
                 )
 //            tween(

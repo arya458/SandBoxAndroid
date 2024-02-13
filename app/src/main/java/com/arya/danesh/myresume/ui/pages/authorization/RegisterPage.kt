@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.pages.landing.sub.authorization
+package com.arya.danesh.myresume.ui.pages.authorization
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes

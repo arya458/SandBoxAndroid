@@ -71,8 +71,6 @@ dependencies {
     implementation(Dependencies.composeMaterial)
     implementation(Dependencies.constraintlayoutCompose)
     implementation(Dependencies.lottieCompose)
-    //compile 'com.alphamovie.library:alpha-movie:1.2.1'
-//    implementation("com.alphamovie.library:alpha-movie:1.2.1")
     implementation(Dependencies.supportAnnotations)
     implementation(Dependencies.coreSplashscreen)
 
@@ -90,8 +88,13 @@ dependencies {
     implementation(project(Modules.utilitiesModule))
 
     implementation(Dependencies.hiltAndroid)
-    kapt(Dependencies.hiltCompiler)
+//    kapt(Dependencies.hiltCompiler)
     kapt(Dependencies.hiltAndroidCompiler)
+
+    implementation(Dependencies.hiltNavigationCompose)
+//    implementation(Dependencies.hiltLifecycleViewModel)
+
+
 
 
 

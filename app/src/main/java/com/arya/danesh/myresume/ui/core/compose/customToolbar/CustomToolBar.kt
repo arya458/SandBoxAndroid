@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.viewModels.SharedViewModel
@@ -35,17 +36,17 @@ import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 
 @Composable
 fun CustomToolBar(
-        modifier: Modifier
+        modifier: Modifier,
+        sharedData: SharedViewModel = hiltViewModel()
 ) {
 
-    val sharedData: SharedViewModel = viewModel()
 
-    val transition = updateTransition(sharedData.toolBarState.value, label = "ToolBar State")
+    val transition = updateTransition(sharedData.getToolBarState(), label = "ToolBar State")
     val insets = WindowInsetsCompat.Type.systemGestures()
     val rowSize by transition.animateDp(
             transitionSpec = {
                 spring(
-                        stiffness = if (sharedData.toolBarState.value == ToolBarAnimationState.COLLAPSE) 200f else 400f,
+                        stiffness = if (sharedData.getToolBarState() == ToolBarAnimationState.COLLAPSE) 200f else 400f,
                         dampingRatio = 0.46f,
                 )
             }, label = "color"
@@ -103,7 +104,7 @@ fun CustomToolBar(
     val columnAlignment by transition.animateFloat(
             transitionSpec = {
                 spring(
-                        stiffness = if (sharedData.toolBarState.value == ToolBarAnimationState.COLLAPSE) 400f else 200f,
+                        stiffness = if (sharedData.getToolBarState() == ToolBarAnimationState.COLLAPSE) 400f else 200f,
                         dampingRatio = 0.36f,
                 )
 //            tween(
@@ -128,7 +129,7 @@ fun CustomToolBar(
     val textVisibilityTitle by transition.animateFloat(
             transitionSpec = {
                 spring(
-                        stiffness = if (sharedData.toolBarState.value == ToolBarAnimationState.COLLAPSE) 400f else 200f,
+                        stiffness = if (sharedData.getToolBarState() == ToolBarAnimationState.COLLAPSE) 400f else 200f,
                         dampingRatio = 0.36f,
                 )
 //            tween(
@@ -203,7 +204,7 @@ fun CustomToolBar(
 //                        toolBarState = toolBarState
 //                )
                 Text(
-                        text = sharedData.currentPage.value,
+                        text = sharedData.getCurrentPage(),
                         modifier = Modifier
                                 .alpha(textVisibilityTitle)
                                 .padding(start = 5.dp, end = 5.dp)
