@@ -72,13 +72,13 @@ object Dependencies {
 
     //
 //    implementation("com.google.dagger:hilt-android:2.44")
-    val daggerHilt by lazy { "com.google.dagger:hilt-android:${Versions.daggerHilt}" }
+    val hiltAndroid by lazy { "com.google.dagger:hilt-android:${Versions.hiltAndroid}" }
 
     //    implementation("com.google.dagger:hilt-compiler")
-    val daggerHiltCompiler by lazy { "com.google.dagger:hilt-compiler" }
+    val hiltCompiler by lazy { "com.google.dagger:hilt-compiler:${Versions.hiltCompiler}" }
 
     //    kapt("com.google.dagger:hilt-android-compiler:2.44")
-    val daggerHiltCompilerKapt by lazy { "com.google.dagger:hilt-android-compiler:${Versions.daggerHiltCompilerKapt}" }
+    val hiltAndroidCompiler by lazy { "com.google.dagger:hilt-android-compiler:${Versions.hiltAndroidCompiler}" }
 
 }
 

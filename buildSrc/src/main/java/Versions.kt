@@ -72,12 +72,12 @@ object Versions {
 
     //
 //    implementation("com.google.dagger:hilt-android:2.44")
-    const val daggerHilt ="2.44"
+    const val hiltAndroid ="2.44"
 
     //    implementation("com.google.dagger:hilt-compiler")
-    const val daggerHiltCompiler ="2.44"
+    const val hiltCompiler ="1.0.0-alpha01"
 
     //    kapt("com.google.dagger:hilt-android-compiler:2.44")
-    const val daggerHiltCompilerKapt ="2.44"
+    const val hiltAndroidCompiler ="2.44"
 
 }
