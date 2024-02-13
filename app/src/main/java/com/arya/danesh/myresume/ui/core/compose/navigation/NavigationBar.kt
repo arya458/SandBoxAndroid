@@ -15,69 +15,69 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.arya.danesh.myresume.ui.controller.MainNavigation
-import com.arya.danesh.myresume.ui.theme.elv_2
-import androidx.core.view.WindowInsetsCompat
+import com.arya.danesh.myresume.controller.route.MainNavigation
 import com.arya.danesh.myresume.ui.core.state.NavButtonAnimationState
-
+import com.arya.danesh.myresume.ui.theme.elv_2
 
 
 val items = listOf(
-    MainNavigation.Blog,
-    MainNavigation.Skills,
-    MainNavigation.Home,
-    MainNavigation.AboutUs,
-    MainNavigation.ContactUs,
+        MainNavigation.Main.Blog,
+        MainNavigation.Main.Skills,
+        MainNavigation.Main.Home,
+        MainNavigation.Main.Apps,
+        MainNavigation.Main.Messenger,
 )
 
 @Composable
 fun NavigationBar(
-    modifier: Modifier,
-    currentDestination: NavDestination?,
-    onClick: (MainNavigation) -> Unit
+        modifier: Modifier,
+        currentDestination: NavDestination?,
+        onClick: (MainNavigation) -> Unit
 ) {
 
 
-    val insets = WindowInsetsCompat.Type.systemGestures()
+    val insets = WindowInsetsCompat.Type.systemGestures() * 2
 
     Row(
-        modifier
-            .wrapContentHeight()
-            .padding(insets.dp)
-            .fillMaxWidth(),Arrangement.Center,Alignment.CenterVertically) {
+            modifier
+                    .wrapContentHeight()
+                    .padding(bottom = insets.dp)
+                    .fillMaxWidth(), Arrangement.Center, Alignment.CenterVertically) {
 
 
         Card(
-            Modifier
-                .requiredWidthIn(310.dp, 360.dp)
-                .wrapContentHeight()
-                .padding(bottom = 10.dp, end = 10.dp, start = 10.dp),
+                Modifier
+                        .requiredWidthIn(310.dp, 360.dp)
+                        .wrapContentHeight()
+                        .padding(bottom = 10.dp, end = 10.dp, start = 10.dp),
 //            .background(brush = Brush.verticalGradient(colors = listOf(navbarLight,navbarDark)))
-            shape = RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp),
-            elevation = elv_2,
+                shape = RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp),
+                elevation = elv_2,
         ) {
 
 
             BottomNavigation(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                backgroundColor = MaterialTheme.colorScheme.surfaceVariant
+                    modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                    backgroundColor = MaterialTheme.colorScheme.surfaceVariant
             ) {
                 items.forEach { mainItem ->
 
                     NavigationButton(
-                        modifier = Modifier
-                            .size(60.dp)
-                            .padding(2.dp),
-                        drawable = mainItem.image,
-                        buttonState =
-                        if (currentDestination?.hierarchy?.any { it.route == mainItem.route } == true)
-                            NavButtonAnimationState.ACTIVE
-                        else
-                            NavButtonAnimationState.DEFAULT
+                            modifier = Modifier
+                                    .size(60.dp)
+                                    .padding(2.dp),
+                            drawable = mainItem.image,
+                            contentDescription = mainItem.route,
+                            buttonState =
+                            if (currentDestination?.hierarchy?.any { it.route == mainItem.route } == true)
+                                NavButtonAnimationState.ACTIVE
+                            else
+                                NavButtonAnimationState.DEFAULT
                     ) {
                         onClick(mainItem)
                     }

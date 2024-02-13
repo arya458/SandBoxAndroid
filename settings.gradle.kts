@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "MyResume"
 include(":app")
+include(":app:benchmark")
+include(":utilities")

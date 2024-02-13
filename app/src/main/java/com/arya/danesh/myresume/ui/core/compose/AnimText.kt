@@ -6,7 +6,10 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextLayoutResult
@@ -40,14 +43,13 @@ fun AnimText(
         minLines: Int = 1,
         onTextLayout: ((TextLayoutResult) -> Unit)? = null,
         style: TextStyle = LocalTextStyle.current,
-        animState: ComposeItemAnimationState = ComposeItemAnimationState.HIDDEN,
-//    durationMillisForEachChar:Int=10,
+        setAnimState :(animState: MutableState<ComposeItemAnimationState>) -> Unit,
         durationMillis:Int=2000,
         delayMillis :Int=500
     ) {
-
-
-    val transition = updateTransition(animState, label = "Blog State")
+    val animState = remember { mutableStateOf(ComposeItemAnimationState.HIDDEN) }
+    setAnimState(animState)
+    val transition = updateTransition(animState.value, label = "Blog State")
 //    val durationMillis = durationMillisForEachChar*rawText.length
     val textMaxAnim by transition.animateInt(
         transitionSpec = {
@@ -97,3 +99,4 @@ fun AnimText(
         )
 
 }
+

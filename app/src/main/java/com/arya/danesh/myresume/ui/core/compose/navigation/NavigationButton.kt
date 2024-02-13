@@ -29,7 +29,9 @@ import com.arya.danesh.myresume.ui.core.state.NavButtonAnimationState
 fun NavigationButton(
         modifier: Modifier,
         @DrawableRes drawable: Int,
+        contentDescription: String?,
         buttonState: NavButtonAnimationState,
+        colorFilterDef: ColorFilter? = null,
         onClick: () -> Unit
 ) {
 
@@ -62,12 +64,12 @@ fun NavigationButton(
         ) {
             Image(
                 painter = painterResource(drawable),
-                contentDescription = "",
+                contentDescription = "NaviButton $contentDescription",
                 Modifier
                     .fillMaxSize()
                     .padding(14.dp)
                     .background(Color.Transparent),
-                colorFilter = ColorFilter.tint(color),
+                colorFilter = colorFilterDef ?: ColorFilter.tint(color),
                 contentScale = ContentScale.Inside
 
             )
