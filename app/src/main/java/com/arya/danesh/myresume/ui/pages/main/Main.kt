@@ -2,6 +2,10 @@ package com.arya.danesh.myresume.ui.pages.main
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,10 +22,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -33,14 +39,16 @@ import com.arya.danesh.myresume.controller.route.RootNavigation
 import com.arya.danesh.myresume.data.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.compose.customToolbar.CustomToolBar
 import com.arya.danesh.myresume.ui.core.compose.navigation.NavigationBar
+import com.arya.danesh.myresume.ui.core.state.MenuState
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 import com.arya.danesh.myresume.ui.pages.main.compose.Background
+import com.arya.danesh.myresume.ui.pages.main.compose.SideMenu
 import com.arya.danesh.myresume.ui.theme.elv_1
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Main(navigateTo: (RootNavigation) -> Unit,sharedData: SharedViewModel = hiltViewModel()) {
+fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel()) {
 
 
     val navController = rememberNavController()
@@ -48,94 +56,186 @@ fun Main(navigateTo: (RootNavigation) -> Unit,sharedData: SharedViewModel = hilt
     val currentDestination = navBackStackEntry?.destination
     val scaffoldState = rememberScaffoldState()
     val snackbarHostState = remember { SnackbarHostState() }
-    Background()
 
-    Log.d("Wtf", navController.currentDestination?.route + "")
-    Scaffold(
-            modifier =
-            Modifier
-                    .fillMaxSize()
-                    .background(
-                            color = Color.Transparent
-                    ),
-            backgroundColor = Color.Transparent,
-            scaffoldState = scaffoldState,
-            topBar = {
-                CustomToolBar(
-                        Modifier,
+    val stiffness = 260f
+
+    val configuration = LocalConfiguration.current
+
+    val screenWidth = configuration.screenWidthDp.dp
+
+
+    val transition = updateTransition(sharedData.getmenuState(), label = "ToolBar State")
+
+
+
+    val mainRotation by transition.animateFloat(
+            transitionSpec = {
+                spring(
+                        stiffness = stiffness,
+                        dampingRatio = 0.46f,
                 )
-            },
+            }, label = "color"
 
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-            bottomBar = {
-                NavigationBar(
-                        Modifier,
-                        currentDestination
-                ) { mainItemNavigation ->
-                    Log.d("Wtf", currentDestination?.route + "")
+    ) { state ->
 
-                    if (currentDestination?.hierarchy?.any { it == mainItemNavigation } == false) {
-                        if (mainItemNavigation == MainNavigation.Main.Messenger)
-                            navigateTo(RootNavigation.Root.Messenger)
-                        else {
-                            navController.navigate(mainItemNavigation.route) {
-                                // Pop up to the start destination of the graph to
-                                // avoid building up a large stack of destinations
-                                // on the back stack as users select items
-                                sharedData.setCurrentPage(mainItemNavigation.route)
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = false
+        when (state) {
+            MenuState.EXPENDED -> 10f
+            MenuState.COLLAPSE -> 0f
+        }
 
-                                }
+    }
+    val mainScale by transition.animateFloat(
+            transitionSpec = {
+                spring(
+                        stiffness = stiffness,
+                        dampingRatio = 0.46f,
+                )
+            }, label = "color"
 
-                                // Avoid multiple copies of the same destination when
-                                // reselecting the same item
-                                launchSingleTop = true
-                                // Restore state when reselecting a previously selected item
-                                restoreState = true
+    ) { state ->
+
+        when (state) {
+            MenuState.EXPENDED -> 0.8f
+            MenuState.COLLAPSE -> 1f
+        }
+
+    }
+    val mainTranslation by transition.animateDp(
+            transitionSpec = {
+                spring(
+                        stiffness = stiffness,
+                        dampingRatio = 0.46f,
+                )
+            }, label = "color"
+
+    ) { state ->
+
+        when (state) {
+            MenuState.EXPENDED -> (screenWidth / 3)*2
+            MenuState.COLLAPSE -> 0.dp
+        }
+
+    }
+
+
+
+
+
+    Surface(Modifier.fillMaxSize(), color = Color.Transparent) {
+
+
+        Background()
+
+
+        SideMenu(navigateTo,stiffness = stiffness)
+
+        Log.d("Wtf", navController.currentDestination?.route + "")
+
+
+
+
+        Scaffold(
+                modifier =
+                Modifier
+                        .fillMaxSize()
+                        .graphicsLayer {
+
+                            scaleY = mainScale
+                            scaleX = mainScale
+                            rotationY = mainRotation
+                            translationX = mainTranslation.toPx()
+
+                        }
+                        .background(
+                                color = Color.Transparent
+                        ),
+                backgroundColor = Color.Transparent,
+                scaffoldState = scaffoldState,
+                topBar = {
+                    CustomToolBar(stiffness = stiffness) {
+                        if (sharedData.getmenuState() == MenuState.EXPENDED)
+                            sharedData.setmenuState(MenuState.COLLAPSE)
+                        else
+                            sharedData.setmenuState(MenuState.EXPENDED)
+                    }
+                },
+
+                snackbarHost = { SnackbarHost(snackbarHostState) },
+                bottomBar = {
+                    NavigationBar(
+                            Modifier,
+                            currentDestination
+                    ) { mainItemNavigation ->
+                        Log.d("Wtf", currentDestination?.route + "")
+
+                        if (currentDestination?.hierarchy?.any { it == mainItemNavigation } == false) {
+                            if (mainItemNavigation == MainNavigation.Main.Messenger)
+                                navigateTo(RootNavigation.Root.Messenger)
+                            else {
+                                navController.navigate(mainItemNavigation.route) {
+                                    // Pop up to the start destination of the graph to
+                                    // avoid building up a large stack of destinations
+                                    // on the back stack as users select items
+                                    sharedData.setCurrentPage(mainItemNavigation.route)
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = false
+
+                                    }
+
+                                    // Avoid multiple copies of the same destination when
+                                    // reselecting the same item
+                                    launchSingleTop = true
+                                    // Restore state when reselecting a previously selected item
+                                    restoreState = true
 
 //                                if (isExpended.value)
 //                                    isAnimationToolBarFinished.value = false
 //                                isExpended.value = false
+                                }
                             }
                         }
                     }
                 }
-            }
-    ) {
-        Surface(
-                Modifier
-                        .fillMaxSize()
-                        .alpha(1f),
-                color = MaterialTheme.colorScheme.background,
-                elevation = elv_1,
-                shape = RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)
         ) {
+            Surface(
+                    Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp))
+                            .alpha(1f),
+                    color = MaterialTheme.colorScheme.background,
+                    elevation = elv_1,
+                    shape = RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)
+            ) {
 
 //            setToolbarState:(ToolBarAnimationState)->Unit
 //            Child({toolBarState.value=it})
-            NavHost(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight(),
-                    navController = navController,
-                    startDestination = "Main"
-            ) {
-                mainGraph(navigateTo) { isScrollInProgress, canScrollBackward ->
-                    if (isScrollInProgress) {
-                        if (canScrollBackward) {
-                            sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)
-                        } else {
-                            sharedData.setToolBarState(ToolBarAnimationState.EXPENDED)
+                NavHost(
+                        modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(),
+                        navController = navController,
+                        startDestination = "Main"
+                ) {
+                    mainGraph(navigateTo) { isScrollInProgress, canScrollBackward ->
+                        if (isScrollInProgress) {
+                            if (canScrollBackward) {
+                                sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)
+                            } else {
+                                sharedData.setToolBarState(ToolBarAnimationState.EXPENDED)
+                            }
+
                         }
-
                     }
+
+
                 }
-
-
             }
+
+
         }
 
 
     }
+
+
 }

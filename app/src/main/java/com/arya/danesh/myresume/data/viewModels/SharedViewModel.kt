@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.arya.danesh.myresume.ui.core.state.AppState
+import com.arya.danesh.myresume.ui.core.state.MenuState
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,7 +13,8 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
         private val appState: MutableState<AppState>,
         private val toolBarState: MutableState<ToolBarAnimationState>,
-        private val currentPage: MutableState<String>
+        private val currentPage: MutableState<String>,
+        private val menuState : MutableState<MenuState>
 
 ) : ViewModel() {
     fun getAppState() : AppState {
@@ -32,6 +34,12 @@ class SharedViewModel @Inject constructor(
     }
     fun setCurrentPage(it:String){
         currentPage.value=it
+    }
+    fun getmenuState() : MenuState {
+        return menuState.value
+    }
+    fun setmenuState(it:MenuState){
+        menuState.value=it
     }
 }
 

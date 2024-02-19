@@ -3,6 +3,7 @@ package com.arya.danesh.myresume.data.module
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.arya.danesh.myresume.ui.core.state.AppState
+import com.arya.danesh.myresume.ui.core.state.MenuState
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 import dagger.Module
 import dagger.Provides
@@ -20,4 +21,7 @@ class SharedModule {
     fun provideToolBarState() : MutableState<ToolBarAnimationState> = mutableStateOf(ToolBarAnimationState.EXPENDED)
     @Provides
     fun provideCurrentPage() : MutableState<String> = mutableStateOf("Home")
+
+    @Provides
+    fun provideMenuState() : MutableState<MenuState> = mutableStateOf(MenuState.COLLAPSE)
 }
