@@ -15,8 +15,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,7 +31,12 @@ import com.arya.danesh.myresume.ui.theme.elv_3
 
 
 @Composable
-fun ProfileImage(@DrawableRes id: Int = R.drawable.kotlin,sharedData: SharedViewModel = hiltViewModel(), onClick: () -> Unit) {
+fun ProfileImage(modifier: Modifier = Modifier, @DrawableRes id: Int = R.drawable.kotlin, sharedData: SharedViewModel = hiltViewModel(), onClick: () -> Unit) {
+
+    val configuration = LocalConfiguration.current
+
+    val screenHeight = 300.dp
+    val screenWidth = configuration.screenWidthDp.dp
 
 
     val transition = updateTransition(sharedData.getToolBarState(), label = "Color State")
@@ -39,50 +47,67 @@ fun ProfileImage(@DrawableRes id: Int = R.drawable.kotlin,sharedData: SharedView
                         stiffness = if (sharedData.getToolBarState() == ToolBarAnimationState.COLLAPSE) 200f else 400f,
                         dampingRatio = 0.36f,
                 )
-//            tween(
-//                durationMillis = 300,
-//                delayMillis = if (toolBarState == ToolBarAnimationState.COLLAPSE) 200 else 400,
-//                easing = FastOutSlowInEasing
-//            )
             }, label = "color"
 
     ) { state ->
 
         when (state) {
             ToolBarAnimationState.EXPENDED -> 120.dp
-            ToolBarAnimationState.COLLAPSE -> 30.dp
+            ToolBarAnimationState.COLLAPSE -> 45.dp
             else -> {
                 45.dp
             }
         }
 
     }
-//    val isOnlinePadding by transition.animateDp(
-//            transitionSpec = {
-//
-//                spring(
-//                        stiffness = if (toolBarState == ToolBarAnimationState.COLLAPSE) 200f else 400f,
-//                        dampingRatio = 0.36f,
-//                )
-////            tween(
-////                durationMillis = 300,
-////                delayMillis = if (toolBarState == ToolBarAnimationState.COLLAPSE) 200 else 400,
-////                easing = FastOutSlowInEasing
-////            )
-//            }, label = "color"
-//
-//    ) { state ->
-//
-//        when (state) {
-//            ToolBarAnimationState.EXPENDED -> 5.dp
-//            ToolBarAnimationState.COLLAPSE -> 1.dp
-//            else -> {
-//                45.dp
-//            }
-//        }
-//
-//    }
-    Surface(Modifier.size(imageSize), color = Color.Transparent) {
+
+    val x by transition.animateDp(
+            transitionSpec = {
+
+                spring(
+                        stiffness = 400f,
+                        dampingRatio = 0.36f,
+                )
+            }, label = "color"
+
+    ) { state ->
+
+        when (state) {
+            ToolBarAnimationState.EXPENDED -> (screenWidth/2)-(imageSize/2)
+            ToolBarAnimationState.COLLAPSE -> screenWidth-imageSize-5.dp
+            else -> {
+                45.dp
+            }
+        }
+
+    }
+    val y by transition.animateDp(
+            transitionSpec = {
+
+                spring(
+                        stiffness = 400f,
+                        dampingRatio = 0.36f,
+                )
+            }, label = "color"
+
+    ) { state ->
+
+        when (state) {
+            ToolBarAnimationState.EXPENDED -> (screenHeight/2)-imageSize
+            ToolBarAnimationState.COLLAPSE -> 5.dp
+            else -> {
+                45.dp
+            }
+        }
+
+    }
+
+    Surface(modifier
+            .graphicsLayer {
+                this.translationX = x.toPx()
+                this.translationY = y.toPx()
+            }
+            .size(imageSize), color = Color.Transparent) {
 
         Image(
                 painter = painterResource(id),
