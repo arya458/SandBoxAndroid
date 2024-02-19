@@ -45,6 +45,9 @@ class ExampleStartupBenchmark {
         val loadingPass = device.findObject(By.descContains("LoadingPass"))
         loadingPass.click()
 
+        val loginPass = device.findObject(By.text("Login"))
+        loginPass.click()
+
 
         pageTester(device,"NaviButton News")
         pageTester(device,"NaviButton Home")
