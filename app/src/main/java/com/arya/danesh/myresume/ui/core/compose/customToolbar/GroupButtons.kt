@@ -77,7 +77,7 @@ fun GroupButtons(
                 .clip(RoundedCornerShape(15.dp))
                 .clickable { },
                 imagePadding = imagePadding,
-                icon = R.drawable.icon)
+                icon = R.drawable.linkin)
         CustomIconButton(modifier = modifier
                 .alpha(visibility)
                 .scale(visibility)
@@ -85,7 +85,7 @@ fun GroupButtons(
                 .clip(RoundedCornerShape(15.dp))
                 .clickable { },
                 imagePadding = imagePadding,
-                icon = R.drawable.icon)
+                icon = R.drawable.email)
         CustomIconButton(modifier = modifier
                 .alpha(visibility)
                 .scale(visibility)
@@ -93,7 +93,7 @@ fun GroupButtons(
                 .clip(RoundedCornerShape(15.dp))
                 .clickable { },
                 imagePadding = imagePadding,
-                icon = R.drawable.icon)
+                icon = R.drawable.git)
 
 
     }
