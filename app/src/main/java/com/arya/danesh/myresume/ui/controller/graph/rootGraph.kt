@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.controller.graph
+package com.arya.danesh.myresume.ui.controller.graph
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -6,7 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.arya.danesh.myresume.controller.route.RootNavigation
+import com.arya.danesh.myresume.ui.controller.route.RootNavigation
 import com.arya.danesh.myresume.ui.pages.authorization.LoginPage
 import com.arya.danesh.myresume.ui.pages.authorization.RegisterPage
 import com.arya.danesh.myresume.ui.pages.loading.LoadingPage

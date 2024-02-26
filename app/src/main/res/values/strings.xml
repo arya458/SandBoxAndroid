@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SandBox</string>
+    <string name="preference_setting_key">Setting</string>
+    <string name="preference_setting_isDark_key">ISDARK</string>
 </resources>

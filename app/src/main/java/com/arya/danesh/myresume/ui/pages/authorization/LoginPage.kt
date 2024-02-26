@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.myresume.controller.route.RootNavigation
+import com.arya.danesh.myresume.ui.controller.route.RootNavigation
 import com.arya.danesh.myresume.ui.pages.landing.sub.authorization.compose.AuthBase
 
 

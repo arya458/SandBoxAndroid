@@ -37,13 +37,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.arya.danesh.myresume.controller.route.RootNavigation
-import com.arya.danesh.myresume.data.viewModels.SharedViewModel
+import com.arya.danesh.myresume.ui.controller.route.RootNavigation
+import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.compose.AnimLogo
 import com.arya.danesh.myresume.ui.core.state.AppState
 
 @Composable
-fun LoadingPage(navigateTo: (RootNavigation) -> Unit,sharedData: SharedViewModel = hiltViewModel()) {
+fun LoadingPage(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel()) {
 
 
 

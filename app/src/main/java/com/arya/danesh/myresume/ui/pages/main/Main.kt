@@ -7,6 +7,10 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +29,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,10 +38,10 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.arya.danesh.myresume.controller.graph.mainGraph
-import com.arya.danesh.myresume.controller.route.MainNavigation
-import com.arya.danesh.myresume.controller.route.RootNavigation
-import com.arya.danesh.myresume.data.viewModels.SharedViewModel
+import com.arya.danesh.myresume.ui.controller.graph.mainGraph
+import com.arya.danesh.myresume.ui.controller.route.MainNavigation
+import com.arya.danesh.myresume.ui.controller.route.RootNavigation
+import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.compose.customToolbar.CustomToolBar
 import com.arya.danesh.myresume.ui.core.compose.navigation.NavigationBar
 import com.arya.danesh.myresume.ui.core.state.MenuState
@@ -57,6 +62,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
     val scaffoldState = rememberScaffoldState()
     val snackbarHostState = remember { SnackbarHostState() }
 
+
     val stiffness = 260f
 
     val configuration = LocalConfiguration.current
@@ -65,7 +71,6 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
 
     val transition = updateTransition(sharedData.getmenuState(), label = "ToolBar State")
-
 
 
     val mainRotation by transition.animateFloat(
@@ -111,7 +116,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
     ) { state ->
 
         when (state) {
-            MenuState.EXPENDED -> (screenWidth / 3)*2
+            MenuState.EXPENDED -> (screenWidth / 3) * 2
             MenuState.COLLAPSE -> 0.dp
         }
 
@@ -121,13 +126,25 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
 
 
-    Surface(Modifier.fillMaxSize(), color = Color.Transparent) {
+    Surface(Modifier
+            .pointerInput(Unit) {
+                detectHorizontalDragGestures { change, dragAmount ->
+                    if (dragAmount > 0) {
+                        sharedData.setmenuState(MenuState.EXPENDED)
+                    } else {
+                        sharedData.setmenuState(MenuState.COLLAPSE)
+                    }
+
+                }
+            }
+
+            .fillMaxSize(), color = Color.Transparent) {
 
 
         Background()
 
 
-        SideMenu(navigateTo,stiffness = stiffness)
+        SideMenu(navigateTo, stiffness = stiffness)
 
         Log.d("Wtf", navController.currentDestination?.route + "")
 

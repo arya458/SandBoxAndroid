@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.myresume.controller.route.RootNavigation
+import com.arya.danesh.myresume.ui.controller.route.RootNavigation
 import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.pages.main.compose.SubMainBase
 import com.arya.danesh.myresume.ui.pages.main.sub.skills.compose.SkillBigCompose

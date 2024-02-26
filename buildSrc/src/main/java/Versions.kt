@@ -84,4 +84,20 @@ object Versions {
 
     const val hiltLifecycleViewModel ="1.0.0-alpha03"
 
+    const val retrofit ="2.9.0"
+
+    const val okhttp ="5.0.0-alpha.12"
+
+    const val gsonConverter ="2.9.0"
+
+    const val moshi ="1.15.1"
+
+    const val moshiConverter ="2.9.0"
+
+    const val loggingInterceptor ="5.0.0-alpha.12"
+
+    const val kotlinxCoroutinesCore ="1.8.0"
+
+    const val kotlinxCoroutinesAndroid ="1.8.0"
+
 }

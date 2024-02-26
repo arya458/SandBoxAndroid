@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.data.viewModels.SharedViewModel
+import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.compose.CustomIconButton
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 

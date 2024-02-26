@@ -31,7 +31,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.controller.route.RootNavigation
+import com.arya.danesh.myresume.data.response.BlogPost
+import com.arya.danesh.myresume.ui.controller.route.RootNavigation
 import com.arya.danesh.myresume.ui.core.compose.AnimText
 import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.theme.elv_3
@@ -41,15 +42,12 @@ import com.arya.danesh.myresume.ui.theme.elv_3
 fun BlogCompose(
         navigateTo: (RootNavigation) -> Unit,
         size: Int,
+        post: BlogPost,
         isShowing: (Int) -> ComposeItemAnimationState
 ) {
 
     val transition = updateTransition(isShowing(size), label = "Blog State")
 
-    val rawText =
-        "To make an image fit into a shape, use the built-in clip modifier. To crop an image into a circle shape, use To make an image fit into a shape, use the built-in clip modifier. To crop an image into a circle shape, use".repeat(
-            10
-        )
     val alphaAnim by transition.animateFloat(
         transitionSpec = {
 //            spring(
@@ -95,7 +93,7 @@ fun BlogCompose(
                 .padding(5.dp), Arrangement.Top
         ) {
             Text(
-                text = "Post title",
+                text = post.tittle,
                 modifier = Modifier
                     .alpha(alphaAnim)
                     .fillMaxWidth()
@@ -118,7 +116,7 @@ fun BlogCompose(
                     .shadow(3.dp, RoundedCornerShape(15.dp), clip = true)
             )
             AnimText(
-                rawText = rawText,
+                rawText = post.detail,
                 setAnimState = {it.value = isShowing(size)},
                 modifier = Modifier
                     .fillMaxWidth()

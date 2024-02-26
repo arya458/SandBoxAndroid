@@ -28,7 +28,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.data.viewModels.SharedViewModel
+import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.state.AppState
 
 

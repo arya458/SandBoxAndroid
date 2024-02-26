@@ -9,12 +9,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.CompositionLocal
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.arya.danesh.myresume.controller.graph.rootGraph
-import com.arya.danesh.myresume.controller.route.RootNavigation
-import com.arya.danesh.myresume.data.viewModels.SharedViewModel
+import com.arya.danesh.myresume.ui.controller.graph.rootGraph
+import com.arya.danesh.myresume.ui.controller.route.RootNavigation
+import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.theme.MyResumeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,16 +33,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 //        installSplashScreen().also {
-//            it.setKeepOnScreenCondition(SplashScreen.KeepOnScreenCondition {
-//                true
-//            })
+//
+//            it.
+//
 //        }
         setContent {
 
             val navController = rememberNavController()
-//            val sharedData: SharedViewModel = viewModel()
+            val sharedData: SharedViewModel = hiltViewModel()
 
-            MyResumeTheme(darkTheme = false, dynamicColor = false) {
+            MyResumeTheme(darkTheme = sharedData.getIsDark(), dynamicColor = false) {
 
                 NavHost(
                         modifier = Modifier
@@ -46,7 +52,6 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = "Root"
                 ) {
-
 
                     rootGraph(navigateTo = { dis ->
 

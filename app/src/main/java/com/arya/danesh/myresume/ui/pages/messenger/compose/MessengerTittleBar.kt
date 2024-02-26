@@ -30,7 +30,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.data.viewModels.SharedViewModel
+import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.compose.customToolbar.ProfileImage
 import com.arya.danesh.myresume.ui.core.compose.navigation.NavigationButton
 import com.arya.danesh.myresume.ui.core.state.NavButtonAnimationState

@@ -95,6 +95,15 @@ dependencies {
 //    implementation(Dependencies.hiltLifecycleViewModel)
 
 
+    implementation(Dependencies.retrofit)
+    implementation(Dependencies.okhttp)
+    implementation(Dependencies.moshi)
+    implementation(Dependencies.moshiConverter)
+    implementation(Dependencies.loggingInterceptor)
+
+    implementation(Dependencies.kotlinxCoroutinesCore)
+    implementation(Dependencies.kotlinxCoroutinesAndroid)
+
 
 
 

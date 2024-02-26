@@ -84,6 +84,36 @@ object Dependencies {
 
     val hiltLifecycleViewModel by lazy { "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltLifecycleViewModel}" }
 
+//    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    val retrofit by lazy { "com.squareup.retrofit2:retrofit:${Versions.retrofit}" }
+
+
+    //implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
+    val okhttp by lazy { "com.squareup.okhttp3:okhttp:${Versions.okhttp}" }
+
+    //implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    val gsonConverter by lazy { "com.squareup.retrofit2:converter-gson:${Versions.gsonConverter}" }
+
+    //runtimeOnly("com.squareup.moshi:moshi-kotlin:1.15.1")
+    val moshi by lazy { "com.squareup.moshi:moshi-kotlin:${Versions.moshi}" }
+
+    //runtimeOnly("com.squareup.retrofit2:converter-moshi:2.9.0")
+    val moshiConverter by lazy { "com.squareup.retrofit2:converter-moshi:${Versions.moshiConverter}" }
+
+    //implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.12")
+    val loggingInterceptor by lazy { "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}" }
+
+    //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    val kotlinxCoroutinesCore by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinxCoroutinesCore}" }
+
+    //runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+    val kotlinxCoroutinesAndroid by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutinesAndroid}" }
+
+
+
+
+
 }
 
 object Modules{

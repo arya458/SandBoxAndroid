@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.controller.route
+package com.arya.danesh.myresume.ui.controller.route
 
 sealed class RootNavigation(val route: String) {
     object Root: RootNavigation("Root") {

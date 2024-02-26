@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.arya.danesh.myresume.controller.route.MainNavigation
+import com.arya.danesh.myresume.ui.controller.route.MainNavigation
 import com.arya.danesh.myresume.ui.core.state.NavButtonAnimationState
 import com.arya.danesh.myresume.ui.theme.elv_2
 

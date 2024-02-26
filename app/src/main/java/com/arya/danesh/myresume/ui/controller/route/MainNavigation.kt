@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.controller.route
+package com.arya.danesh.myresume.ui.controller.route
 
 import com.arya.danesh.myresume.R
 
