@@ -44,7 +44,6 @@ fun MessengerTittleBar(username:String,isOnline:Boolean,onBackClick:()->Unit,use
 
     sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)
     Surface(Modifier
-            .padding(top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding())
             .fillMaxWidth()
             .wrapContentHeight()
             , color = MaterialTheme.colorScheme.surface, shadowElevation = elv_3){
@@ -53,7 +52,7 @@ fun MessengerTittleBar(username:String,isOnline:Boolean,onBackClick:()->Unit,use
 
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(end = 10.dp,  bottom = 10.dp, start = 10.dp)
+                .padding(end = 10.dp,top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding(),  bottom = 10.dp, start = 10.dp)
                 ,Arrangement.SpaceBetween,Alignment.CenterVertically){
             
             //BackButton
