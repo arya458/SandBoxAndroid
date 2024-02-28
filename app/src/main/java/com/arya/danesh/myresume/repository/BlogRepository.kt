@@ -37,5 +37,4 @@ class BlogRepository @Inject constructor(
                 }
     }
 
-
 }

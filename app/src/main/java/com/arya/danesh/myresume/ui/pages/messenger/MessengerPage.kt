@@ -2,14 +2,15 @@ package com.arya.danesh.myresume.ui.pages.messenger
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import com.arya.danesh.myresume.ui.controller.route.RootNavigation
-import com.arya.danesh.myresume.ui.pages.messenger.compose.MessengerBottomBar
-import com.arya.danesh.myresume.ui.pages.messenger.compose.MessengerTittleBar
+import com.arya.danesh.myresume.ui.pages.messenger.component.MessengerBottomBar
+import com.arya.danesh.myresume.ui.pages.messenger.component.MessengerTittleBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

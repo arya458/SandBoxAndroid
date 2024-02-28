@@ -110,6 +110,12 @@ object Dependencies {
     //runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
     val kotlinxCoroutinesAndroid by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutinesAndroid}" }
 
+    //implementation("io.coil-kt:coil:2.6.0")
+    val coil by lazy { "io.coil-kt:coil-compose:${Versions.coil}" }
+
+    //implementation("androidx.window:window:1.2.0")
+    val androidxWindow by lazy { "androidx.window:window:${Versions.androidxWindow}" }
+
 
 
 

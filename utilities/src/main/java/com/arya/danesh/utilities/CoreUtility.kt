@@ -1,10 +1,26 @@
 package com.arya.danesh.utilities
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowInsetsCompat
+import androidx.window.layout.WindowMetricsCalculator
 
 object CoreUtility {
+
+
+
+    var key :String=""
+    var messengerToken :String=""
+    const val APP_BASE_URL = "https://aryajsonbucket.4everland.store/"
+    const val CHAT_BASE_URL = ""
+    var screenWidth = 0.dp
+
+
 
     fun isInternetConnected(context : Context):Boolean{
 
@@ -18,6 +34,24 @@ object CoreUtility {
             else -> false
         }
         return result
+    }
+
+    fun computeWindowSize(activity: Activity) {
+        val metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(activity)
+        screenWidth = metrics.bounds.width().dp
+//        val height = metrics.bounds.height()
+//        val density = resources.displayMetrics.density
+//        val windowSizeClass = WindowSizeClass.compute(width/density, height/density)
+//        // COMPACT, MEDIUM, or EXPANDED
+//        val widthWindowSizeClass = windowSizeClass.windowWidthSizeClass
+//        // COMPACT, MEDIUM, or EXPANDED
+//        val heightWindowSizeClass = windowSizeClass.windowHeightSizeClass
+
+        // Use widthWindowSizeClass and heightWindowSizeClass.
+    }
+
+    fun dpToPx(dp: Int):Float{
+        return  dp * Resources.getSystem().displayMetrics.density
     }
 
 }

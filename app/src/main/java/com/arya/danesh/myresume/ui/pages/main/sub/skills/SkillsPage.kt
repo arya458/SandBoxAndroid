@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.ui.controller.route.RootNavigation
 import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
-import com.arya.danesh.myresume.ui.pages.main.compose.SubMainBase
-import com.arya.danesh.myresume.ui.pages.main.sub.skills.compose.SkillBigCompose
+import com.arya.danesh.myresume.ui.pages.main.component.SubMainBase
+import com.arya.danesh.myresume.ui.pages.main.sub.skills.component.SkillBigCompose
 
 @Composable
 fun SkillsPage(
@@ -30,7 +30,7 @@ fun SkillsPage(
             items((1..50).toList()) {
                 SkillBigCompose(size = it) { itemNumber ->
                     if (visibleItems.visibleItemsInfo.isNotEmpty())
-                        if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber < visibleItems.visibleItemsInfo.first().index + visibleItems.visibleItemsInfo.size + 1)
+                        if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber <= visibleItems.visibleItemsInfo.last().index)
                             ComposeItemAnimationState.VISIBLE
                         else
                             ComposeItemAnimationState.HIDDEN

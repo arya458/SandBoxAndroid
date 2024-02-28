@@ -22,12 +22,15 @@ import com.arya.danesh.myresume.ui.controller.graph.rootGraph
 import com.arya.danesh.myresume.ui.controller.route.RootNavigation
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.theme.MyResumeTheme
+import com.arya.danesh.utilities.CoreUtility.computeWindowSize
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
 //    private val sharedViewModel: SharedViewModel by viewModels()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,7 @@ class MainActivity : ComponentActivity() {
 //            it.
 //
 //        }
+        computeWindowSize(this)
         setContent {
 
             val navController = rememberNavController()
@@ -93,5 +97,7 @@ class MainActivity : ComponentActivity() {
         }
 
     }
+
+
 
 }

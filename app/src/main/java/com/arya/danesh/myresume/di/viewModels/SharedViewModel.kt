@@ -20,7 +20,7 @@ class SharedViewModel @Inject constructor(
         private val currentPage: MutableState<String>,
         private val menuState : MutableState<MenuState>,
         private val isDark : Boolean,
-        private val applicationContext: Application
+        private val applicationContext: Application,
 
 ) : ViewModel() {
     fun getAppState() : AppState {

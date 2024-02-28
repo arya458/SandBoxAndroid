@@ -100,4 +100,8 @@ object Versions {
 
     const val kotlinxCoroutinesAndroid ="1.8.0"
 
+    const val coil ="2.6.0"
+
+    const val androidxWindow ="1.2.0"
+
 }

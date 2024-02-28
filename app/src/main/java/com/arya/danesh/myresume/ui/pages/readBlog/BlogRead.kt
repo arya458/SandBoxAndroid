@@ -1,5 +1,6 @@
 package com.arya.danesh.myresume.ui.pages.readBlog
 
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
@@ -30,6 +31,8 @@ import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -46,15 +49,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.controller.route.RootNavigation
-import com.arya.danesh.myresume.ui.core.compose.AnimText
+import com.arya.danesh.myresume.data.response.BlogResponse
+import com.arya.danesh.myresume.data.response.PostResponse
+import com.arya.danesh.myresume.di.viewModels.PostViewModel
+import com.arya.danesh.myresume.ui.controller.route.RootNavigation
+import com.arya.danesh.myresume.ui.core.component.AnimText
 import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.core.state.ReadState
+import com.arya.danesh.utilities.ResourceState
 
 
 @Composable
-fun ReadBlog(navigateTo: (RootNavigation) -> Unit) {
+fun ReadBlog(
+        navigateTo: (RootNavigation) -> Unit,
+        postViewModel: PostViewModel = hiltViewModel()
+) {
 
     val configuration = LocalConfiguration.current
     val scrollState = rememberScrollState()
@@ -72,6 +83,28 @@ fun ReadBlog(navigateTo: (RootNavigation) -> Unit) {
 //        }
 
     }
+
+    val postRes by postViewModel.post.collectAsState()
+    when(postRes){
+
+        is ResourceState.Loading ->{
+            Log.d("ReadBlog", "ReadBlog: Loading")
+        }
+
+        is ResourceState.Success ->{
+            val postData = (postRes as ResourceState.Success<PostResponse>).data
+            Log.d("ReadBlog", "ReadBlogDONE: "+postData.blogkey)
+
+        }
+
+        is ResourceState.Error ->{
+            Log.d("ReadBlog", "ReadBlogERROR: "+(postRes as ResourceState.Error).error)
+
+        }
+
+    }
+
+
 
 
 
@@ -178,7 +211,8 @@ fun ReadBlog(navigateTo: (RootNavigation) -> Unit) {
                         else
                             readState.value = ReadState.FULL_IMAGE
 
-                    }, Arrangement.Start) {
+                    }, Arrangement.Start)
+            {
                 Image(
                         imagePainter,
                         contentDescription = "",

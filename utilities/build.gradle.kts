@@ -34,6 +34,7 @@ dependencies {
     implementation(Dependencies.coreKTX)
     implementation(Dependencies.appCompact)
     implementation(Dependencies.composeMaterial)
+    implementation(Dependencies.androidxWindow)
     implementation(Dependencies.junitD)
     androidTestImplementation(Dependencies.extJunit)
     androidTestImplementation(Dependencies.espressoCore)

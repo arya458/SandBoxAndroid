@@ -5,10 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import com.arya.danesh.myresume.ui.core.state.AppState
 import com.arya.danesh.myresume.ui.core.state.MenuState
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
+import com.arya.danesh.utilities.ResourceState
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Singleton
 
 @Module
@@ -28,6 +30,10 @@ class SharedModule {
     @Singleton
     fun provideMenuState() : MutableState<MenuState> = mutableStateOf(MenuState.COLLAPSE)
 
+//    @Provides
+//    @Singleton
+//    @Name
+//    fun provideBlogCurrentPost() : MutableStateFlow<String> =  MutableStateFlow("")
 
     @Provides
     @Singleton

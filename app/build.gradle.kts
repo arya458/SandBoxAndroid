@@ -74,6 +74,7 @@ dependencies {
     implementation(Dependencies.supportAnnotations)
     implementation(Dependencies.coreSplashscreen)
 
+
     testImplementation(Dependencies.junitD)
     androidTestImplementation(Dependencies.extJunit)
     androidTestImplementation(Dependencies.espressoCore)
@@ -103,6 +104,8 @@ dependencies {
 
     implementation(Dependencies.kotlinxCoroutinesCore)
     implementation(Dependencies.kotlinxCoroutinesAndroid)
+
+    implementation(Dependencies.coil)
 
 
 
