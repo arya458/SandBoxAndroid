@@ -1,6 +1,7 @@
 package com.arya.danesh.myresume.ui.pages.main
 
 import android.annotation.SuppressLint
+import android.media.effect.Effect
 import android.util.DisplayMetrics
 import android.util.Log
 import androidx.compose.animation.core.Animatable
@@ -11,7 +12,10 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +32,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
@@ -39,6 +44,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.PointerInputChange
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
@@ -94,17 +102,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
     val tranX = remember {
         Animatable(
-                when (sharedData.getmenuState()) {
-                    MenuState.COLLAPSE -> {
-
-                        0f
-
-                    }
-
-                    MenuState.EXPENDED -> {
-                        10f
-                    }
-                })
+                0f)
     }
 
     val transition = updateTransition(tranX.value, label = "ToolBar State")
@@ -176,30 +174,8 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
         lerp(0, 1, x / drawer).dp
 
-//        when (state) {
-//            MenuState.EXPENDED -> (screenWidth / 3) * 2
-//            MenuState.COLLAPSE -> 0.dp
-//        }
-
     }
-//    val mainCorner by transition.animateDp(
-//            transitionSpec = {
-//                spring(
-//                        stiffness = stiffness,
-//                        dampingRatio = 0.46f,
-//                )
-//            }, label = "color"
-//
-//    ) { x ->
-//
-//        lerp(1, 15, x / drawer).dp
-//
-////        when (state) {
-////            MenuState.EXPENDED -> (screenWidth / 3) * 2
-////            MenuState.COLLAPSE -> 0.dp
-////        }
-//
-//    }
+
 
     val menuScale by transition.animateFloat(
             transitionSpec = {
@@ -238,6 +214,16 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 //        }
 
     }
+    SideEffect {
+        if (sharedData.getmenuState() == MenuState.EXPENDED)
+            coroutineScope.launch {
+                tranX.animateTo(10f * drawer)
+            }
+        else
+            coroutineScope.launch {
+                tranX.animateTo(0f)
+            }
+    }
 
 
     tranX.updateBounds(0f, drawer)
@@ -267,6 +253,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                                 tranX.animateDecay(velocity, decay)
                             else
                                 tranX.animateTo(targetX, initialVelocity = velocity)
+
                             sharedData.setmenuState(
                                     if (targetX == drawer)
                                         MenuState.EXPENDED
@@ -274,28 +261,12 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                                         MenuState.COLLAPSE
                             )
 
-
                         }
                     },
                     onDragStarted = {
-                        sharedData.setmenuState(MenuState.COLLAPSE)
                     }
             )
-//            .pointerInput(Unit) {
-//                detectHorizontalDragGestures { change, drag ->
-//                    dragAmount.value = drag
-//
-//
-////                    if (drag > 0) {
-////                        Log.d("menuChangeDrag", "change: " + change.scrollDelta.toString())
-////                        sharedData.setmenuState(MenuState.EXPENDED)
-////                    } else {
-////                        Log.d("menuChangeDrag", "change: " + change.scrollDelta.toString())
-////                        sharedData.setmenuState(MenuState.COLLAPSE)
-////                    }
-//
-//                }
-//            }
+
 
             .fillMaxSize(), color = Color.Transparent) {
 
@@ -317,8 +288,9 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                     stiffness = stiffness)
         }
 
-
-
+//        DisposableEffect(){
+//
+//        }
 
 
         Scaffold(
@@ -336,15 +308,16 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                         .background(
                                 color = Color.Transparent
                         )
+
                         .shadow(mainShadow, shape = RoundedCornerShape(lerp(0, 15, tranX.value / drawer).dp), clip = true),
                 backgroundColor = Color.Transparent,
                 scaffoldState = scaffoldState,
                 topBar = {
                     CustomToolBar(stiffness = stiffness) {
-                        if (sharedData.getmenuState() == MenuState.EXPENDED)
-                            sharedData.setmenuState(MenuState.COLLAPSE)
-                        else
-                            sharedData.setmenuState(MenuState.EXPENDED)
+                        coroutineScope.launch {
+                            tranX.animateTo(10f * drawer)
+                        }
+                        sharedData.setmenuState(MenuState.EXPENDED)
                     }
                 },
 
@@ -355,33 +328,33 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                             currentDestination
                     ) { mainItemNavigation ->
                         Log.d("Wtf", currentDestination?.route + "")
+//                        if (sharedData.getmenuState() == MenuState.COLLAPSE)
+                            if (currentDestination?.hierarchy?.any { it == mainItemNavigation } == false) {
+                                if (mainItemNavigation == MainNavigation.Main.Messenger)
+                                    navigateTo(RootNavigation.Root.Messenger)
+                                else {
+                                    navController.navigate(mainItemNavigation.route) {
+                                        // Pop up to the start destination of the graph to
+                                        // avoid building up a large stack of destinations
+                                        // on the back stack as users select items
+                                        sharedData.setCurrentPage(mainItemNavigation.route)
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = false
 
-                        if (currentDestination?.hierarchy?.any { it == mainItemNavigation } == false) {
-                            if (mainItemNavigation == MainNavigation.Main.Messenger)
-                                navigateTo(RootNavigation.Root.Messenger)
-                            else {
-                                navController.navigate(mainItemNavigation.route) {
-                                    // Pop up to the start destination of the graph to
-                                    // avoid building up a large stack of destinations
-                                    // on the back stack as users select items
-                                    sharedData.setCurrentPage(mainItemNavigation.route)
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = false
+                                        }
 
-                                    }
-
-                                    // Avoid multiple copies of the same destination when
-                                    // reselecting the same item
-                                    launchSingleTop = true
-                                    // Restore state when reselecting a previously selected item
-                                    restoreState = true
+                                        // Avoid multiple copies of the same destination when
+                                        // reselecting the same item
+                                        launchSingleTop = true
+                                        // Restore state when reselecting a previously selected item
+                                        restoreState = true
 
 //                                if (isExpended.value)
 //                                    isAnimationToolBarFinished.value = false
 //                                isExpended.value = false
+                                    }
                                 }
                             }
-                        }
                     }
                 }
         ) {
@@ -427,4 +400,5 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
 
 }
+
 
