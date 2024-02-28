@@ -1,13 +1,7 @@
-package com.arya.danesh.myresume.ui.pages.main.compose
+package com.arya.danesh.myresume.ui.pages.main.component
 
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.content.pm.VersionedPackage
-import android.icu.util.VersionInfo
-import android.os.Build
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
-import android.util.Log
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
@@ -15,27 +9,30 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.waterfallPadding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.surfaceColorAtElevation
@@ -49,13 +46,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.LocalPinnableContainer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
-import androidx.core.content.PackageManagerCompat
+import androidx.compose.ui.util.lerp
 import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
@@ -63,125 +58,81 @@ import com.arya.danesh.myresume.ui.controller.route.RootNavigation
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.state.MenuState
 import com.arya.danesh.myresume.ui.theme.elv_3
-import com.squareup.leakcanary.core.BuildConfig
 
 
 @Composable
 fun SideMenu(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel<SharedViewModel>(), stiffness: Float) {
 
-    val insets = WindowInsetsCompat.Type.systemGestures()
-
-    val configuration = LocalConfiguration.current
-
-    val screenWidth = configuration.screenWidthDp.dp
-//    val screenWidthHalf = (configuration.screenWidthDp.dp / 3) * 2 - 20.dp
-
-//    Log.d("Sandbox",sharedData.getIsDark().toString())
 
     val scrollState = rememberLazyListState()
 
 
-    val transition = updateTransition(sharedData.getmenuState(), label = "ToolBar State")
-    val menuScale by transition.animateFloat(
-            transitionSpec = {
-                spring(
-                        stiffness = stiffness,
-                        dampingRatio = 0.46f,
-                )
-            }, label = "color"
-
-    ) { state ->
-
-        when (state) {
-            MenuState.EXPENDED -> 1f
-            MenuState.COLLAPSE -> 0f
-        }
-
-    }
-    val menuTranslation by transition.animateDp(
-            transitionSpec = {
-                spring(
-                        stiffness = stiffness,
-                        dampingRatio = 0.46f,
-                )
-            }, label = "color"
-
-    ) { state ->
-
-        when (state) {
-            MenuState.EXPENDED -> 0.dp
-            MenuState.COLLAPSE -> screenWidth * -1
-        }
-
-    }
-
-
-    //Menu
-    Row(
+    Column(
             Modifier
-                    .graphicsLayer {
-                        alpha = menuScale
-                        translationX = menuTranslation.toPx()
-                    }
-                    .fillMaxSize(),
-            Arrangement.Start,
-    ) {
+                    .fillMaxHeight()
+                    .width(200.dp)
+                    .padding(
+                            start = 10.dp,
+                            end = 10.dp,
+                            top = WindowInsets.systemBars
+                                    .asPaddingValues()
+                                    .calculateTopPadding(),
+                            bottom = WindowInsets.navigationBars
+                                    .asPaddingValues()
+                                    .calculateBottomPadding()
 
-        Column(
-                Modifier
-                        .fillMaxSize()
-                        .padding(start = 10.dp, end = 10.dp, top = insets.dp * 2, bottom = insets.dp * 2)
-                        .weight(0.65f)
+                    )
+
 //                    .clip(RoundedCornerShape(topEnd = 15.dp, bottomEnd = 15.dp))
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(MaterialTheme.colorScheme.surface),
+                    .clip(RoundedCornerShape(15.dp))
+                    .background(MaterialTheme.colorScheme.surface),
 
 
+            )
+    {
+
+        Column(Modifier
+                .fillMaxWidth()
+                .padding(bottom = 10.dp, start = 10.dp, end = 10.dp, top = 20.dp)
+                .height(140.dp),
+                Arrangement.SpaceEvenly,
+                Alignment.CenterHorizontally
+        ) {
+
+            Image(painter = painterResource(R.drawable.def),
+                    contentDescription = "",
+                    Modifier
+                            .size(60.dp)
+                            .clip(CircleShape)
+                            .shadow(elv_3, clip = true),
+                    contentScale = ContentScale.FillBounds
+            )
+
+            Column(Modifier.wrapContentSize(), Arrangement.SpaceBetween, Alignment.Start) {
+
+                Text(
+                        text = "MatrixUserName",
+                        modifier = Modifier
+                                .wrapContentSize()
+                                .padding(top = 10.dp),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
                 )
-        {
-
-            Row(Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 10.dp, start = 10.dp, end = 10.dp, top = 20.dp)
-                    .height(80.dp),
-                    Arrangement.SpaceEvenly,
-                    Alignment.CenterVertically
-            ) {
-
-                Image(painter = painterResource(R.drawable.def),
-                        contentDescription = "",
-                        Modifier
-                                .size(60.dp)
-                                .clip(CircleShape)
-                                .shadow(elv_3, clip = true),
-                        contentScale = ContentScale.FillBounds
+                Text(
+                        text = "user:Matrix.org",
+                        modifier = Modifier
+                                .wrapContentSize()
+                                .padding(top = 5.dp),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.bodySmall,
+                        textAlign = TextAlign.Center,
                 )
-
-                Column(Modifier.wrapContentSize(), Arrangement.SpaceBetween, Alignment.Start) {
-
-                    Text(
-                            text = "MatrixUserName",
-                            modifier = Modifier
-                                    .wrapContentSize()
-                                    .padding(start = 10.dp),
-                            color = MaterialTheme.colorScheme.onBackground,
-                            style = MaterialTheme.typography.bodyMedium,
-                            textAlign = TextAlign.Start,
-                    )
-                    Text(
-                            text = "user:Matrix.org",
-                            modifier = Modifier
-                                    .wrapContentSize()
-                                    .padding(start = 10.dp),
-                            color = MaterialTheme.colorScheme.onBackground,
-                            style = MaterialTheme.typography.bodySmall,
-                            textAlign = TextAlign.Start,
-                    )
-
-                }
-
 
             }
+
+
+        }
 //            Spacer(modifier = Modifier
 //                    .padding(top = 10.dp, bottom = 10.dp)
 //                    .fillMaxWidth(0.5f)
@@ -192,35 +143,35 @@ fun SideMenu(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel =
 //                    .align(Alignment.CenterHorizontally))
 
 
-            LazyColumn(Modifier
-                    .weight(1f)
-                    .background(MaterialTheme.colorScheme.surfaceColorAtElevation(elv_3)),
-                    contentPadding = PaddingValues(start = 5.dp, end = 5.dp, top = 5.dp),
-                    state = scrollState
+        LazyColumn(Modifier
+                .weight(1f)
+                .background(MaterialTheme.colorScheme.surfaceColorAtElevation(elv_3)),
+                contentPadding = PaddingValues(start = 5.dp, end = 5.dp, top = 5.dp),
+                state = scrollState
 
-            ) {
-                item() {
-                    MenuItemTitle()
-
-                }
-                items(5) {
-                    MenuIconTextButton() {
-
-                        if (sharedData.getIsDark())
-                            sharedData.setIsDark(false)
-                        else
-                            sharedData.setIsDark(true)
-                    }
-                }
-                item() {
-                    MenuItemTitle()
-
-                }
-                items(5) {
-                    MenuIconTextButton() {}
-                }
+        ) {
+            item() {
+                MenuItemTitle()
 
             }
+            items(5) {
+                MenuIconTextButton() {
+
+                    if (sharedData.getIsDark())
+                        sharedData.setIsDark(false)
+                    else
+                        sharedData.setIsDark(true)
+                }
+            }
+            item() {
+                MenuItemTitle()
+
+            }
+            items(5) {
+                MenuIconTextButton() {}
+            }
+
+        }
 
 //            Spacer(modifier = Modifier
 //                    .padding(top = 10.dp, bottom = 10.dp)
@@ -232,12 +183,12 @@ fun SideMenu(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel =
 //                    .align(Alignment.CenterHorizontally))
 
 
-            Column(Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                    Arrangement.Center,
-                    Alignment.CenterHorizontally
-            ) {
+        Column(Modifier
+                .fillMaxWidth()
+                .height(50.dp),
+                Arrangement.Center,
+                Alignment.CenterHorizontally
+        ) {
 //                MenuItemTitle()
 //                Row(Modifier.wrapContentSize(),Arrangement.Center,Alignment.CenterVertically) {
 //
@@ -273,25 +224,20 @@ fun SideMenu(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel =
 //                    }
 
 //                }
-                Text(
-                        text = "Version " + sharedData.getAppVersion(),
-                        modifier = Modifier
-                                .fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onBackground,
-                        style = MaterialTheme.typography.bodySmall,
-                        textAlign = TextAlign.Center,
-                )
-
-            }
-
+            Text(
+                    text = "Version " + sharedData.getAppVersion(),
+                    modifier = Modifier
+                            .fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+            )
 
         }
-        Spacer(modifier = Modifier
-                .fillMaxSize()
-                .weight(0.35f))
 
 
     }
+
 
 }
 

@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.core.compose
+package com.arya.danesh.myresume.ui.core.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.core.compose.customToolbar
+package com.arya.danesh.myresume.ui.core.component.customToolbar
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateDp
@@ -11,10 +11,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,7 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.data.viewModels.SharedViewModel
+import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 
 @Composable
@@ -46,7 +56,7 @@ fun CustomToolBar(
         stiffness: Float,
         menuOnclick: () -> Unit,
 
-) {
+        ) {
 
 
 //    val configuration = LocalConfiguration.current
@@ -56,7 +66,6 @@ fun CustomToolBar(
 
 
     val transition = updateTransition(sharedData.getToolBarState(), label = "ToolBar State")
-    val insets = WindowInsetsCompat.Type.systemGestures()
     val rowSize by transition.animateDp(
             transitionSpec = {
                 spring(
@@ -126,7 +135,7 @@ fun CustomToolBar(
 
 
     Box(Modifier
-            .padding(top = insets.dp * 2)
+            .padding(top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding())
             .fillMaxWidth()
             .height(rowSize)
             .animateContentSize()) {

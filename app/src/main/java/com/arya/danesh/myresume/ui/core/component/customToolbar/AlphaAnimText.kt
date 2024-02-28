@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.core.compose.customToolbar
+package com.arya.danesh.myresume.ui.core.component.customToolbar
 
 import android.os.Build
 import androidx.compose.animation.core.animateFloat

@@ -1,14 +1,18 @@
-package com.arya.danesh.myresume.ui.pages.messenger.compose
+package com.arya.danesh.myresume.ui.pages.messenger.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
@@ -21,18 +25,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
-import com.arya.danesh.myresume.ui.core.compose.customToolbar.ProfileImage
-import com.arya.danesh.myresume.ui.core.compose.navigation.NavigationButton
+import com.arya.danesh.myresume.ui.core.component.navigation.NavigationButton
 import com.arya.danesh.myresume.ui.core.state.NavButtonAnimationState
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 import com.arya.danesh.myresume.ui.theme.elv_3
@@ -41,17 +42,18 @@ import com.arya.danesh.myresume.ui.theme.elv_3
 @Composable
 fun MessengerTittleBar(username:String,isOnline:Boolean,onBackClick:()->Unit,userOnClick:()->Unit,sharedData: SharedViewModel = hiltViewModel()){
 
-    val insets = WindowInsetsCompat.Type.systemGestures()
     sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)
     Surface(Modifier
+            .padding(top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding())
             .fillMaxWidth()
             .wrapContentHeight()
             , color = MaterialTheme.colorScheme.surface, shadowElevation = elv_3){
 
         Row(Modifier
+
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(end = 10.dp, top = insets.dp*2 +10.dp,  bottom = 10.dp, start = 10.dp)
+                .padding(end = 10.dp,  bottom = 10.dp, start = 10.dp)
                 ,Arrangement.SpaceBetween,Alignment.CenterVertically){
             
             //BackButton

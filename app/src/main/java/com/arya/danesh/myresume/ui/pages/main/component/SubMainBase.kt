@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.pages.main.compose
+package com.arya.danesh.myresume.ui.pages.main.component
 
 import androidx.compose.foundation.lazy.LazyListLayoutInfo
 import androidx.compose.foundation.lazy.LazyListState

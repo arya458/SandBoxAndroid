@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,17 +32,24 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsCompat
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.core.compose.AnimLogo
-import com.arya.danesh.myresume.ui.core.compose.CustomIconButton
+import com.arya.danesh.myresume.ui.core.component.AnimLogo
+import com.arya.danesh.myresume.ui.core.component.CustomIconButton
 
 
 @Composable
 @PreviewScreenSizes
 fun AuthBase(content: @Composable (modifier: Modifier) -> Unit = {}) {
 
-    val insets = WindowInsetsCompat.Type.systemGestures()
 
-    Column(Modifier.fillMaxSize().padding(top = insets.dp*2), Arrangement.Center, Alignment.CenterHorizontally) {
+
+    Column(Modifier
+            .fillMaxSize()
+            .padding(
+                    top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding(),
+                    bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+            ),
+            Arrangement.Center,
+            Alignment.CenterHorizontally) {
 
         Column(Modifier
                 .fillMaxSize()

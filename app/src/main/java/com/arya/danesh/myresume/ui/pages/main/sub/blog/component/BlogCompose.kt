@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.pages.main.sub.blog.compose
+package com.arya.danesh.myresume.ui.pages.main.sub.blog.component
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloat
@@ -30,17 +30,18 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.response.BlogPost
 import com.arya.danesh.myresume.ui.controller.route.RootNavigation
-import com.arya.danesh.myresume.ui.core.compose.AnimText
+import com.arya.danesh.myresume.ui.core.component.AnimText
 import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.theme.elv_3
 
 
 @Composable
 fun BlogCompose(
-        navigateTo: (RootNavigation) -> Unit,
+        onclick: () -> Unit,
         size: Int,
         post: BlogPost,
         isShowing: (Int) -> ComposeItemAnimationState
@@ -103,8 +104,8 @@ fun BlogCompose(
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-            Image(
-                painterResource(R.drawable.def),
+            AsyncImage(
+                model = post.image,
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -138,7 +139,7 @@ fun BlogCompose(
                     .fillMaxWidth()
                     .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
                     .wrapContentHeight()
-                    .clickable { navigateTo(RootNavigation.Root.ReadBlog) },
+                    .clickable{onclick()},
                 textAlign = TextAlign.Center,
                 style = LocalTextStyle.current.merge(
                     TextStyle(

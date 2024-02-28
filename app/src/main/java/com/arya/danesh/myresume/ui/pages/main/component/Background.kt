@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.pages.main.compose
+package com.arya.danesh.myresume.ui.pages.main.component
 
 import android.os.Build
 import androidx.compose.animation.animateColor
@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec

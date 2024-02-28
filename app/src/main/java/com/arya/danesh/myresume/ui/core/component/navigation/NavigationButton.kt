@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.core.compose.navigation
+package com.arya.danesh.myresume.ui.core.component.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateColor

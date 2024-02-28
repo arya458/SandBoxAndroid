@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.core.compose.customToolbar
+package com.arya.danesh.myresume.ui.core.component.customToolbar
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
@@ -22,10 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
-import com.arya.danesh.myresume.ui.core.compose.CustomIconButton
+import com.arya.danesh.myresume.ui.core.component.CustomIconButton
 import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
 
 

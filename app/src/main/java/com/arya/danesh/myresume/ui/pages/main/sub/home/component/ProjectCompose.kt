@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.pages.main.sub.home.compose
+package com.arya.danesh.myresume.ui.pages.main.sub.home.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
