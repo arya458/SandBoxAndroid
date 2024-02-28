@@ -116,6 +116,9 @@ object Dependencies {
     //implementation("androidx.window:window:1.2.0")
     val androidxWindow by lazy { "androidx.window:window:${Versions.androidxWindow}" }
 
+    //"implementation" ("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+    val youtubeplayer by lazy { "com.pierfrancescosoffritti.androidyoutubeplayer:core:${Versions.youtubeplayer}" }
+
 
 
 

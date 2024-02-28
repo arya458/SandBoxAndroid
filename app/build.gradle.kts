@@ -107,6 +107,8 @@ dependencies {
 
     implementation(Dependencies.coil)
 
+    implementation(Dependencies.youtubeplayer)
+
 
 
 

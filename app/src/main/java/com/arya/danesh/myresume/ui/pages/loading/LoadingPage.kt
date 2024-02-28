@@ -172,7 +172,7 @@ fun LoadingPage(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewMode
                 Column(Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(bottom = 40.dp), Arrangement.Bottom) {
+                        .padding(bottom = 5.dp), Arrangement.Bottom) {
 
                     Text(
                             text = "Error : Failed To Download Data",

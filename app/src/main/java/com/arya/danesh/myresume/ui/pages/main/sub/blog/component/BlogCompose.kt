@@ -4,7 +4,6 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +22,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
@@ -31,10 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.response.BlogPost
-import com.arya.danesh.myresume.ui.controller.route.RootNavigation
-import com.arya.danesh.myresume.ui.core.component.AnimText
+import com.arya.danesh.myresume.ui.core.component.Texts.AnimText
 import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.theme.elv_3
 

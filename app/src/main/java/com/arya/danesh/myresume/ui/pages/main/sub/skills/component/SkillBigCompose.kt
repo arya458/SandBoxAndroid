@@ -31,7 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.core.component.AnimText
+import com.arya.danesh.myresume.ui.core.component.Texts.AnimText
 import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.theme.elv_3
 

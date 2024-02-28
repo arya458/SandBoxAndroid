@@ -59,7 +59,7 @@ fun BlogPage(
                             navigateTo(RootNavigation.Root.ReadBlog)
                         }, size = it, posts[it]) { itemNumber ->
                             if (visibleItems.visibleItemsInfo.isNotEmpty())
-                                if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber <= visibleItems.visibleItemsInfo.last().index)
+                                if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber <= visibleItems.visibleItemsInfo.last().index+1)
                                     ComposeItemAnimationState.VISIBLE
                                 else
                                     ComposeItemAnimationState.HIDDEN

@@ -104,4 +104,6 @@ object Versions {
 
     const val androidxWindow ="1.2.0"
 
+    const val youtubeplayer ="11.1.0"
+
 }
