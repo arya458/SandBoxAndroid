@@ -1,4 +1,4 @@
-package com.arya.danesh.myresume.ui.core.component
+package com.arya.danesh.myresume.ui.core.component.Texts
 
 import androidx.compose.animation.core.animateInt
 import androidx.compose.animation.core.tween
