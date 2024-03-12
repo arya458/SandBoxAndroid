@@ -6,9 +6,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.core.state.AppState
-import com.arya.danesh.myresume.ui.core.state.MenuState
-import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
+import com.arya.danesh.utilities.state.AppState
+import com.arya.danesh.utilities.state.MenuState
+import com.arya.danesh.utilities.state.ToolBarAnimationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class SharedViewModel @Inject constructor(
         private val isDark : Boolean,
         private val applicationContext: Application,
 
-) : ViewModel() {
+        ) : ViewModel() {
     fun getAppState() : AppState {
        return appState.value
     }
@@ -32,7 +32,7 @@ class SharedViewModel @Inject constructor(
     fun getToolBarState() : ToolBarAnimationState {
         return toolBarState.value
     }
-    fun setToolBarState(it:ToolBarAnimationState){
+    fun setToolBarState(it: ToolBarAnimationState){
         toolBarState.value = it
     }
     fun getCurrentPage() : String {
@@ -44,7 +44,7 @@ class SharedViewModel @Inject constructor(
     fun getmenuState() : MenuState {
         return menuState.value
     }
-    fun setmenuState(it:MenuState){
+    fun setmenuState(it: MenuState){
         menuState.value=it
     }
 

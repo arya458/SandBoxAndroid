@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id(Plugins.androidApplication)
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
@@ -86,7 +86,10 @@ dependencies {
     debugImplementation(Dependencies.leakcanaryAndroid)
 
 
+    //My Libs
+    implementation(project(Modules.coreUI))
     implementation(project(Modules.utilitiesModule))
+    implementation(project(Modules.sandboxMessenger))
 
     implementation(Dependencies.hiltAndroid)
 //    kapt(Dependencies.hiltCompiler)
@@ -108,6 +111,15 @@ dependencies {
     implementation(Dependencies.coil)
 
     implementation(Dependencies.youtubeplayer)
+
+    implementation(Dependencies.trixnity_clientserverapi)
+    implementation(Dependencies.trixnity_client)
+    implementation(Dependencies.trixnity_clientserverapi_model)
+    implementation(Dependencies.trixnity_api_client)
+    implementation(Dependencies.serialization_json)
+    implementation(Dependencies.slf4j)
+    implementation(Dependencies.logback_android)
+    implementation(Dependencies.ktor)
 
 
 

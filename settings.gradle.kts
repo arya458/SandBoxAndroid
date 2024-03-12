@@ -17,3 +17,5 @@ rootProject.name = "MyResume"
 include(":app")
 include(":app:benchmark")
 include(":utilities")
+include(":sandboxMessenger")
+include(":coreUI")

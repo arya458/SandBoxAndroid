@@ -1,8 +1,6 @@
 package com.arya.danesh.myresume.ui.pages.main
 
 import android.annotation.SuppressLint
-import android.media.effect.Effect
-import android.util.DisplayMetrics
 import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateDp
@@ -12,10 +10,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +18,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -32,8 +26,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -44,39 +36,33 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.PointerEventPass
-import androidx.compose.ui.input.pointer.PointerInputChange
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import androidx.core.view.ViewCompat.getDisplay
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.sandbox.sandboxMessenger.di.viewModels.ApiViewModel
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.controller.graph.mainGraph
 import com.arya.danesh.myresume.ui.controller.route.MainNavigation
-import com.arya.danesh.myresume.ui.controller.route.RootNavigation
+import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.myresume.ui.core.component.customToolbar.CustomToolBar
 import com.arya.danesh.myresume.ui.core.component.navigation.NavigationBar
-import com.arya.danesh.myresume.ui.core.state.MenuState
-import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
-import com.arya.danesh.myresume.ui.pages.main.component.Background
+import com.arya.danesh.utilities.state.MenuState
+import com.arya.danesh.utilities.state.ToolBarAnimationState
+import com.arya.danesh.coreui.Background
+import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.ui.pages.main.component.SideMenu
-import com.arya.danesh.myresume.ui.theme.elv_1
-import com.arya.danesh.myresume.ui.theme.elv_3
-import com.arya.danesh.utilities.CoreUtility.dpToPx
-import com.arya.danesh.utilities.CoreUtility.screenWidth
+import com.arya.danesh.coreui.theme.elv_1
 import kotlinx.coroutines.launch
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel()) {
+fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel(), apiViewModel: ApiViewModel = hiltViewModel()) {
 
 
     val navController = rememberNavController()
@@ -271,7 +257,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
             .fillMaxSize(), color = Color.Transparent) {
 
 
-        Background()
+        Background(resId = R.raw.bg)
 
 
         //Menu
@@ -284,8 +270,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                         .fillMaxSize(),
                 Arrangement.Start,
         ) {
-            SideMenu(navigateTo,
-                    stiffness = stiffness)
+            SideMenu(navigateTo)
         }
 
 //        DisposableEffect(){

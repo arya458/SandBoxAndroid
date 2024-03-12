@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.data.response.BlogResponse
 import com.arya.danesh.myresume.di.viewModels.BlogViewModel
-import com.arya.danesh.myresume.ui.controller.route.RootNavigation
-import com.arya.danesh.myresume.ui.core.state.ComposeItemAnimationState
+import com.arya.danesh.controller.route.RootNavigation
+import com.arya.danesh.utilities.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.pages.main.component.SubMainBase
 import com.arya.danesh.myresume.ui.pages.main.sub.blog.component.BlogCompose
 import com.arya.danesh.utilities.CoreUtility.key

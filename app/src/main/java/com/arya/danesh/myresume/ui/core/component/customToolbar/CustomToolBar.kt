@@ -13,24 +13,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,11 +35,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
+import com.sandbox.sandboxMessenger.di.viewModels.ApiViewModel
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
-import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
+import com.arya.danesh.utilities.state.ToolBarAnimationState
 
 @Composable
 fun CustomToolBar(
@@ -53,6 +47,7 @@ fun CustomToolBar(
                 .fillMaxWidth()
                 .wrapContentHeight(),
         sharedData: SharedViewModel = hiltViewModel(),
+        apiViewModel: ApiViewModel = hiltViewModel(),
         stiffness: Float,
         menuOnclick: () -> Unit,
 
@@ -64,6 +59,7 @@ fun CustomToolBar(
 //    val screenHeight = 300.dp.value
 //    val screenWidth = configuration.screenWidthDp.dp.value
 
+    val profile by apiViewModel.supportProfile.collectAsState()
 
     val transition = updateTransition(sharedData.getToolBarState(), label = "ToolBar State")
     val rowSize by transition.animateDp(
@@ -135,7 +131,9 @@ fun CustomToolBar(
 
 
     Box(Modifier
-            .padding(top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding())
+            .padding(top = WindowInsets.systemBars
+                    .asPaddingValues()
+                    .calculateTopPadding())
             .fillMaxWidth()
             .height(rowSize)
             .animateContentSize()) {
@@ -162,8 +160,7 @@ fun CustomToolBar(
         )
 
 
-        ProfileImage() {}
-
+        ProfileImage() { }
 
         Text(
                 text = sharedData.getCurrentPage(),
@@ -202,7 +199,7 @@ fun CustomToolBar(
 
 
             Text(
-                    text = "Aria Danesh",
+                    text = profile.displayName + "",
                     modifier = Modifier
                             .wrapContentSize(unbounded = true)
                             .padding(top = 20.dp),

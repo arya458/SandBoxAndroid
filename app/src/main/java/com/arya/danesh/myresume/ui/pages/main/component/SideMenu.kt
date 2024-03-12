@@ -1,29 +1,20 @@
 package com.arya.danesh.myresume.ui.pages.main.component
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.AnimationVector1D
-import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
@@ -37,6 +28,7 @@ import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,28 +36,30 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.lerp
-import androidx.core.view.WindowInsetsCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.controller.route.RootNavigation
+import com.sandbox.sandboxMessenger.di.viewModels.ApiViewModel
+import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
-import com.arya.danesh.myresume.ui.core.state.MenuState
-import com.arya.danesh.myresume.ui.theme.elv_3
+import com.arya.danesh.coreui.theme.elv_3
 
 
 @Composable
-fun SideMenu(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel<SharedViewModel>(), stiffness: Float) {
+fun SideMenu(
+        navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel<SharedViewModel>(), apiViewModel: ApiViewModel = hiltViewModel(),
+) {
 
 
     val scrollState = rememberLazyListState()
-
+    val userImage by apiViewModel.userProfileImage.collectAsState()
+    val user by apiViewModel.userProfile.collectAsState()
 
     Column(
             Modifier
@@ -99,19 +93,21 @@ fun SideMenu(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel =
                 Alignment.CenterHorizontally
         ) {
 
-            Image(painter = painterResource(R.drawable.def),
+            Image(
+                    bitmap = (userImage?.asImageBitmap() ?: ImageBitmap.imageResource(R.drawable.def)),
                     contentDescription = "",
                     Modifier
                             .size(60.dp)
                             .clip(CircleShape)
                             .shadow(elv_3, clip = true),
-                    contentScale = ContentScale.FillBounds
+                    contentScale = ContentScale.Crop
             )
+
 
             Column(Modifier.wrapContentSize(), Arrangement.SpaceBetween, Alignment.Start) {
 
                 Text(
-                        text = "MatrixUserName",
+                        text = (user.displayName ?: "Name"),
                         modifier = Modifier
                                 .wrapContentSize()
                                 .padding(top = 10.dp),
@@ -120,7 +116,7 @@ fun SideMenu(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel =
                         textAlign = TextAlign.Center,
                 )
                 Text(
-                        text = "user:Matrix.org",
+                        text = (apiViewModel.userInfo?.userId?.full ?: "username:matrix.com"),
                         modifier = Modifier
                                 .wrapContentSize()
                                 .padding(top = 5.dp),

@@ -119,14 +119,43 @@ object Dependencies {
     //"implementation" ("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
     val youtubeplayer by lazy { "com.pierfrancescosoffritti.androidyoutubeplayer:core:${Versions.youtubeplayer}" }
 
+    //    implementation("net.folivo:trixnity-clientserverapi-client:${trixnityVersion}")
+    val trixnity_clientserverapi by lazy { "net.folivo:trixnity-clientserverapi-client:${Versions.trixnity}" }
 
+    //    implementation("net.folivo:trixnity-client:${trixnityVersion}")
+    val trixnity_client by lazy { "net.folivo:trixnity-client:${Versions.trixnity}" }
 
+    //    implementation("net.folivo:trixnity-clientserverapi-model:${trixnityVersion}")
+    val trixnity_clientserverapi_model by lazy { "net.folivo:trixnity-clientserverapi-model:${Versions.trixnity}" }
+
+    //    implementation("net.folivo:trixnity-api-client:${trixnityVersion}")
+    val trixnity_api_client by lazy { "net.folivo:trixnity-api-client:${Versions.trixnity}" }
+
+    //    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+    val serialization_json by lazy { "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization_json}" }
+
+    //    implementation("org.slf4j:slf4j-api:2.0.9") // logging in trixnity-messenger
+    val slf4j by lazy { "org.slf4j:slf4j-api:${Versions.slf4j}" }
+
+    //    implementation("com.github.tony19:logback-android:3.0.0") // logging in trixnity-messenger
+    val logback_android by lazy { "com.github.tony19:logback-android:${Versions.logback_android}" }
+
+    //    implementation("io.ktor:ktor-client-android:2.3.5") // HTTP client used in trixnity-messenger
+    val ktor by lazy { "io.ktor:ktor-client-android:${Versions.ktor}" }
 
 
 }
 
-object Modules{
+object Modules {
 
     const val utilitiesModule = ":utilities"
+    const val sandboxMessenger = ":sandboxMessenger"
+    const val coreUI = ":coreUI"
 
+}
+
+object Plugins {
+
+    const val androidApplication    = "com.android.application"
+    const val androidLibrary        = "com.android.library"
 }

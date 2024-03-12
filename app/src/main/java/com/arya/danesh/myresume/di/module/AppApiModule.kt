@@ -2,18 +2,23 @@ package com.arya.danesh.myresume.di.module
 
 import com.arya.danesh.myresume.data.dataSource.BlogDataSource
 import com.arya.danesh.myresume.data.dataSource.BlogDataSourceImpl
+import com.sandbox.sandboxMessenger.data.dataSource.ChatDataSource
+import com.sandbox.sandboxMessenger.data.dataSource.ChatDataSourceImpl
 import com.arya.danesh.myresume.data.dataSource.PostDataSource
 import com.arya.danesh.myresume.data.dataSource.PostDataSourceImpl
 import com.arya.danesh.myresume.data.remote.api.ApiService
 import com.arya.danesh.myresume.repository.BlogRepository
 import com.arya.danesh.myresume.repository.PostRepository
 import com.arya.danesh.utilities.CoreUtility.APP_BASE_URL
+import com.arya.danesh.utilities.CoreUtility.CHAT_BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.ktor.http.Url
+import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -50,6 +55,9 @@ class AppApiModule {
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
     }
+
+
+
 
 
     @Provides

@@ -11,6 +11,12 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="sandboxMessenger">
+        <State />
+      </entry>
+      <entry key="sandboxmessanger">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

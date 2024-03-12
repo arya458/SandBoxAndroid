@@ -4,24 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.CompositionLocal
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.arya.danesh.myresume.ui.controller.graph.rootGraph
-import com.arya.danesh.myresume.ui.controller.route.RootNavigation
+import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
-import com.arya.danesh.myresume.ui.theme.MyResumeTheme
+import com.arya.danesh.coreui.theme.MyResumeTheme
 import com.arya.danesh.utilities.CoreUtility.computeWindowSize
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,7 +40,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val sharedData: SharedViewModel = hiltViewModel()
 
-            MyResumeTheme(darkTheme = sharedData.getIsDark(), dynamicColor = false) {
+            MyResumeTheme(darkTheme = true, dynamicColor = false) {
 
                 NavHost(
                         modifier = Modifier
@@ -90,6 +84,7 @@ class MainActivity : ComponentActivity() {
                     })
 
                 }
+
 //                Intro(navController,{},appState.value,{appState.value=it})
             }
 //                Main()

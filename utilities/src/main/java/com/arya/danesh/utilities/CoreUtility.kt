@@ -17,8 +17,20 @@ object CoreUtility {
     var key :String=""
     var messengerToken :String=""
     const val APP_BASE_URL = "https://aryajsonbucket.4everland.store/"
-    const val CHAT_BASE_URL = ""
+    const val CHAT_BASE_URL = "https://matrix.org"
+    const val MATRIX_TRAGET_USER = "aria.danesh"
+    const val MATRIX_TARGET_DOMAIN = "matrix.org"
+
+
+
     var screenWidth = 0.dp
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        return (1..length)
+                .map { allowedChars.random() }
+                .joinToString("")
+    }
 
 
 

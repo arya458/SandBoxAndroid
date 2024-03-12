@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.arya.danesh.myresume.data.response.PostText
-import com.arya.danesh.myresume.ui.core.component.Texts.TextTittle
+import com.arya.danesh.coreui.Texts.TextTittle
 
 
 @Composable

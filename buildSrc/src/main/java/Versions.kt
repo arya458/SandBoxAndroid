@@ -106,4 +106,15 @@ object Versions {
 
     const val youtubeplayer ="11.1.0"
 
+    const val trixnity ="4.1.1"
+
+    const val serialization_json ="1.6.2"
+
+    const val slf4j ="2.0.9"
+
+    const val logback_android ="3.0.0"
+
+    const val ktor ="2.3.5"
+
+
 }

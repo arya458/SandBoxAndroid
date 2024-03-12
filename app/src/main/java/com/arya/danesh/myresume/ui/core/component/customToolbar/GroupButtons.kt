@@ -24,8 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
-import com.arya.danesh.myresume.ui.core.component.CustomIconButton
-import com.arya.danesh.myresume.ui.core.state.ToolBarAnimationState
+import com.arya.danesh.coreui.Buttons.CustomIconButton
+import com.arya.danesh.utilities.state.ToolBarAnimationState
+import com.arya.danesh.coreui.theme.elv_3
 
 
 @Composable
@@ -76,7 +77,9 @@ fun GroupButtons(
                 .clip(RoundedCornerShape(15.dp))
                 .clickable { },
                 imagePadding = imagePadding,
-                icon = R.drawable.linkin)
+                icon = R.drawable.linkin,
+                elevation = elv_3
+        )
         CustomIconButton(modifier = modifier
                 .alpha(visibility)
                 .scale(visibility)
@@ -84,7 +87,9 @@ fun GroupButtons(
                 .clip(RoundedCornerShape(15.dp))
                 .clickable { },
                 imagePadding = imagePadding,
-                icon = R.drawable.email)
+                icon = R.drawable.email,
+                elevation = elv_3
+        )
         CustomIconButton(modifier = modifier
                 .alpha(visibility)
                 .scale(visibility)
@@ -92,7 +97,9 @@ fun GroupButtons(
                 .clip(RoundedCornerShape(15.dp))
                 .clickable { },
                 imagePadding = imagePadding,
-                icon = R.drawable.git)
+                icon = R.drawable.git,
+                elevation = elv_3
+        )
 
 
     }
