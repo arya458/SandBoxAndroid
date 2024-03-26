@@ -93,7 +93,7 @@ fun MessengerTittleBar(username:String,imageBitmap: ImageBitmap?,isOnline:Boolea
                                     .fillMaxSize()
                                     .clip(CircleShape)
                                     .shadow(elv_3, CircleShape, clip = true)
-                                    .clickable { userOnClick },
+                                    .clickable { userOnClick() },
                     )
                 }
 

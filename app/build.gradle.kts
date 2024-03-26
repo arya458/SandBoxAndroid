@@ -9,6 +9,8 @@ android {
     namespace = "com.arya.danesh.myresume"
     compileSdk = 34
 
+
+
     defaultConfig {
         applicationId = "com.arya.danesh.myresume"
         minSdk = 28 // 28 debug and 29 def
@@ -20,6 +22,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
 
     buildTypes {

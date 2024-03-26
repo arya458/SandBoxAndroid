@@ -117,4 +117,17 @@ object Versions {
     const val ktor ="2.3.5"
 
 
+    const val room_version ="2.6.1"
+
+    const val annotations_version ="23.0.0"
+
+    const val gson ="2.8.9"
+
+    const val hcaptcha ="4.0.0"
+
+    const val safetynet ="18.0.1"
+
+
+
+
 }

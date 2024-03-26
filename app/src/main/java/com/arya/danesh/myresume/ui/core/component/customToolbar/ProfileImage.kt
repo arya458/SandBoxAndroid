@@ -1,6 +1,6 @@
 package com.arya.danesh.myresume.ui.core.component.customToolbar
 
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
@@ -26,14 +26,14 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
-import com.sandbox.sandboxMessenger.di.viewModels.ApiViewModel
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.utilities.state.ToolBarAnimationState
 import com.arya.danesh.coreui.theme.elv_3
 
 
 @Composable
-fun ProfileImage(modifier: Modifier = Modifier, apiViewModel: ApiViewModel = hiltViewModel(), @DrawableRes id: Int = R.drawable.kotlin, sharedData: SharedViewModel = hiltViewModel(), onClick: () -> Unit) {
+fun ProfileImage(modifier: Modifier = Modifier, apiViewModel: MessengerViewModel = hiltViewModel(), @DrawableRes id: Int = R.drawable.kotlin, sharedData: SharedViewModel = hiltViewModel(), onClick: () -> Unit) {
 
     val configuration = LocalConfiguration.current
 

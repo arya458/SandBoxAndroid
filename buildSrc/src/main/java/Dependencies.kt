@@ -143,6 +143,28 @@ object Dependencies {
     //    implementation("io.ktor:ktor-client-android:2.3.5") // HTTP client used in trixnity-messenger
     val ktor by lazy { "io.ktor:ktor-client-android:${Versions.ktor}" }
 
+    //    implementation("androidx.room:room-runtime:2.5.2")
+    val room_runtime by lazy { "androidx.room:room-runtime:${Versions.room_version}" }
+
+    //    implementation "androidx.room:room-ktx:2.5.2"
+    val room_ktx by lazy { "androidx.room:room-ktx:${Versions.room_version}" }
+
+    //    annotationProcessor("androidx.room:room-compiler:2.5.2")
+    val room_compiler by lazy { "androidx.room:room-compiler:${Versions.room_version}" }
+
+    // implementation 'org.jetbrains:annotations-java5:15.0'
+    val annotations by lazy { "org.jetbrains:annotations-java5:${Versions.annotations_version}" }
+
+    // implementation 'com.google.code.gson:gson:2.8.9'
+    val gson by lazy { "com.google.code.gson:gson:${Versions.gson}" }
+
+    //    implementation 'com.github.hcaptcha:hcaptcha-android-sdk:x.y.z'
+    val hcaptcha by lazy { "com.github.hcaptcha:hcaptcha-android-sdk:${Versions.hcaptcha}" }
+
+    //implementation("com.google.android.gms:play-services-safetynet:18.0.1")
+    val safetynet by lazy { "com.google.android.gms:play-services-safetynet:${Versions.safetynet}" }
+
+
 
 }
 
@@ -156,6 +178,6 @@ object Modules {
 
 object Plugins {
 
-    const val androidApplication    = "com.android.application"
-    const val androidLibrary        = "com.android.library"
+    const val androidApplication = "com.android.application"
+    const val androidLibrary = "com.android.library"
 }

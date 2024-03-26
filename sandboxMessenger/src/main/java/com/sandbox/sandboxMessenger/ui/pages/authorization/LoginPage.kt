@@ -1,5 +1,6 @@
 package com.sandbox.sandboxMessenger.ui.pages.authorization
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,16 +30,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.controller.route.RootNavigation
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.sandbox.sandboxMessenger.ui.pages.authorization.component.AuthBase
 
 @Composable
 @PreviewScreenSizes
-fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}) {
+fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}, messengerViewModel: MessengerViewModel = hiltViewModel()) {
 
     val user = remember { mutableStateOf("") }
     val pass = remember { mutableStateOf("") }
     val isError = remember { mutableStateOf(false) }
+
+    val regStage by messengerViewModel.loginStage.collectAsState()
+
+    if (regStage != null)
+        if (regStage!!.isSuccess)
+            navigateTo(RootNavigation.Root.MainPage)
+        else
+            Log.d("fatal", "LoginPage: ${regStage}")
+    else
+        Log.d("fatal", "LoginPage: ${regStage}")
+
+
 
 
     AuthBase {
@@ -48,7 +66,7 @@ fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}) {
             Column(modifier = Modifier
                     .fillMaxSize()
                     .weight(0.6f),
-                    Arrangement.Center,Alignment.CenterHorizontally
+                    Arrangement.Center, Alignment.CenterHorizontally
             ) {
                 TextField(
                         modifier = Modifier
@@ -89,11 +107,13 @@ fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}) {
 
 
                 ElevatedButton(
-                        modifier =Modifier
+                        modifier = Modifier
                                 .padding(top = 50.dp)
                                 .width(200.dp)
-                                .wrapContentHeight() ,
-                        onClick = { navigateTo(RootNavigation.Root.MainPage) },
+                                .wrapContentHeight(),
+                        onClick = {
+                            messengerViewModel.login(user.value, pass.value, null)
+                        },
                         shape = RoundedCornerShape(15.dp),
                         colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.primary,
@@ -101,7 +121,7 @@ fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}) {
                                 disabledContainerColor = Color.DarkGray,
                                 disabledContentColor = Color.Gray
                         )
-                        ) {
+                ) {
                     Text(
                             text = "Login",
                             modifier = Modifier
@@ -113,13 +133,13 @@ fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}) {
                     )
                 }
                 ElevatedButton(
-                        modifier =Modifier
+                        modifier = Modifier
                                 .padding(top = 10.dp)
                                 .width(200.dp)
-                                .wrapContentHeight() ,
+                                .wrapContentHeight(),
                         onClick = { navigateTo(RootNavigation.Root.Register) },
                         shape = RoundedCornerShape(15.dp),
-                        border = BorderStroke(1.dp,MaterialTheme.colorScheme.primary),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
                         colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.background,
                                 contentColor = MaterialTheme.colorScheme.primary,

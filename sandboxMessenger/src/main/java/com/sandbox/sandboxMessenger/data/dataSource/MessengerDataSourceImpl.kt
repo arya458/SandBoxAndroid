@@ -1,5 +1,6 @@
 package com.sandbox.sandboxMessenger.data.dataSource
 
+import android.util.Log
 import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.SyncApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.UIA
@@ -13,9 +14,9 @@ import net.folivo.trixnity.core.model.RoomId
 import net.folivo.trixnity.core.model.UserId
 import net.folivo.trixnity.core.model.events.m.room.RoomMessageEventContent
 
-class ChatDataSourceImpl @Inject constructor(
-        private val matrix: MatrixClientServerApiClientImpl,
-) : ChatDataSource {
+class MessengerDataSourceImpl @Inject constructor(
+        private val matrix: MatrixClientServerApiClientImpl
+) : MessengerDataSource {
 
 
 
@@ -27,32 +28,58 @@ class ChatDataSourceImpl @Inject constructor(
         return matrix.accessToken.value
     }
 
-    override suspend fun loginToken(token: String) {
+    override suspend fun loginUserToken(user: String, token: String): Result<WhoAmI.Response> {
+
         matrix.accessToken.value = token
+        return matrix.authentication.whoAmI()
+
+//
+//        val res = matrix.authentication.login(
+//                identifier = IdentifierType.User(user),
+//                token = token,
+//                type = LoginType.Token(false),
+//                initialDeviceDisplayName = "SandBox"
+//        ).onSuccess {
+//            matrix.accessToken.value = it.accessToken
+//        }
+//
+//        Log.d("testMatrix", "login: ${res}")
+//        return res
+
     }
 
     override suspend fun loginUserPass(user: String, pass: String, deviceId: String?): Result<Login.Response> {
         return matrix.authentication.login(
-
                 identifier = IdentifierType.User(user),
                 password = pass,
                 type = LoginType.Password,
                 deviceId = deviceId,
                 initialDeviceDisplayName = "SandBox"
-        )
+        ).onSuccess {
+            matrix.accessToken.value = it.accessToken
+        }
 
+    }
+
+    override suspend fun identifier(): Result<Set<ThirdPartyIdentifier>> {
+        return matrix.authentication.getThirdPartyIdentifiers()
     }
 
     override suspend fun registerUserPass(user: String, pass: String, deviceId: String?): Result<UIA<Register.Response>> {
-        return matrix.authentication.register(username = user,
+        return matrix.authentication.register(
+                username = user,
                 password = pass,
                 accountType = AccountType.USER,
                 deviceId = deviceId,
-                initialDeviceDisplayName = "SandBox",
-                inhibitLogin = true,
+                initialDeviceDisplayName = "SandBoxMessenger",
+                inhibitLogin = false,
                 isAppservice = false
         )
     }
+
+//    override suspend fun registerStepEmail(clientSecret: String,email: String,sendAttempt : Long): Result<GetEmailRequestTokenForRegistration.Response> {
+//        return matrix.authentication.getEmailRequestTokenForRegistration(GetEmailRequestTokenForRegistration.Request(clientSecret,email, sendAttempt = sendAttempt))
+//    }
 
 
     override suspend fun createChatRoom(roomName: String, tagetUserName: UserId): Result<RoomId> {

@@ -37,7 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
-import com.sandbox.sandboxMessenger.di.viewModels.ApiViewModel
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.utilities.state.ToolBarAnimationState
 
@@ -47,7 +47,7 @@ fun CustomToolBar(
                 .fillMaxWidth()
                 .wrapContentHeight(),
         sharedData: SharedViewModel = hiltViewModel(),
-        apiViewModel: ApiViewModel = hiltViewModel(),
+        apiViewModel: MessengerViewModel = hiltViewModel(),
         stiffness: Float,
         menuOnclick: () -> Unit,
 

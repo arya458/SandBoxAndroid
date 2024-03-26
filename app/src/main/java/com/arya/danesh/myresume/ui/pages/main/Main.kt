@@ -44,7 +44,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.sandbox.sandboxMessenger.di.viewModels.ApiViewModel
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.controller.graph.mainGraph
 import com.arya.danesh.myresume.ui.controller.route.MainNavigation
@@ -62,7 +61,7 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel(), apiViewModel: ApiViewModel = hiltViewModel()) {
+fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hiltViewModel()) {
 
 
     val navController = rememberNavController()

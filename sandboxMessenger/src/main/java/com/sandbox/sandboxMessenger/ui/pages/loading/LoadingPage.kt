@@ -24,7 +24,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -38,15 +41,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.coreui.AnimLogo
 import com.arya.danesh.coreui.theme.elv_3
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.sandbox.sandboxmessenger.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun LoadingPage(
         navigateTo: (RootNavigation) -> Unit,
-//        sharedData: SharedViewModel = hiltViewModel()
-) {
+        messengerViewModel: MessengerViewModel = hiltViewModel()) {
 
+
+    val isLoggedIn by messengerViewModel.isLoggedIn.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
 
 
 //    val loadingState = remember { mutableStateOf(state) }
@@ -114,6 +123,18 @@ fun LoadingPage(
 //            )
 //    )
 
+    if (isLoggedIn != null) {
+        if (isLoggedIn!!)
+            navigateTo(RootNavigation.Root.MainPage)
+        else
+            navigateTo(RootNavigation.Root.Login)
+    }
+    LaunchedEffect(key1 = true) {
+        delay(1000)
+        messengerViewModel.stat()
+    }
+
+
 
 
 
@@ -121,7 +142,6 @@ fun LoadingPage(
             Modifier
                     .safeDrawingPadding()
                     .fillMaxSize(1f)
-                    .clickable { navigateTo(RootNavigation.Root.Login) }
                     .animateContentSize(),
             color = MaterialTheme.colorScheme.background
     ) {
@@ -130,8 +150,8 @@ fun LoadingPage(
 
         AnimLogo(300.dp,
                 color = MaterialTheme.colorScheme.primary,
-                animSpeed =0.2f,
-                shadowElevation = elv_3 ,
+                animSpeed = 0.2f,
+                shadowElevation = elv_3,
                 logoID = R.drawable.icon,
                 lottieAnimationID = R.raw.new_loading_anim)
         Column(Modifier

@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sandbox.sandboxMessenger.di.viewModels.ApiViewModel
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.coreui.Texts.TextTittle
 import com.sandbox.sandboxMessenger.ui.pages.messenger.component.MessengerBottomBar
@@ -36,19 +36,19 @@ import net.folivo.trixnity.clientserverapi.client.start
 @Composable
 fun MessengerPage(
         navigateTo: (RootNavigation) -> Unit,
-        apiViewModel: ApiViewModel = hiltViewModel()
+        messengerViewModel: MessengerViewModel = hiltViewModel()
 ) {
 
 
     val message = rememberSaveable { mutableStateOf("") }
-    val profile by apiViewModel.supportProfile.collectAsState()
-    val profileImage by apiViewModel.supportProfileImage.collectAsState()
-    val messageList by apiViewModel.messagesList.collectAsState()
+    val profile by messengerViewModel.supportProfile.collectAsState()
+    val profileImage by messengerViewModel.supportProfileImage.collectAsState()
+    val messageList by messengerViewModel.messagesList.collectAsState()
     val lazyState = rememberLazyListState()
     val nextBatch: MutableStateFlow<String> = MutableStateFlow("")
 
 
-    apiViewModel.makeChatRoom()
+    messengerViewModel.makeChatRoom()
 
 //    apiViewModel.startListeningForMessages()
 
@@ -57,14 +57,14 @@ fun MessengerPage(
             println("Started")
 
 
-            apiViewModel.matrix?.sync?.sync(since = null)?.onSuccess { res ->
+            messengerViewModel.matrix?.sync?.sync(since = null)?.onSuccess { res ->
 
                 nextBatch.value = res.nextBatch
             }
 
             println(nextBatch.value)
 
-            apiViewModel.matrix?.sync?.start(
+            messengerViewModel.matrix?.sync?.start(
                     setBatchToken = { nextBatch.value = it },
                     scope = CoroutineScope(this.coroutineContext),
                     wait = false,
@@ -96,7 +96,7 @@ fun MessengerPage(
                         userMessage = message.value,
                         setUserMessage = { text: String -> message.value = text }
                 ) {
-                    apiViewModel.sendMessage(message.value)
+                    messengerViewModel.sendMessage(message.value)
                     message.value=""
 
                 }
