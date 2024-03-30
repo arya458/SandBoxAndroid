@@ -55,7 +55,10 @@ fun LoadingPage(
 
 
     val isLoggedIn by messengerViewModel.isLoggedIn.collectAsState()
-    val coroutineScope = rememberCoroutineScope()
+
+
+//    messengerViewModel.startService()
+//    val coroutineScope = rememberCoroutineScope()
 
 
 //    val loadingState = remember { mutableStateOf(state) }
@@ -181,20 +184,21 @@ fun LoadingPage(
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.primary,
                     )
-                    LinearProgressIndicator(
-                            progress = 0.5f,
-                            Modifier
-                                    .fillMaxWidth()
-                                    .height(20.dp)
-                                    .scale(1f)
-                                    .alpha(1f)
-                                    .padding(bottom = 10.dp, start = 30.dp, end = 30.dp)
-                                    .shadow(3.dp, RoundedCornerShape(15.dp), clip = true),
-                            color = MaterialTheme.colorScheme.primary,
-                            strokeCap = StrokeCap.Round,
-//                    backgroundColor = progressBarEmpty.copy(0.5f)
 
-                    )
+//                    LinearProgressIndicator(
+//                            progress = 0.5f,
+//                            Modifier
+//                                    .fillMaxWidth()
+//                                    .height(20.dp)
+//                                    .scale(1f)
+//                                    .alpha(1f)
+//                                    .padding(bottom = 10.dp, start = 30.dp, end = 30.dp)
+//                                    .shadow(3.dp, RoundedCornerShape(15.dp), clip = true),
+//                            color = MaterialTheme.colorScheme.primary,
+//                            strokeCap = StrokeCap.Round,
+////                    backgroundColor = progressBarEmpty.copy(0.5f)
+//
+//                    )
                 }
 //                Column(Modifier
 //                        .fillMaxWidth()

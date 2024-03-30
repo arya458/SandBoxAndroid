@@ -1,19 +1,18 @@
 package com.sandbox.sandboxMessenger.di.viewModels
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sandbox.sandboxMessenger.MessageSync
 import com.sandbox.sandboxMessenger.repository.MessengerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.ktor.util.toByteArray
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,18 +20,13 @@ import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImp
 import net.folivo.trixnity.clientserverapi.client.UIA
 import net.folivo.trixnity.clientserverapi.model.authentication.Login
 import net.folivo.trixnity.clientserverapi.model.authentication.Register
-import net.folivo.trixnity.clientserverapi.model.authentication.WhoAmI
 import net.folivo.trixnity.clientserverapi.model.media.Media
 import net.folivo.trixnity.clientserverapi.model.users.GetProfile
 import net.folivo.trixnity.core.model.UserId
 import net.folivo.trixnity.core.model.events.ClientEvent
 import net.folivo.trixnity.core.model.events.MessageEventContent
-import net.folivo.trixnity.core.model.events.m.room.RoomMessageEventContent
-import net.folivo.trixnity.core.model.events.roomIdOrNull
-import net.folivo.trixnity.core.model.events.senderOrNull
 import net.folivo.trixnity.core.subscribeContent
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.minutes
 
 
 @HiltViewModel
@@ -59,22 +53,18 @@ class MessengerViewModel @Inject constructor(
     private val _userProfileImage: MutableStateFlow<Bitmap?> = MutableStateFlow(null)
     val userProfileImage: StateFlow<Bitmap?> = _userProfileImage
 
-
-    private val nextBatch: MutableStateFlow<String> = MutableStateFlow("")
-
     val isLoggedIn: MutableStateFlow<Boolean?> = MutableStateFlow(null)
 
     var userInfo: UserId? = null
 
-    private val _messagesList: MutableStateFlow<SnapshotStateList<RoomMessageEventContent>> = MutableStateFlow(mutableStateListOf())
-
-    val messagesList: StateFlow<SnapshotStateList<RoomMessageEventContent>> = _messagesList
+//    val messagesList: StateFlow<SnapshotStateList<RoomMessageEventContent>> = messengerRepository.messagesList
 
     var matrix: MatrixClientServerApiClientImpl? = null
 
     init {
         getSupportProfile()
         getUserProfile()
+        getMatrix()
     }
 
 
@@ -149,6 +139,7 @@ class MessengerViewModel @Inject constructor(
         }
     }
 
+
 //    fun isLoggedIn(): Boolean {
 //        return user != null
 //    }
@@ -182,8 +173,9 @@ class MessengerViewModel @Inject constructor(
         }
     }
 
-    fun getUserProfile() {
+    private fun getUserProfile() {
         viewModelScope.launch(Dispatchers.IO) {
+            startService()
             messengerRepository.getUserProfile().onSuccess {
                 if (it.avatarUrl != null) {
                     val imageData = getImageUrl(it.avatarUrl!!).getOrNull()
@@ -215,64 +207,81 @@ class MessengerViewModel @Inject constructor(
     private fun getMatrix() {
         viewModelScope.launch(Dispatchers.IO) {
             matrix = messengerRepository.getMatrix()
-            liveMessageList()
+            matrix!!.sync.subscribeContent<MessageEventContent>() {
+                Log.d("testMatrix", "Message : ${it.content}")
+            }
         }
     }
 
-    private suspend fun liveMessageList() {
+//    private fun liveMessageList() {
+//
+//        Log.d("testMatrix", "subscribeContent: Started")
+//
+////        chatRepository.setLiveMessages(_messagesList)
+//        messengerRepository.getMatrix().sync.subscribeContent<MessageEventContent>() {
+//            val raw: ClientEvent<MessageEventContent> = it
+//            Log.d("testMatrix", "Message : ${it.content}")
+//            if (raw.senderOrNull == messengerRepository.getSupportUserId() || raw.senderOrNull == userInfo)
+//                if (raw.roomIdOrNull == messengerRepository.getRoomId()) {
+////                    println(raw.senderOrNull)
+////                    println(raw.roomIdOrNull)
+////            Log.d("testMatrix", "subscribeContent: $raw")
+//
+//                    val currentData = _messagesList.value
+//                    if (!_messagesList.value.contains(raw.content)) {
+//                        val messageEvent: MessageEventContent = raw.content
+//                        val messageContent: RoomMessageEventContent = (messageEvent as RoomMessageEventContent)
+//                        currentData.add(messageContent)
+//                        _messagesList.value = currentData
+//                        Log.d("testMatrix", "subscribeContent: $messageContent")
+//                        Log.d("testMatrix", "subscribeContent Array Size: ${_messagesList.value.size}")
+//                    }
+//                }
+//
+//        }
+//    }
 
-        Log.d("testMatrix", "subscribeContent: Started")
+//    private fun startListeningForMessages() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            liveMessageList()
+//
+//            matrix!!.sync.sync(since = null).onSuccess { res ->
+//
+//                nextBatch.value = res.nextBatch
+//            }
+//
+//            Log.d("testMatrix", "startLiveMessageList: ${nextBatch.value}")
+//
+//            matrix!!.sync.start(
+//                    setBatchToken = { nextBatch.value = it },
+//                    scope = CoroutineScope(this.coroutineContext),
+//                    wait = false,
+//                    getBatchToken = { if (nextBatch.value == "") null else nextBatch.value },
+//                    withTransaction = {})
+//            Log.d("testMatrix", "subscribeContent: ${matrix!!.sync.currentSyncState.value}")
+//            delay(4.minutes) // wait some time
+//            matrix!!.sync.stop()
+//            Log.d("testMatrix", "subscribeContent: ${matrix!!.sync.currentSyncState.value}")
+//
+//        }
+//    }
 
-//        chatRepository.setLiveMessages(_messagesList)
-        messengerRepository.getMatrix().sync.subscribeContent<MessageEventContent>() {
-            val raw: ClientEvent<MessageEventContent> = it
-
-            if (raw.senderOrNull == messengerRepository.getSupportUserId() || raw.senderOrNull == userInfo)
-                if (raw.roomIdOrNull == messengerRepository.getRoomId()) {
-//                    println(raw.senderOrNull)
-//                    println(raw.roomIdOrNull)
-//            Log.d("testMatrix", "subscribeContent: $raw")
-
-                    val currentData = _messagesList.value
-                    if (!_messagesList.value.contains(raw.content)) {
-                        val messageEvent: MessageEventContent = raw.content
-                        val messageContent: RoomMessageEventContent = (messageEvent as RoomMessageEventContent)
-                        currentData.add(messageContent)
-                        _messagesList.value = currentData
-                        Log.d("testMatrix", "subscribeContent: $messageContent")
-                        Log.d("testMatrix", "subscribeContent Array Size: ${_messagesList.value.size}")
-                    }
-                }
-
-        }
-
-        fun startListeningForMessages() {
-            MainScope().launch {
-                matrix!!.sync.sync(since = null).onSuccess { res ->
-
-                    nextBatch.value = res.nextBatch
-                }
-
-                Log.d("testMatrix", "startLiveMessageList: $nextBatch.value")
-
-                matrix!!.sync.start(
-                        setBatchToken = { nextBatch.value = it },
-                        scope = CoroutineScope(this.coroutineContext),
-                        wait = false,
-                        getBatchToken = { if (nextBatch.value == "") null else nextBatch.value },
-                        withTransaction = {})
-                Log.d("testMatrix", "subscribeContent: ${matrix!!.sync.currentSyncState}")
-                delay(1.minutes) // wait some time
-                matrix!!.sync.stop()
-            }
-        }
-
-        fun stopListeningForMessages() {
-            MainScope().launch {
-                matrix!!.sync.stop(true)
-            }
-        }
-
-
+    fun getMessageList(): MutableStateFlow<SnapshotStateList<ClientEvent<MessageEventContent>>> {
+        return messengerRepository.messagesList
     }
+
+
+    fun startService() {
+        val context = messengerRepository.getContext()
+//        liveMessageList()
+        val intent: Intent = Intent(context, MessageSync::class.java)
+        context.startService(intent)
+    }
+
+    fun stopService() {
+        val context = messengerRepository.getContext()
+        val intent: Intent = Intent(context, MessageSync::class.java)
+        context.stopService(intent)
+    }
+
 }

@@ -1,12 +1,19 @@
 package com.sandbox.sandboxMessenger.repository
 
+import android.app.Application
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.sandbox.sandboxMessenger.data.dataSource.MessengerDataSource
 import com.arya.danesh.utilities.CoreUtility.MATRIX_TARGET_DOMAIN
 import com.arya.danesh.utilities.CoreUtility.MATRIX_TRAGET_USER
 import com.arya.danesh.utilities.CoreUtility.getRandomString
 import com.sandbox.sandboxMessenger.data.dao.MessengerDao
+import com.sandbox.sandboxMessenger.data.response.Chat.MessageResponse
 import com.sandbox.sandboxMessenger.data.response.MessengerResponse
+import dagger.Binds
+import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.MutableStateFlow
 import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.UIA
@@ -15,11 +22,17 @@ import net.folivo.trixnity.clientserverapi.model.authentication.Register
 import net.folivo.trixnity.clientserverapi.model.authentication.WhoAmI
 import net.folivo.trixnity.clientserverapi.model.media.Media
 import net.folivo.trixnity.clientserverapi.model.users.GetProfile
+import net.folivo.trixnity.core.model.EventId
 import net.folivo.trixnity.core.model.RoomAliasId
 import net.folivo.trixnity.core.model.RoomId
 import net.folivo.trixnity.core.model.UserId
+import net.folivo.trixnity.core.model.events.ClientEvent
+import net.folivo.trixnity.core.model.events.MessageEventContent
+import net.folivo.trixnity.core.model.events.m.room.RoomMessageEventContent
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MessengerRepository @Inject constructor(
         private val messengerDataSource: MessengerDataSource,
         private val messengerDao: MessengerDao
@@ -33,7 +46,10 @@ class MessengerRepository @Inject constructor(
 
     //    private var roomAlias: RoomAliasId? = null
     private var supportUserId: UserId = UserId(MATRIX_TRAGET_USER, MATRIX_TARGET_DOMAIN)
+
     val userId: MutableStateFlow<UserId?> = MutableStateFlow(null)
+    val messagesList: MutableStateFlow<SnapshotStateList<ClientEvent<MessageEventContent>>> = MutableStateFlow(mutableStateListOf())
+
 
 //    var isLoggedIn: MutableStateFlow<Boolean?> = MutableStateFlow(null)
 
@@ -42,7 +58,11 @@ class MessengerRepository @Inject constructor(
 //        return messengerDataSource.captcha()
 //    }
 
-    suspend fun getUserFromDataBase(): MessengerResponse? {
+    fun getContext(): Application {
+        return messengerDataSource.getContext()
+    }
+
+    fun getUserFromDataBase(): MessengerResponse? {
         val data = messengerDao.getData()
         if (data != null)
             return data
@@ -95,7 +115,7 @@ class MessengerRepository @Inject constructor(
                     userId = it.userId.full,
                     token = token
             )
-            userId.value = it.userId
+            userId.emit(it.userId)
 
 
         }
@@ -115,7 +135,7 @@ class MessengerRepository @Inject constructor(
                 )
                 Log.d("testMatrix", "login Token: ${token}")
                 Log.d("testMatrix", "login: ${res}")
-                userId.value = res.userId
+                userId.emit(res.userId)
                 if (it.roomAlias != "")
                     roomAlias = RoomAliasId(it.roomAlias)
                 if (it.roomId != "")
@@ -136,6 +156,7 @@ class MessengerRepository @Inject constructor(
                     userId = res.userId.full,
                     token = token ?: ""
             )
+            userId.emit(res.userId)
             Log.d("testMatrix", "loginWithPass: ${token}")
             Log.d("testMatrix", "loginWithPass: ${res}")
 
@@ -171,7 +192,7 @@ class MessengerRepository @Inject constructor(
         return supportUserId
     }
 
-    suspend fun getMatrix(): MatrixClientServerApiClientImpl {
+    fun getMatrix(): MatrixClientServerApiClientImpl {
         return messengerDataSource.getMatrix()
     }
 
@@ -205,8 +226,10 @@ class MessengerRepository @Inject constructor(
                     }
     }
 
-    suspend fun sendMessage(text: String) {
-        roomId?.let { messengerDataSource.sendMessage(it, text) }
+    suspend fun sendMessage(text: String): Result<EventId>? {
+
+        roomId?.let { return messengerDataSource.sendMessage(it, text) }
+        return null
     }
 
 //    suspend fun getSupportProfile(): Result<GetProfile.Response> {

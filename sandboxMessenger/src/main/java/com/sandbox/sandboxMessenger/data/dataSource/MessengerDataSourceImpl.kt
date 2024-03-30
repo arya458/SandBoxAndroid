@@ -1,5 +1,6 @@
 package com.sandbox.sandboxMessenger.data.dataSource
 
+import android.app.Application
 import android.util.Log
 import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.SyncApiClientImpl
@@ -9,15 +10,20 @@ import javax.inject.Inject
 import net.folivo.trixnity.clientserverapi.model.authentication.*
 import net.folivo.trixnity.clientserverapi.model.media.Media
 import net.folivo.trixnity.clientserverapi.model.users.GetProfile
+import net.folivo.trixnity.core.model.EventId
 import net.folivo.trixnity.core.model.RoomAliasId
 import net.folivo.trixnity.core.model.RoomId
 import net.folivo.trixnity.core.model.UserId
 import net.folivo.trixnity.core.model.events.m.room.RoomMessageEventContent
 
 class MessengerDataSourceImpl @Inject constructor(
-        private val matrix: MatrixClientServerApiClientImpl
+        private val matrix: MatrixClientServerApiClientImpl,
+        private val context : Application
 ) : MessengerDataSource {
 
+    override fun getContext(): Application {
+        return context
+    }
 
 
     override suspend fun getUserId(): Result<WhoAmI.Response> {
@@ -133,8 +139,8 @@ class MessengerDataSourceImpl @Inject constructor(
         return null
     }
 
-    override suspend fun sendMessage(roomId: RoomId, text: String) {
-        matrix.room.sendMessageEvent(
+    override suspend fun sendMessage(roomId: RoomId, text: String): Result<EventId> {
+        return matrix.room.sendMessageEvent(
                 roomId,
                 RoomMessageEventContent.TextMessageEventContent(
                         text,
@@ -148,7 +154,7 @@ class MessengerDataSourceImpl @Inject constructor(
         return matrix.media.download(mxc)
     }
 
-    override suspend fun getMatrix(): MatrixClientServerApiClientImpl {
+    override fun getMatrix(): MatrixClientServerApiClientImpl {
         return matrix
 
     }

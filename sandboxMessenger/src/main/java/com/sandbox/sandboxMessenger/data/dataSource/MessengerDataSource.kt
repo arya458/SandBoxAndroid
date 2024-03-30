@@ -1,5 +1,6 @@
 package com.sandbox.sandboxMessenger.data.dataSource
 
+import android.app.Application
 import com.google.android.gms.safetynet.SafetyNetClient
 import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.SyncApiClientImpl
@@ -12,12 +13,15 @@ import net.folivo.trixnity.clientserverapi.model.authentication.ThirdPartyIdenti
 import net.folivo.trixnity.clientserverapi.model.authentication.WhoAmI
 import net.folivo.trixnity.clientserverapi.model.media.Media
 import net.folivo.trixnity.clientserverapi.model.users.GetProfile
+import net.folivo.trixnity.core.model.EventId
 import net.folivo.trixnity.core.model.RoomAliasId
 import net.folivo.trixnity.core.model.RoomId
 import net.folivo.trixnity.core.model.UserId
 
 interface MessengerDataSource {
 
+
+    fun getContext(): Application
 
     suspend fun getUserId(): Result<WhoAmI.Response>
 
@@ -40,12 +44,12 @@ interface MessengerDataSource {
 
     suspend fun inviteUser(roomId: RoomId, tagetUserName: UserId): MatrixClientServerApiClientImpl?
 
-    suspend fun sendMessage(roomId: RoomId, text: String)
+    suspend fun sendMessage(roomId: RoomId, text: String): Result<EventId>
 
 
     suspend fun getImageUrl(mxc: String): Result<Media>
 
-    suspend fun getMatrix(): MatrixClientServerApiClientImpl
+    fun getMatrix(): MatrixClientServerApiClientImpl
 
     suspend fun syncMatrix(): SyncApiClientImpl
 

@@ -1,10 +1,13 @@
 package com.arya.danesh.myresume.di.module
 
+import com.arya.danesh.myresume.data.dataSource.AppDataSource
+import com.arya.danesh.myresume.data.dataSource.AppDataSourceImpl
 import com.arya.danesh.myresume.data.dataSource.BlogDataSource
 import com.arya.danesh.myresume.data.dataSource.BlogDataSourceImpl
 import com.arya.danesh.myresume.data.dataSource.PostDataSource
 import com.arya.danesh.myresume.data.dataSource.PostDataSourceImpl
 import com.arya.danesh.myresume.data.remote.api.ApiService
+import com.arya.danesh.myresume.repository.AppsRepository
 import com.arya.danesh.myresume.repository.BlogRepository
 import com.arya.danesh.myresume.repository.PostRepository
 import com.arya.danesh.utilities.CoreUtility.APP_BASE_URL
@@ -63,6 +66,12 @@ class AppApiModule {
 
     @Provides
     @Singleton
+    fun providesAppDataSource(apiService: ApiService): AppDataSource {
+        return AppDataSourceImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
     fun providesBlogDataSource(apiService: ApiService):BlogDataSource{
         return BlogDataSourceImpl(apiService)
     }
@@ -71,6 +80,12 @@ class AppApiModule {
     @Singleton
     fun providesPostDataSource(apiService: ApiService): PostDataSource {
         return PostDataSourceImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun providesAppRepository(appDataSource: AppDataSource):AppsRepository{
+        return AppsRepository(appDataSource)
     }
 
     @Provides

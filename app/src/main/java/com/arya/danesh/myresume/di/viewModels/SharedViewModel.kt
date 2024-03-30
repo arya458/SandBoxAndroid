@@ -12,6 +12,7 @@ import com.arya.danesh.utilities.state.ToolBarAnimationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(

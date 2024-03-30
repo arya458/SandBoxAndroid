@@ -31,8 +31,8 @@ class MessengerApiModule {
 
     @Provides
     @Singleton
-    fun providesChatDataSource(matrix: MatrixClientServerApiClientImpl): MessengerDataSource {
-        return MessengerDataSourceImpl(matrix)
+    fun providesChatDataSource(matrix: MatrixClientServerApiClientImpl,applicationContext:Application): MessengerDataSource {
+        return MessengerDataSourceImpl(matrix,applicationContext)
     }
 
 
