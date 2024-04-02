@@ -7,14 +7,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.arya.danesh.controller.route.RootNavigation
-import com.arya.danesh.myresume.ui.pages.splash.SplashPage
 import com.arya.danesh.myresume.ui.pages.main.Main
-import com.sandbox.sandboxMessenger.ui.pages.messenger.MessengerPage
 import com.arya.danesh.myresume.ui.pages.profile.ProfilePage
 import com.arya.danesh.myresume.ui.pages.readBlog.ReadBlog
+import com.arya.danesh.myresume.ui.pages.splash.SplashPage
 import com.sandbox.sandboxMessenger.ui.pages.authorization.LoginPage
 import com.sandbox.sandboxMessenger.ui.pages.authorization.RegisterPage
 import com.sandbox.sandboxMessenger.ui.pages.loading.LoadingPage
+import com.sandbox.sandboxMessenger.ui.pages.messenger.MessengerPage
 
 fun NavGraphBuilder.rootGraph(navigateTo: (RootNavigation) -> Unit) {
 

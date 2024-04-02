@@ -28,8 +28,8 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.myresume.R
 import com.arya.danesh.coreui.theme.elv_3
+import com.arya.danesh.myresume.R
 
 //import com.arya.danesh.myresume.ui.theme.appLight
 //import com.arya.danesh.myresume.ui.theme.item

@@ -12,14 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.arya.danesh.controller.route.RootNavigation
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.sandbox.sandboxMessenger.ui.pages.messenger.component.MessageView
 import com.sandbox.sandboxMessenger.ui.pages.messenger.component.MessengerBottomBar
 import com.sandbox.sandboxMessenger.ui.pages.messenger.component.MessengerTittleBar

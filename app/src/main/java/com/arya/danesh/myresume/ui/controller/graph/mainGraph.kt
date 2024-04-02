@@ -5,8 +5,8 @@ import androidx.compose.animation.core.tween
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.arya.danesh.myresume.ui.controller.route.MainNavigation
 import com.arya.danesh.controller.route.RootNavigation
+import com.arya.danesh.myresume.ui.controller.route.MainNavigation
 import com.arya.danesh.myresume.ui.pages.main.sub.apps.AppsPage
 import com.arya.danesh.myresume.ui.pages.main.sub.blog.BlogPage
 import com.arya.danesh.myresume.ui.pages.main.sub.home.HomePage

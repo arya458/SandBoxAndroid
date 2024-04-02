@@ -65,7 +65,7 @@ fun RegisterPage(navigateTo: (RootNavigation) -> Unit = {}, messengerViewModel: 
 //    val verifyRegStage by messengerViewModel.verifyRegisterStage.collectAsState()
 
 
-    AuthBase() {
+    AuthBase {
 //        val coroutineScope = rememberCoroutineScope()
 
         Row(it.fillMaxSize(), Arrangement.Center, Alignment.CenterVertically) {

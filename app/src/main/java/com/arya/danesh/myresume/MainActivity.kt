@@ -1,6 +1,5 @@
 package com.arya.danesh.myresume
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,14 +10,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.arya.danesh.myresume.ui.controller.graph.rootGraph
 import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.coreui.theme.MyResumeTheme
+import com.arya.danesh.myresume.ui.controller.graph.rootGraph
 import com.arya.danesh.utilities.CoreUtility.computeWindowSize
-import com.sandbox.sandboxMessenger.MessageSync
 import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

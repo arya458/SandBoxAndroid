@@ -13,7 +13,7 @@ fun HomePage(
         navigateTo: (RootNavigation) -> Unit,
 ) {
     SubMainBase(isCollapseListener)
-    { lazyState, visibleItems, listener ->
+    { lazyState, visibleItems,padding, listener ->
 
 
 

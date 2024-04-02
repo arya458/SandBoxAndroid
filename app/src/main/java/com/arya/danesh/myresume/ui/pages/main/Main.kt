@@ -10,6 +10,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
@@ -28,6 +29,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -44,18 +46,18 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.arya.danesh.controller.route.RootNavigation
+import com.arya.danesh.coreui.Background
+import com.arya.danesh.coreui.theme.elv_1
+import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.myresume.ui.controller.graph.mainGraph
 import com.arya.danesh.myresume.ui.controller.route.MainNavigation
-import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.myresume.ui.core.component.customToolbar.CustomToolBar
 import com.arya.danesh.myresume.ui.core.component.navigation.NavigationBar
+import com.arya.danesh.myresume.ui.pages.main.component.SideMenu
 import com.arya.danesh.utilities.state.MenuState
 import com.arya.danesh.utilities.state.ToolBarAnimationState
-import com.arya.danesh.coreui.Background
-import com.arya.danesh.myresume.R
-import com.arya.danesh.myresume.ui.pages.main.component.SideMenu
-import com.arya.danesh.coreui.theme.elv_1
 import kotlinx.coroutines.launch
 
 
@@ -69,6 +71,9 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
     val currentDestination = navBackStackEntry?.destination
     val scaffoldState = rememberScaffoldState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val isDoneDragging = remember {
+        mutableStateOf(true)
+    }
 
 
     val stiffness = 260f
@@ -200,14 +205,15 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
     }
     SideEffect {
-        if (sharedData.getMenuState() == MenuState.EXPENDED)
-            coroutineScope.launch {
-                tranX.animateTo(10f * drawer)
-            }
-        else
-            coroutineScope.launch {
-                tranX.animateTo(0f)
-            }
+        if (isDoneDragging.value)
+            if (sharedData.getMenuState() == MenuState.EXPENDED)
+                coroutineScope.launch {
+                    tranX.animateTo(10f * drawer)
+                }
+            else
+                coroutineScope.launch {
+                    tranX.animateTo(0f)
+                }
     }
 
 
@@ -224,6 +230,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
     Surface(Modifier
             .draggable(draggableState, orientation = Orientation.Horizontal,
                     onDragStopped = { velocity ->
+                        isDoneDragging.value = true
                         val decayX = decay.calculateTargetValue(tranX.value, velocity)
 
                         coroutineScope.launch {
@@ -249,6 +256,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                         }
                     },
                     onDragStarted = {
+                        isDoneDragging.value = false
                     }
             )
 
@@ -292,8 +300,11 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                         .background(
                                 color = Color.Transparent
                         )
-
-                        .shadow(mainShadow, shape = RoundedCornerShape(lerp(0, 15, tranX.value / drawer).dp), clip = true),
+                        .shadow(mainShadow, shape = RoundedCornerShape(lerp(0, 15, tranX.value / drawer).dp), clip = true)
+                        .clickable(enabled = sharedData.getMenuState() == MenuState.EXPENDED) {
+                            sharedData.setMenuState(MenuState.COLLAPSE)
+                        }
+                ,
                 backgroundColor = Color.Transparent,
                 scaffoldState = scaffoldState,
                 topBar = {
@@ -313,32 +324,32 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                     ) { mainItemNavigation ->
                         Log.d("Wtf", currentDestination?.route + "")
 //                        if (sharedData.getmenuState() == MenuState.COLLAPSE)
-                            if (currentDestination?.hierarchy?.any { it == mainItemNavigation } == false) {
-                                if (mainItemNavigation == MainNavigation.Main.Messenger)
-                                    navigateTo(RootNavigation.Root.Messenger)
-                                else {
-                                    navController.navigate(mainItemNavigation.route) {
-                                        // Pop up to the start destination of the graph to
-                                        // avoid building up a large stack of destinations
-                                        // on the back stack as users select items
-                                        sharedData.setCurrentPage(mainItemNavigation.route)
-                                        popUpTo(navController.graph.findStartDestination().id) {
-                                            saveState = false
+                        if (currentDestination?.hierarchy?.any { it == mainItemNavigation } == false) {
+                            if (mainItemNavigation == MainNavigation.Main.Messenger)
+                                navigateTo(RootNavigation.Root.Messenger)
+                            else {
+                                navController.navigate(mainItemNavigation.route) {
+                                    // Pop up to the start destination of the graph to
+                                    // avoid building up a large stack of destinations
+                                    // on the back stack as users select items
+                                    sharedData.setCurrentPage(mainItemNavigation.route)
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = false
 
-                                        }
+                                    }
 
-                                        // Avoid multiple copies of the same destination when
-                                        // reselecting the same item
-                                        launchSingleTop = true
-                                        // Restore state when reselecting a previously selected item
-                                        restoreState = true
+                                    // Avoid multiple copies of the same destination when
+                                    // reselecting the same item
+                                    launchSingleTop = true
+                                    // Restore state when reselecting a previously selected item
+                                    restoreState = true
 
 //                                if (isExpended.value)
 //                                    isAnimationToolBarFinished.value = false
 //                                isExpended.value = false
-                                    }
                                 }
                             }
+                        }
                     }
                 }
         ) {

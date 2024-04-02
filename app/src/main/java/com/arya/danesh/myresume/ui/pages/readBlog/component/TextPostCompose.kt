@@ -13,11 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.myresume.data.response.PostText
 import com.arya.danesh.coreui.Texts.AnimText
 import com.arya.danesh.coreui.Texts.TextTittle
+import com.arya.danesh.myresume.data.response.PostText
 import com.arya.danesh.utilities.state.ComposeItemAnimationState
 
 

@@ -44,10 +44,10 @@ fun AppsPage(
             val apps = (appsRes as ResourceState.Success<AppResponse>).data.apps
 
             SubMainBase(isCollapseListener)
-            { lazyState, visibleItems, _ ->
+            { lazyState, visibleItems,padding, _ ->
                 LazyColumn(
                         Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(top = 20.dp, bottom = 140.dp),
+                        contentPadding = PaddingValues(top = padding, bottom = 140.dp),
                         state = lazyState,
 
                         ) {

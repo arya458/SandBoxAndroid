@@ -1,12 +1,10 @@
 package com.sandbox.sandboxMessenger.di.module
 
 import android.app.Application
+import com.arya.danesh.utilities.CoreUtility.CHAT_BASE_URL
+import com.sandbox.sandboxMessenger.data.dao.MessengerDao
 import com.sandbox.sandboxMessenger.data.dataSource.MessengerDataSource
 import com.sandbox.sandboxMessenger.data.dataSource.MessengerDataSourceImpl
-import com.arya.danesh.utilities.CoreUtility.CHAT_BASE_URL
-import com.google.android.gms.safetynet.SafetyNet
-import com.google.android.gms.safetynet.SafetyNetClient
-import com.sandbox.sandboxMessenger.data.dao.MessengerDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

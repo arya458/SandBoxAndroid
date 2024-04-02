@@ -1,6 +1,5 @@
 package com.arya.danesh.myresume.ui.core.component.customToolbar
 
-import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
@@ -25,11 +24,10 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.arya.danesh.myresume.R
-import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
-import com.arya.danesh.myresume.di.viewModels.SharedViewModel
-import com.arya.danesh.utilities.state.ToolBarAnimationState
 import com.arya.danesh.coreui.theme.elv_3
+import com.arya.danesh.myresume.R
+import com.arya.danesh.utilities.state.ToolBarAnimationState
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 
 
 @Composable

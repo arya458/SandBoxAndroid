@@ -37,9 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.myresume.R
-import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.utilities.state.ToolBarAnimationState
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 
 @Composable
 fun CustomToolBar(

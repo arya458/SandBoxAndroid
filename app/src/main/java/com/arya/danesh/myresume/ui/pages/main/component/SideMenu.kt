@@ -44,11 +44,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.arya.danesh.myresume.R
-import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.arya.danesh.controller.route.RootNavigation
-import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.coreui.theme.elv_3
+import com.arya.danesh.myresume.R
+import com.arya.danesh.myresume.di.viewModels.SharedViewModel
+import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 
 
 @Composable
@@ -149,12 +149,12 @@ fun SideMenu(
                 state = scrollState
 
         ) {
-            item() {
+            item {
                 MenuItemTitle()
 
             }
             items(5) {
-                MenuIconTextButton() {
+                MenuIconTextButton {
 
                     if (sharedData.getIsDark())
                         sharedData.setIsDark(false)
@@ -162,12 +162,12 @@ fun SideMenu(
                         sharedData.setIsDark(true)
                 }
             }
-            item() {
+            item {
                 MenuItemTitle()
 
             }
             items(5) {
-                MenuIconTextButton() {}
+                MenuIconTextButton {}
             }
 
         }
@@ -273,21 +273,19 @@ fun MenuIconTextButton(onclick: () -> Unit) {
 }
 
 @Composable
-fun MenuItemTitle() {
-    Column(Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(), Arrangement.Center, Alignment.CenterHorizontally) {
+fun MenuItemTitle(modifier: Modifier=Modifier.fillMaxWidth().wrapContentHeight(),text : String = "Menu") {
+    Column(modifier, Arrangement.Center, Alignment.CenterHorizontally) {
         Text(
-                text = "Menu",
+                text = text,
                 modifier = Modifier
-                        .padding(top = 10.dp)
+                        .padding(top = 20.dp)
                         .wrapContentSize(),
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier
-                .padding(top = 5.dp, bottom = 5.dp)
+                .padding(top = 5.dp, bottom = 20.dp)
                 .fillMaxWidth(0.8f)
                 .height(1.dp)
                 .clip(RoundedCornerShape(15.dp))

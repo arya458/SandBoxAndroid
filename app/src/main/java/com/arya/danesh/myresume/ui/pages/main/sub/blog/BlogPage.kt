@@ -12,14 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.myresume.data.response.BlogResponse
 import com.arya.danesh.myresume.di.viewModels.BlogViewModel
-import com.arya.danesh.controller.route.RootNavigation
-import com.arya.danesh.utilities.state.ComposeItemAnimationState
 import com.arya.danesh.myresume.ui.pages.main.component.SubMainBase
 import com.arya.danesh.myresume.ui.pages.main.sub.blog.component.BlogCompose
-import com.arya.danesh.utilities.CoreUtility.key
 import com.arya.danesh.utilities.ResourceState
+import com.arya.danesh.utilities.state.ComposeItemAnimationState
 
 @Composable
 fun BlogPage(
@@ -48,15 +47,14 @@ fun BlogPage(
         is ResourceState.Success -> {
 
             SubMainBase(isCollapseListener)
-            { lazyState, visibleItems, _ ->
+            { lazyState, visibleItems,padding, _ ->
                 val posts = (blogRes as ResourceState.Success<BlogResponse>).data.blog
                 LazyColumn(
                         Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(top = 20.dp, bottom = 140.dp),
+                        contentPadding = PaddingValues(top = padding, bottom = 140.dp),
                         state = lazyState,
                 ) {
                     items(posts.size) {
-
                         BlogCompose(onclick = {
                             blogViewModel.selectPost(posts[it].id.toString())
                             navigateTo(RootNavigation.Root.ReadBlog)

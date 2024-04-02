@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -207,7 +206,7 @@ class MessengerViewModel @Inject constructor(
     private fun getMatrix() {
         viewModelScope.launch(Dispatchers.IO) {
             matrix = messengerRepository.getMatrix()
-            matrix!!.sync.subscribeContent<MessageEventContent>() {
+            matrix!!.sync.subscribeContent<MessageEventContent> {
                 Log.d("testMatrix", "Message : ${it.content}")
             }
         }

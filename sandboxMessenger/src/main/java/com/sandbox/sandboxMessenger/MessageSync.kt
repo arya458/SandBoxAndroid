@@ -57,7 +57,7 @@ class MessageSync: Service() {
                 sync.sync(since = null).onSuccess { res ->
                     nextBatch.value = res.nextBatch
                 }
-                sync.subscribeContent<MessageEventContent>() {
+                sync.subscribeContent<MessageEventContent> {
                     val raw: ClientEvent<MessageEventContent> = it
                     Log.d("Service", "Message : ${it.content}")
                     Log.d("Service", "Message : ${raw.senderOrNull}")

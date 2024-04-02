@@ -9,15 +9,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -38,15 +35,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.arya.danesh.myresume.data.response.PostResponse
-import com.arya.danesh.myresume.di.viewModels.PostViewModel
 import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.coreui.Texts.TextTittle
-import com.arya.danesh.utilities.state.ReadState
+import com.arya.danesh.myresume.data.response.PostResponse
+import com.arya.danesh.myresume.di.viewModels.PostViewModel
 import com.arya.danesh.myresume.ui.pages.readBlog.component.ImagePostCompose
 import com.arya.danesh.myresume.ui.pages.readBlog.component.TextPostCompose
 import com.arya.danesh.myresume.ui.pages.readBlog.component.VideoPostCompose
 import com.arya.danesh.utilities.ResourceState
+import com.arya.danesh.utilities.state.ReadState
 
 
 @Composable
