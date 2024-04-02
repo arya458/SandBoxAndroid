@@ -1,7 +1,6 @@
 package com.sandbox.sandboxMessenger.data.dataSource
 
 import android.app.Application
-import android.util.Log
 import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.SyncApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.UIA
@@ -88,15 +87,15 @@ class MessengerDataSourceImpl @Inject constructor(
 //    }
 
 
-    override suspend fun createChatRoom(roomName: String, tagetUserName: UserId): Result<RoomId> {
+    override suspend fun createChatRoom(roomName: String, userId: UserId): Result<RoomId> {
 //        val roomAliasId = RoomAliasId(roomName, "matrix.org")
 //        var roomRes: GetRoomAlias.Response?=null
 //        matrix.room.getRoomAlias(roomAliasId).onSuccess { roomRes = it }
 //        if (roomRes==null)
 
         return matrix.room.createRoom(
-                invite = buildSet { tagetUserName },
-                roomAliasId = RoomAliasId("SandBox_$roomName",tagetUserName.domain),
+                invite = buildSet { userId },
+                roomAliasId = RoomAliasId("SandBox_$roomName",userId.domain),
                 isDirect = true,
                 name = "SandBox_$roomName"
         ).onSuccess {

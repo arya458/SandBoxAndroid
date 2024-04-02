@@ -88,6 +88,9 @@ object Dependencies {
 
     val retrofit by lazy { "com.squareup.retrofit2:retrofit:${Versions.retrofit}" }
 
+    //implementation 'com.squareup.retrofit2:converter-gson:2.8.0'
+    val gson by lazy { "com.squareup.retrofit2:converter-gson:${Versions.retrofit}" }
+
 
     //implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
     val okhttp by lazy { "com.squareup.okhttp3:okhttp:${Versions.okhttp}" }
@@ -156,7 +159,7 @@ object Dependencies {
     val annotations by lazy { "org.jetbrains:annotations-java5:${Versions.annotations_version}" }
 
     // implementation 'com.google.code.gson:gson:2.8.9'
-    val gson by lazy { "com.google.code.gson:gson:${Versions.gson}" }
+//    val gson by lazy { "com.google.code.gson:gson:${Versions.gson}" }
 
     //    implementation 'com.github.hcaptcha:hcaptcha-android-sdk:x.y.z'
     val hcaptcha by lazy { "com.github.hcaptcha:hcaptcha-android-sdk:${Versions.hcaptcha}" }

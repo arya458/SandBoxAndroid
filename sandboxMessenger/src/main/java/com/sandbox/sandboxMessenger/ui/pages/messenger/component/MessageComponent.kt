@@ -26,7 +26,6 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.coreui.theme.elv_3
 import com.arya.danesh.utilities.CoreUtility.MATRIX_TRAGET_USER
-import com.sandbox.sandboxMessenger.data.response.Chat.MessageResponse
 import com.sandbox.sandboxmessenger.R
 import net.folivo.trixnity.core.model.events.ClientEvent
 import net.folivo.trixnity.core.model.events.MessageEventContent
@@ -39,14 +38,14 @@ fun MessageView(item: ClientEvent<MessageEventContent>, supportImage: Bitmap?, u
     val isSupport: Boolean = item.senderOrNull?.full.toString().contains(MATRIX_TRAGET_USER)
     val content = (item.content as RoomMessageEventContent).body
     if (isSupport)
-        SupportMessage(text = content,sender = item.senderOrNull?.full.toString(), supportImage)
+        SupportMessage(text = content, supportImage)
     else
-        UserMessage(text = content,sender = item.senderOrNull?.full.toString(), userImage)
+        UserMessage(text = content, userImage)
 }
 
 
 @Composable
-private fun SupportMessage(text: String, sender: String, supportImage: Bitmap?) {
+private fun SupportMessage(text: String, supportImage: Bitmap?) {
 
 
     Column(Modifier
@@ -86,7 +85,7 @@ private fun SupportMessage(text: String, sender: String, supportImage: Bitmap?) 
 }
 
 @Composable
-private fun UserMessage(text: String, sender: String, userImage: Bitmap?) {
+private fun UserMessage(text: String, userImage: Bitmap?) {
 
     Column(Modifier
             .padding(start = 10.dp, end = 10.dp, top = 10.dp)

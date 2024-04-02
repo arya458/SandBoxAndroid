@@ -33,7 +33,7 @@ import com.arya.danesh.coreui.theme.elv_3
 
 
 @Composable
-fun ProfileImage(modifier: Modifier = Modifier, apiViewModel: MessengerViewModel = hiltViewModel(), @DrawableRes id: Int = R.drawable.kotlin, sharedData: SharedViewModel = hiltViewModel(), onClick: () -> Unit) {
+fun ProfileImage(modifier: Modifier = Modifier, apiViewModel: MessengerViewModel = hiltViewModel(), toolbarState : ToolBarAnimationState, onClick: () -> Unit) {
 
     val configuration = LocalConfiguration.current
 
@@ -42,12 +42,12 @@ fun ProfileImage(modifier: Modifier = Modifier, apiViewModel: MessengerViewModel
     val profileImage by apiViewModel.supportProfileImage.collectAsState()
 
 
-    val transition = updateTransition(sharedData.getToolBarState(), label = "Color State")
+    val transition = updateTransition(toolbarState, label = "ToolBar State")
     val imageSize by transition.animateDp(
             transitionSpec = {
 
                 spring(
-                        stiffness = if (sharedData.getToolBarState() == ToolBarAnimationState.COLLAPSE) 200f else 400f,
+                        stiffness = if (toolbarState == ToolBarAnimationState.COLLAPSE) 200f else 400f,
                         dampingRatio = 0.36f,
                 )
             }, label = "color"
@@ -110,7 +110,8 @@ fun ProfileImage(modifier: Modifier = Modifier, apiViewModel: MessengerViewModel
                 this.translationX = x.toPx()
                 this.translationY = y.toPx()
             }
-            .size(imageSize), color = Color.Transparent) {
+            .size(imageSize), color = Color.Transparent)
+    {
 
 
         Image(

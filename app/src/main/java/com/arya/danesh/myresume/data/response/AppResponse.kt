@@ -1,29 +1,32 @@
 package com.arya.danesh.myresume.data.response
 
-data class AppResponse(
+import com.google.gson.annotations.SerializedName
 
-        val key: String,
-        val apps: List<Apps>
+
+data class AppResponse (
+
+        @SerializedName("key"  ) var key  : String         = "null",
+        @SerializedName("apps" ) var apps : ArrayList<Apps> = arrayListOf()
+
+)
+data class Apps (
+
+        @SerializedName("id"     ) var id     : Int              = 0,
+        @SerializedName("name"   ) var name   : String          = "null",
+        @SerializedName("logo"   ) var logo   : String           = "null",
+        @SerializedName("detail" ) var detail : String           = "null",
+        @SerializedName("date"   ) var date   : Int             = 0,
+        @SerializedName("skills" ) var skills : ArrayList<Skills> = arrayListOf(),
+        @SerializedName("link"   ) var link   : String           = "null"
 
 )
 
-data class Apps(
+data class Skills (
 
-        val id: Int,
-        val name: String,
-        val logo: String,
-        val detail: String,
-        val date: Int,
-        val skills: List<Skills>,
-        val link: String,
-        )
+        @SerializedName("id"         ) var id         : Int    = 0,
+        @SerializedName("tittle"     ) var tittle     : String = "null",
+        @SerializedName("text"       ) var text       : String = "null",
+        @SerializedName("logo"       ) var logo       : String = "null",
+        @SerializedName("percentage" ) var percentage : Int    = 0
 
-data class Skills(
-
-        val id: Int,
-        val tittle: String,
-        val text: String,
-        val logo: String,
-        val percentage: Int,
-
-        )
+)

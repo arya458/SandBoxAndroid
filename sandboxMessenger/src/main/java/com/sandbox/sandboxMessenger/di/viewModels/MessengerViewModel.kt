@@ -98,7 +98,7 @@ class MessengerViewModel @Inject constructor(
                 is UIA.Step -> {}
                 is UIA.Success -> {
 
-                    val data = (response as UIA.Success)
+                    val data = response
                     if (data.value.accessToken != null)
                         loginNewUserToken(data.value.userId.full, data.value.accessToken!!)
                     Log.d("testMatrix", "register: ${data.value}")

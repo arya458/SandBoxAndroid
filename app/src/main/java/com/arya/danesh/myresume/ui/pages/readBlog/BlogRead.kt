@@ -58,7 +58,7 @@ fun ReadBlog(
     val configuration = LocalConfiguration.current
     val readState = remember { mutableStateOf(ReadState.EXPENDED) }
     val lazyState = rememberLazyListState()
-    val systemBarsSize = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
+//    val systemBarsSize = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
 
 //    val isLaunched = remember { mutableStateOf(ComposeItemAnimationState.HIDDEN) }
 //    LaunchedEffect(Unit) {
@@ -90,7 +90,7 @@ fun ReadBlog(
         is ResourceState.Success -> {
             val postData = (postRes as ResourceState.Success<PostResponse>).data
             val posts = postData.posts
-            Log.d("ReadBlog", "ReadBlogDONE: " + postData.blog_date)
+            Log.d("ReadBlog", "ReadBlogDONE: " + postData.blogDate)
 
 
 
@@ -161,7 +161,7 @@ fun ReadBlog(
                     )
                     {
                         AsyncImage(
-                                postData.blog_image,
+                                postData.blogImage,
                                 contentDescription = "",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
@@ -213,7 +213,7 @@ fun ReadBlog(
                                             .padding(bottom=30.dp, top = 10.dp)
                                             .fillMaxWidth()
                                             .wrapContentHeight(),
-                                    text = postData.blog_tittle,
+                                    text = postData.blogTittle,
                                     color = androidx.compose.material.MaterialTheme.colors.onSurface,
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.titleLarge

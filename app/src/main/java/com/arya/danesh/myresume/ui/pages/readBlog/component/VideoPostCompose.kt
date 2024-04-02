@@ -43,19 +43,20 @@ fun VideoPostCompose(postText: PostText) {
                 textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.size(10.dp))
-        AndroidView(factory = {
-            var view = YouTubePlayerView(it)
-            val fragment = view.addYouTubePlayerListener(
-                    object : AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-                            super.onReady(youTubePlayer)
-                            youTubePlayer.loadVideo(postText.data, 0f)
-                            youTubePlayer.pause()
-                        }
+        AndroidView(factory = { context ->
+            YouTubePlayerView(context).let {
+                it.addYouTubePlayerListener(
+                        object : AbstractYouTubePlayerListener() {
+                            override fun onReady(youTubePlayer: YouTubePlayer) {
+                                super.onReady(youTubePlayer)
+                                youTubePlayer.loadVideo(postText.data, 0f)
+                                youTubePlayer.pause()
+                            }
 
-                    }
-            )
-            view
+                        }
+                )
+                return@let it
+            }
         },
                 Modifier
                         .padding(start = 5.dp, end = 5.dp)

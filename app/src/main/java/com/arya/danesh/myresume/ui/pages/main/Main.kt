@@ -200,7 +200,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
     }
     SideEffect {
-        if (sharedData.getmenuState() == MenuState.EXPENDED)
+        if (sharedData.getMenuState() == MenuState.EXPENDED)
             coroutineScope.launch {
                 tranX.animateTo(10f * drawer)
             }
@@ -239,7 +239,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                             else
                                 tranX.animateTo(targetX, initialVelocity = velocity)
 
-                            sharedData.setmenuState(
+                            sharedData.setMenuState(
                                     if (targetX == drawer)
                                         MenuState.EXPENDED
                                     else
@@ -301,7 +301,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                         coroutineScope.launch {
                             tranX.animateTo(10f * drawer)
                         }
-                        sharedData.setmenuState(MenuState.EXPENDED)
+                        sharedData.setMenuState(MenuState.EXPENDED)
                     }
                 },
 

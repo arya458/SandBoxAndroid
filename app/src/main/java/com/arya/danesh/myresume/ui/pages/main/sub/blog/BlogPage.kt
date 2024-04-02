@@ -1,5 +1,6 @@
 package com.arya.danesh.myresume.ui.pages.main.sub.blog
 
+import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -39,27 +40,29 @@ fun BlogPage(
             Text(text = (blogRes as ResourceState.Error).error,
                     Modifier.fillMaxSize(),
                     textAlign = TextAlign.Center)
+            Log.d("ErrorRoot", "BlogPage: ${(blogRes as ResourceState.Error)}")
+            Log.d("ErrorRoot", "BlogPage: ${(blogRes as ResourceState.Error).error}")
 
         }
 
         is ResourceState.Success -> {
 
             SubMainBase(isCollapseListener)
-            { lazyState, visibleItems, listener ->
+            { lazyState, visibleItems, _ ->
+                val posts = (blogRes as ResourceState.Success<BlogResponse>).data.blog
                 LazyColumn(
                         Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(top = 20.dp, bottom = 140.dp),
                         state = lazyState,
                 ) {
-                    val posts = (blogRes as ResourceState.Success<BlogResponse>).data.blog
                     items(posts.size) {
 
                         BlogCompose(onclick = {
-                            key=posts[it].id.toString()
+                            blogViewModel.selectPost(posts[it].id.toString())
                             navigateTo(RootNavigation.Root.ReadBlog)
                         }, size = it, posts[it]) { itemNumber ->
                             if (visibleItems.visibleItemsInfo.isNotEmpty())
-                                if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber <= visibleItems.visibleItemsInfo.last().index+1)
+                                if (visibleItems.visibleItemsInfo.first().index <= itemNumber && itemNumber <= visibleItems.visibleItemsInfo.last().index + 1)
                                     ComposeItemAnimationState.VISIBLE
                                 else
                                     ComposeItemAnimationState.HIDDEN

@@ -1,17 +1,20 @@
 package com.arya.danesh.myresume.data.response
 
-data class BlogResponse(
+import com.google.gson.annotations.SerializedName
 
-        val key: String,
-        val blog: List<BlogPost>
+
+data class BlogResponse (
+
+        @SerializedName("key"  ) var key  : String         = "null",
+        @SerializedName("blog" ) var blog : ArrayList<BlogPost> = arrayListOf()
 
 )
+data class BlogPost (
 
-data class BlogPost(
+        @SerializedName("id"     ) var id     : Int    = 0,
+        @SerializedName("tittle" ) var tittle : String = "null",
+        @SerializedName("image"  ) var image  : String = "null",
+        @SerializedName("detail" ) var detail : String = "null",
+        @SerializedName("date"   ) var date   : Int    = 0
 
-        val id: Int,
-        val tittle: String,
-        val image: String,
-        val detail: String,
-        val date: Int,
 )

@@ -4,26 +4,23 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arya.danesh.myresume.data.response.BlogResponse
-import com.arya.danesh.myresume.repository.BlogRepository
+import com.arya.danesh.myresume.repository.ApiRepository
 import com.arya.danesh.utilities.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.toSet
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 
 import javax.inject.Inject
 
 
 @HiltViewModel
 class BlogViewModel @Inject constructor(
-        private val blogRepository: BlogRepository,
+        private val apiRepository: ApiRepository,
 
-) :ViewModel() {
+        ) :ViewModel() {
 
     private val _blog :MutableStateFlow<ResourceState<BlogResponse>> = MutableStateFlow(ResourceState.Loading())
     val blog :StateFlow<ResourceState<BlogResponse>> = _blog
@@ -35,12 +32,16 @@ class BlogViewModel @Inject constructor(
 
     private fun getBlog(){
         viewModelScope.launch(Dispatchers.IO) {
-            blogRepository.getBlog()
-                    .collectLatest { blogResponse->
-                        _blog.value = blogResponse
-                        Log.d("getPost", "getBlog: "+_blog.value.toString())
+            apiRepository.getBlog()
+                    .collectLatest { blogs->
+                        _blog.value = blogs
+                        Log.d("ErrorRoot", "getBlog: "+_blog.value.toString())
                     }
         }
+    }
+
+    fun selectPost(postKey:String){
+        apiRepository.selectBlogPost(postKey)
     }
 
 

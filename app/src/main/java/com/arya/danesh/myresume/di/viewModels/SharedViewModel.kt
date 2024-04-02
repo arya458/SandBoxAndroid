@@ -1,72 +1,58 @@
 package com.arya.danesh.myresume.di.viewModels
 
 import android.app.Application
-import android.content.Context
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.arya.danesh.myresume.R
+import com.arya.danesh.myresume.repository.AppRepository
 import com.arya.danesh.utilities.state.AppState
 import com.arya.danesh.utilities.state.MenuState
 import com.arya.danesh.utilities.state.ToolBarAnimationState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
-        private val appState: MutableState<AppState>,
-        private val toolBarState: MutableState<ToolBarAnimationState>,
-        private val currentPage: MutableState<String>,
-        private val menuState : MutableState<MenuState>,
-        private val isDark : Boolean,
-        private val applicationContext: Application,
-
+        private val appRepository : AppRepository
         ) : ViewModel() {
     fun getAppState() : AppState {
-       return appState.value
+       return appRepository.getAppState()
     }
     fun setAppState(it: AppState){
-        appState.value = it
+        appRepository.setAppState(it)
     }
     fun getToolBarState() : ToolBarAnimationState {
-        return toolBarState.value
+        return appRepository.getToolBarState()
     }
     fun setToolBarState(it: ToolBarAnimationState){
-        toolBarState.value = it
+        appRepository.setToolBarState(it)
     }
     fun getCurrentPage() : String {
-        return currentPage.value
+        return appRepository.getCurrentPage()
     }
     fun setCurrentPage(it:String){
-        currentPage.value=it
+        appRepository.setCurrentPage(it)
     }
-    fun getmenuState() : MenuState {
-        return menuState.value
+    fun getMenuState() : MenuState {
+        return appRepository.getMenuState()
     }
-    fun setmenuState(it: MenuState){
-        menuState.value=it
+    fun setMenuState(it: MenuState){
+        appRepository.setMenuState(it)
     }
 
     fun getIsDark() : Boolean {
-        return isDark
+        return appRepository.getDarkMode()
     }
 
     fun setIsDark(isDark: Boolean) {
-//        val context = getAppContext()
-//        val sharedPref = context
-//                .getSharedPreferences(context.getString(R.string.preference_setting_key), Context.MODE_PRIVATE)
-//        sharedPref.edit().putBoolean(context.getString(R.string.preference_setting_isDark_key), isDark).apply()
-
+        appRepository.setDarkMode(isDark)
     }
 
     fun getAppContext() : Application {
-        return applicationContext
+        return appRepository.getContext()
     }
 
     fun getAppVersion() : String {
-        return applicationContext.packageManager.getPackageInfo(applicationContext.packageName,0).versionName
+        val context = appRepository.getContext()
+        return context.packageManager.getPackageInfo(context.packageName,0).versionName
     }
 
 }

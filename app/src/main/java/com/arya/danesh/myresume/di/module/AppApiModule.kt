@@ -1,18 +1,10 @@
 package com.arya.danesh.myresume.di.module
 
-import com.arya.danesh.myresume.data.dataSource.AppDataSource
-import com.arya.danesh.myresume.data.dataSource.AppDataSourceImpl
-import com.arya.danesh.myresume.data.dataSource.BlogDataSource
-import com.arya.danesh.myresume.data.dataSource.BlogDataSourceImpl
-import com.arya.danesh.myresume.data.dataSource.PostDataSource
-import com.arya.danesh.myresume.data.dataSource.PostDataSourceImpl
+import com.arya.danesh.myresume.data.dataSource.ApiDataSource
+import com.arya.danesh.myresume.data.dataSource.ApiDataSourceImpl
 import com.arya.danesh.myresume.data.remote.api.ApiService
-import com.arya.danesh.myresume.repository.AppsRepository
-import com.arya.danesh.myresume.repository.BlogRepository
-import com.arya.danesh.myresume.repository.PostRepository
+import com.arya.danesh.myresume.repository.ApiRepository
 import com.arya.danesh.utilities.CoreUtility.APP_BASE_URL
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -41,16 +33,17 @@ class AppApiModule {
             readTimeout(60,TimeUnit.SECONDS)
         }
 
-        val moshi = Moshi
-                .Builder()
-                .add(KotlinJsonAdapterFactory())
-                .build()
+//        val moshi = Moshi
+//                .Builder()
+//                .add(KotlinJsonAdapterFactory())
+//                .build()
 
         return Retrofit
                 .Builder()
                 .baseUrl(APP_BASE_URL)
                 .client(httpClient.build())
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
+//                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
     }
 
@@ -66,38 +59,14 @@ class AppApiModule {
 
     @Provides
     @Singleton
-    fun providesAppDataSource(apiService: ApiService): AppDataSource {
-        return AppDataSourceImpl(apiService)
+    fun providesAppDataSource(apiService: ApiService): ApiDataSource {
+        return ApiDataSourceImpl(apiService)
     }
 
     @Provides
     @Singleton
-    fun providesBlogDataSource(apiService: ApiService):BlogDataSource{
-        return BlogDataSourceImpl(apiService)
-    }
-
-    @Provides
-    @Singleton
-    fun providesPostDataSource(apiService: ApiService): PostDataSource {
-        return PostDataSourceImpl(apiService)
-    }
-
-    @Provides
-    @Singleton
-    fun providesAppRepository(appDataSource: AppDataSource):AppsRepository{
-        return AppsRepository(appDataSource)
-    }
-
-    @Provides
-    @Singleton
-    fun providesBlogRepository(blogDataSource: BlogDataSource):BlogRepository{
-        return BlogRepository(blogDataSource)
-    }
-
-    @Provides
-    @Singleton
-    fun providesPostRepository(postDataSource: PostDataSource): PostRepository {
-        return PostRepository(postDataSource)
+    fun providesBlogRepository(apiDataSource: ApiDataSource):ApiRepository{
+        return ApiRepository(apiDataSource)
     }
 
 }

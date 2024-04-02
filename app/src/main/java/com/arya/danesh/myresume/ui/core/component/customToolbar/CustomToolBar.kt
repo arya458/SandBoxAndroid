@@ -43,9 +43,9 @@ import com.arya.danesh.utilities.state.ToolBarAnimationState
 
 @Composable
 fun CustomToolBar(
-        modifier: Modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
+//        modifier: Modifier = Modifier
+//                .fillMaxWidth()
+//                .wrapContentHeight(),
         sharedData: SharedViewModel = hiltViewModel(),
         apiViewModel: MessengerViewModel = hiltViewModel(),
         stiffness: Float,
@@ -160,7 +160,7 @@ fun CustomToolBar(
         )
 
 
-        ProfileImage() { }
+        ProfileImage(toolbarState = sharedData.getToolBarState()) { }
 
         Text(
                 text = sharedData.getCurrentPage(),

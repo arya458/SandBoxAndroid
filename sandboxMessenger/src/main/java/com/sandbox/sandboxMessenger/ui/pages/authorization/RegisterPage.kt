@@ -66,7 +66,7 @@ fun RegisterPage(navigateTo: (RootNavigation) -> Unit = {}, messengerViewModel: 
 
 
     AuthBase() {
-        val coroutineScope = rememberCoroutineScope()
+//        val coroutineScope = rememberCoroutineScope()
 
         Row(it.fillMaxSize(), Arrangement.Center, Alignment.CenterVertically) {
 

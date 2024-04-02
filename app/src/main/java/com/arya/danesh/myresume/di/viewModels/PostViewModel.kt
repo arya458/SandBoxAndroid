@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arya.danesh.myresume.data.response.PostResponse
-import com.arya.danesh.myresume.repository.PostRepository
+import com.arya.danesh.myresume.repository.ApiRepository
 import com.arya.danesh.utilities.CoreUtility.key
 import com.arya.danesh.utilities.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,9 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostViewModel @Inject constructor(
-        private val postRepository: PostRepository,
+        private val apiRepository: ApiRepository,
 
-) :ViewModel() {
+        ) :ViewModel() {
 
     private val _post :MutableStateFlow<ResourceState<PostResponse>> = MutableStateFlow(ResourceState.Loading())
     val post :StateFlow<ResourceState<PostResponse>> = _post
@@ -32,9 +32,9 @@ class PostViewModel @Inject constructor(
 
     private fun getPost(){
         viewModelScope.launch(Dispatchers.IO) {
-            postRepository.getPost("post_"+key+".json")
-                    .collectLatest { postResponse->
-                        _post.value = postResponse
+            apiRepository.getPost()
+                    .collectLatest { posts->
+                        _post.value = posts
                         Log.d("getPost", "getPost: "+_post.value.toString())
                         Log.d("getPost", "getPostLive: "+"post_"+key+".json")
                     }

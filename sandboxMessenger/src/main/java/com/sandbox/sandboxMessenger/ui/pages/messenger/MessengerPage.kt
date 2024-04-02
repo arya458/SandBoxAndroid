@@ -38,7 +38,7 @@ fun MessengerPage(
     val userProfileImage by messengerViewModel.userProfileImage.collectAsState()
     val lazyState = rememberLazyListState()
     val messageList by messengerViewModel.getMessageList().collectAsState()
-    val coroutineScope = rememberCoroutineScope()
+//    val coroutineScope = rememberCoroutineScope()
 
 //    var lastMessageSender = ""
 

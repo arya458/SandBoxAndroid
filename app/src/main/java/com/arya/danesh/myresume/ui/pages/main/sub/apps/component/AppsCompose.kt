@@ -42,9 +42,6 @@ fun AppsCompose(app: Apps, size: Int, isShowing: (Int) -> ComposeItemAnimationSt
 
     val transition = updateTransition(isShowing(size), label = "ToolBar State")
 
-    val rawText = "To make an image fit into a shape, use the built-in clip modifier. To crop an image into a circle shape, use To make an image fit into a shape, use the built-in clip modifier. To crop an image into a circle shape, use"
-
-
 
     val alphaAnim by transition.animateFloat(
             transitionSpec = {
