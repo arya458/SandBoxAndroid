@@ -76,6 +76,7 @@ fun BlogCompose(
             .fillMaxWidth()
             .wrapContentHeight()
             .animateContentSize()
+                .clickable { onclick }
             .padding(10.dp),
         backgroundColor = MaterialTheme.colorScheme.surface,
         elevation = elv_3,
@@ -134,8 +135,7 @@ fun BlogCompose(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
-                    .wrapContentHeight()
-                    .clickable{onclick()},
+                    .wrapContentHeight(),
                 textAlign = TextAlign.Center,
                 style = LocalTextStyle.current.merge(
                     TextStyle(
