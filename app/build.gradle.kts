@@ -33,6 +33,10 @@ android {
                 "proguard-rules.pro"
             )
         }
+//        debug {
+//            isMinifyEnabled = true
+//            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+//        }
         create("benchmark") {
             initWith(buildTypes.getByName("release"))
             signingConfig = signingConfigs.getByName("debug")
@@ -103,6 +107,7 @@ dependencies {
 
 
     implementation(Dependencies.retrofit)
+    implementation(Dependencies.gson)
     implementation(Dependencies.okhttp)
     implementation(Dependencies.moshi)
     implementation(Dependencies.moshiConverter)
