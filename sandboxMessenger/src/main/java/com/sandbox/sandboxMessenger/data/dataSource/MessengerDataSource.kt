@@ -1,12 +1,9 @@
 package com.sandbox.sandboxMessenger.data.dataSource
 
 import android.app.Application
-import com.google.android.gms.safetynet.SafetyNetClient
 import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.SyncApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.UIA
-import net.folivo.trixnity.clientserverapi.model.authentication.GetEmailRequestTokenForRegistration
-import net.folivo.trixnity.clientserverapi.model.authentication.GetToken
 import net.folivo.trixnity.clientserverapi.model.authentication.Login
 import net.folivo.trixnity.clientserverapi.model.authentication.Register
 import net.folivo.trixnity.clientserverapi.model.authentication.ThirdPartyIdentifier

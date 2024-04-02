@@ -4,16 +4,12 @@ import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.sandbox.sandboxMessenger.data.dataSource.MessengerDataSource
 import com.arya.danesh.utilities.CoreUtility.MATRIX_TARGET_DOMAIN
 import com.arya.danesh.utilities.CoreUtility.MATRIX_TRAGET_USER
 import com.arya.danesh.utilities.CoreUtility.getRandomString
 import com.sandbox.sandboxMessenger.data.dao.MessengerDao
-import com.sandbox.sandboxMessenger.data.response.Chat.MessageResponse
+import com.sandbox.sandboxMessenger.data.dataSource.MessengerDataSource
 import com.sandbox.sandboxMessenger.data.response.MessengerResponse
-import dagger.Binds
-import dagger.hilt.android.scopes.ActivityScoped
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.MutableStateFlow
 import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.UIA
@@ -28,7 +24,6 @@ import net.folivo.trixnity.core.model.RoomId
 import net.folivo.trixnity.core.model.UserId
 import net.folivo.trixnity.core.model.events.ClientEvent
 import net.folivo.trixnity.core.model.events.MessageEventContent
-import net.folivo.trixnity.core.model.events.m.room.RoomMessageEventContent
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -5,8 +5,12 @@ import net.folivo.trixnity.clientserverapi.client.MatrixClientServerApiClientImp
 import net.folivo.trixnity.clientserverapi.client.SyncApiClientImpl
 import net.folivo.trixnity.clientserverapi.client.UIA
 import net.folivo.trixnity.clientserverapi.model.authentication.AccountType
-import javax.inject.Inject
-import net.folivo.trixnity.clientserverapi.model.authentication.*
+import net.folivo.trixnity.clientserverapi.model.authentication.IdentifierType
+import net.folivo.trixnity.clientserverapi.model.authentication.Login
+import net.folivo.trixnity.clientserverapi.model.authentication.LoginType
+import net.folivo.trixnity.clientserverapi.model.authentication.Register
+import net.folivo.trixnity.clientserverapi.model.authentication.ThirdPartyIdentifier
+import net.folivo.trixnity.clientserverapi.model.authentication.WhoAmI
 import net.folivo.trixnity.clientserverapi.model.media.Media
 import net.folivo.trixnity.clientserverapi.model.users.GetProfile
 import net.folivo.trixnity.core.model.EventId
@@ -14,6 +18,7 @@ import net.folivo.trixnity.core.model.RoomAliasId
 import net.folivo.trixnity.core.model.RoomId
 import net.folivo.trixnity.core.model.UserId
 import net.folivo.trixnity.core.model.events.m.room.RoomMessageEventContent
+import javax.inject.Inject
 
 class MessengerDataSourceImpl @Inject constructor(
         private val matrix: MatrixClientServerApiClientImpl,
