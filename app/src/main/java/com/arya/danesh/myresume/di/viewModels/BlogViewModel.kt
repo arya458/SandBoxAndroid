@@ -23,7 +23,7 @@ class BlogViewModel @Inject constructor(
         ) :ViewModel() {
 
     private val _blog :MutableStateFlow<ResourceState<BlogResponse>> = MutableStateFlow(ResourceState.Loading())
-    val blog :StateFlow<ResourceState<BlogResponse>> = _blog
+    var blog :StateFlow<ResourceState<BlogResponse>> = _blog
 
 
     init {
@@ -42,6 +42,13 @@ class BlogViewModel @Inject constructor(
 
     fun selectPost(postKey:String){
         apiRepository.selectBlogPost(postKey)
+    }
+
+    fun tryAgain(){
+        _blog.tryEmit(ResourceState.Loading())
+        blog = _blog
+        Log.d("getPost", "try again Clicked ")
+        getBlog()
     }
 
 

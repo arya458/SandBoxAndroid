@@ -1,23 +1,29 @@
 package com.arya.danesh.myresume
 
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.coreui.theme.MyResumeTheme
+import com.arya.danesh.myresume.di.viewModels.AppsViewModel
 import com.arya.danesh.myresume.ui.controller.graph.rootGraph
 import com.arya.danesh.utilities.CoreUtility.computeWindowSize
 import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -29,19 +35,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-//        installSplashScreen().also {
-//
-//            it.
-//
-//        }
         computeWindowSize(this)
         setContent {
-
             val navController = rememberNavController()
-//            val sharedData: SharedViewModel = hiltViewModel()
-
-            MyResumeTheme(darkTheme = true, dynamicColor = false) {
-
+            MyResumeTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 NavHost(
                         modifier = Modifier
                                 .fillMaxWidth()
@@ -52,8 +49,6 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     rootGraph(navigateTo = { dis ->
-
-
                         //todo: UnComment Later We Need PopBackStack (For know we need to Debug)
                         when(dis.route){
 
@@ -84,14 +79,11 @@ class MainActivity : ComponentActivity() {
                     })
 
                 }
-
-//                Intro(navController,{},appState.value,{appState.value=it})
             }
-//                Main()
-
         }
 
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

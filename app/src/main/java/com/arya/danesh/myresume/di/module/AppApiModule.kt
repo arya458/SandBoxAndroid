@@ -30,7 +30,7 @@ class AppApiModule {
         }
         val httpClient = OkHttpClient.Builder().apply {
             addInterceptor(httpLoggingInterceptor)
-            readTimeout(60,TimeUnit.SECONDS)
+            readTimeout(10,TimeUnit.SECONDS)
         }
 
 //        val moshi = Moshi

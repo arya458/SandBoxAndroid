@@ -8,6 +8,9 @@
       <entry key="ExampleStartupBenchmark">
         <State />
       </entry>
+      <entry key="SubLoadingPage">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

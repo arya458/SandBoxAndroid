@@ -1,11 +1,11 @@
 package com.arya.danesh.myresume.ui.pages.main.sub.home
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import com.arya.danesh.controller.route.RootNavigation
+import com.arya.danesh.coreui.SubLoadingPage
 import com.arya.danesh.myresume.ui.pages.main.component.SubMainBase
 
-//import com.arya.danesh.myresume.ui.theme.section
-//import com.arya.danesh.myresume.ui.theme.title
 
 @Composable
 fun HomePage(
@@ -15,7 +15,7 @@ fun HomePage(
     SubMainBase(isCollapseListener)
     { lazyState, visibleItems,padding, listener ->
 
-
+        SubLoadingPage(isDark = isSystemInDarkTheme())
 
     }
 

@@ -39,7 +39,6 @@ fun SubMainBase(
     val visibleItems by remember { derivedStateOf { lazyState.layoutInfo } }
     val titleSize = remember { mutableStateOf(0.dp) }
     val listener by rememberUpdatedState(isCollapseListener)
-
     val transition = updateTransition(sharedViewModel.getToolBarState(), label = "ToolBar State")
 
 
@@ -68,9 +67,9 @@ fun SubMainBase(
 
 
     SideEffect {
-        listener(lazyState.isScrollInProgress, lazyState.canScrollBackward)
+        listener(lazyState.isScrollInProgress,
+                lazyState.canScrollBackward)
     }
-//    Column(Modifier.fillMaxSize()) {
     Column(Modifier.fillMaxSize(), Arrangement.Top, Alignment.CenterHorizontally) {
         MenuItemTitle(modifier =
         Modifier
@@ -84,7 +83,5 @@ fun SubMainBase(
 
     }
     child(lazyState, visibleItems, titleSize.value, listener)
-
-
 }
 

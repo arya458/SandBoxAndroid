@@ -1,7 +1,9 @@
 package com.arya.danesh.myresume.ui.pages.main
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
@@ -24,6 +26,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -38,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -58,6 +62,7 @@ import com.arya.danesh.myresume.ui.core.component.navigation.NavigationBar
 import com.arya.danesh.myresume.ui.pages.main.component.SideMenu
 import com.arya.danesh.utilities.state.MenuState
 import com.arya.danesh.utilities.state.ToolBarAnimationState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -71,16 +76,32 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
     val currentDestination = navBackStackEntry?.destination
     val scaffoldState = rememberScaffoldState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val isExitTime = remember { mutableStateOf(false) }
     val isDoneDragging = remember {
         mutableStateOf(true)
     }
-
-
     val stiffness = 260f
-
+    val drawer:Float = 150f
 
     val coroutineScope = rememberCoroutineScope()
-    val drawer = 150f
+
+
+    BackHandler {
+        if (isExitTime.value)
+            (sharedData.getAppContext() as Activity).finish()
+        else{
+            isExitTime.value=true
+            coroutineScope.launch {
+                snackbarHostState.showSnackbar(message = "For Exit Press Back Again", duration = SnackbarDuration.Short)
+            }
+            coroutineScope.launch {
+                delay(4000L)
+                isExitTime.value = false
+            }
+        }
+    }
+
+
 
 //    val configuration = LocalConfiguration.current
 
@@ -109,10 +130,6 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
     ) { x ->
 
         lerp(0f, 10f, x / drawer)
-//        when (state) {
-//            MenuState.EXPENDED -> 10f
-//            MenuState.COLLAPSE -> 0f
-//        }
 
     }
 
@@ -127,11 +144,6 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
     ) { x ->
 
         lerp(1f, 0.5f, x / drawer)
-//        when (state) {
-//            MenuState.EXPENDED -> 0.8f
-//            MenuState.COLLAPSE -> 1f
-//        }
-
     }
     val mainTranslation by transition.animateDp(
             transitionSpec = {
@@ -365,6 +377,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
 //            setToolbarState:(ToolBarAnimationState)->Unit
 //            Child({toolBarState.value=it})
+
                 NavHost(
                         modifier = Modifier
                                 .fillMaxWidth()
@@ -372,7 +385,9 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                         navController = navController,
                         startDestination = "Main"
                 ) {
-                    mainGraph(navigateTo) { isScrollInProgress, canScrollBackward ->
+
+                    //todo:fix toolbar Collapse Lagggggg !!!!
+                    mainGraph(navigateTo) { isScrollInProgress, canScrollBackward->
                         if (isScrollInProgress) {
                             if (canScrollBackward) {
                                 sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)

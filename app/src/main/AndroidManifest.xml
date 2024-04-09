@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
@@ -34,6 +34,22 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.APP_FILES" />
+                <category android:name="android.intent.category.APP_EMAIL" />
+                <category android:name="android.intent.category.INFO" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="sandbox.app" />
+                <data android:path="/" />
             </intent-filter>
         </activity>
     </application>

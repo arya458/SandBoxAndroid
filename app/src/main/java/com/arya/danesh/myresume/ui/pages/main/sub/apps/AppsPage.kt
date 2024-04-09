@@ -1,5 +1,6 @@
 package com.arya.danesh.myresume.ui.pages.main.sub.apps
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +13,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.controller.route.RootNavigation
+import com.arya.danesh.coreui.ErrorPage
+import com.arya.danesh.coreui.SubLoadingPage
 import com.arya.danesh.myresume.data.response.AppResponse
 import com.arya.danesh.myresume.di.viewModels.AppsViewModel
 import com.arya.danesh.myresume.ui.pages.main.component.SubMainBase
@@ -30,14 +33,13 @@ fun AppsPage(
     when (appsRes) {
 
         is ResourceState.Loading -> {
-            Text(text = "Loading", Modifier.fillMaxSize(), textAlign = TextAlign.Center)
+            SubLoadingPage(isDark = isSystemInDarkTheme())
         }
 
         is ResourceState.Error -> {
-            Text(text = (appsRes as ResourceState.Error).error,
-                    Modifier.fillMaxSize(),
-                    textAlign = TextAlign.Center)
-
+            ErrorPage((appsRes as ResourceState.Error).error){
+                appsViewModel.tryAgain()
+            }
         }
 
         is ResourceState.Success -> {

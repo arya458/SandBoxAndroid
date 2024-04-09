@@ -23,7 +23,7 @@ class SkillViewModel @Inject constructor(
         ) :ViewModel() {
 
     private val _skill :MutableStateFlow<ResourceState<SkillResponse>> = MutableStateFlow(ResourceState.Loading())
-    val skill :StateFlow<ResourceState<SkillResponse>> = _skill
+    var skill :StateFlow<ResourceState<SkillResponse>> = _skill
 
 
     init {
@@ -38,6 +38,13 @@ class SkillViewModel @Inject constructor(
                         Log.d("getPost", "getBlog: "+_skill.value.toString())
                     }
         }
+    }
+
+    fun tryAgain(){
+        _skill.tryEmit(ResourceState.Loading())
+        skill = _skill
+        Log.d("getPost", "try again Clicked ")
+        getSkills()
     }
 
 

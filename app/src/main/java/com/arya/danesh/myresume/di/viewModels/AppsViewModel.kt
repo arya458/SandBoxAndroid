@@ -23,7 +23,7 @@ class AppsViewModel @Inject constructor(
         ) :ViewModel() {
 
     private val _apps :MutableStateFlow<ResourceState<AppResponse>> = MutableStateFlow(ResourceState.Loading())
-    val apps :StateFlow<ResourceState<AppResponse>> = _apps
+    var apps :StateFlow<ResourceState<AppResponse>> = _apps
 
 
     init {
@@ -35,9 +35,16 @@ class AppsViewModel @Inject constructor(
             apiRepository.getApps()
                     .collectLatest { apps->
                         _apps.value = apps
-                        Log.d("getPost", "getBlog: "+_apps.value.toString())
+                        Log.d("getPost", "getApps: "+_apps.value.toString())
                     }
         }
+    }
+
+    fun tryAgain(){
+        _apps.tryEmit(ResourceState.Loading())
+        apps = _apps
+        Log.d("getPost", "try again Clicked ")
+        getApps()
     }
 
 

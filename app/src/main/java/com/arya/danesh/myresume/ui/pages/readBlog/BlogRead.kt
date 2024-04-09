@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.arya.danesh.controller.route.RootNavigation
+import com.arya.danesh.coreui.ErrorPage
+import com.arya.danesh.coreui.SubLoadingPage
 import com.arya.danesh.coreui.Texts.TextTittle
 import com.arya.danesh.myresume.data.response.PostResponse
 import com.arya.danesh.myresume.di.viewModels.PostViewModel
@@ -76,11 +79,14 @@ fun ReadBlog(
     when (postRes) {
 
         is ResourceState.Loading -> {
-            Log.d("ReadBlog", "ReadBlog: Loading")
+            SubLoadingPage(isDark = isSystemInDarkTheme())
         }
 
         is ResourceState.Error -> {
             Log.d("ReadBlog", "ReadBlogERROR: " + (postRes as ResourceState.Error).error)
+            ErrorPage((postRes as ResourceState.Error).error){
+                postViewModel.tryAgain()
+            }
 
         }
 
@@ -211,7 +217,7 @@ fun ReadBlog(
                                             .fillMaxWidth()
                                             .wrapContentHeight(),
                                     text = postData.blogTittle,
-                                    color = androidx.compose.material.MaterialTheme.colors.onSurface,
+                                    color = MaterialTheme.colorScheme.onSurface,
                                     textAlign = TextAlign.Center,
                                     style = MaterialTheme.typography.titleLarge
                             )

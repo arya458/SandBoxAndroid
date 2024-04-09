@@ -24,7 +24,7 @@ class PostViewModel @Inject constructor(
         ) :ViewModel() {
 
     private val _post :MutableStateFlow<ResourceState<PostResponse>> = MutableStateFlow(ResourceState.Loading())
-    val post :StateFlow<ResourceState<PostResponse>> = _post
+    var post :StateFlow<ResourceState<PostResponse>> = _post
 
     init {
         getPost()
@@ -40,5 +40,11 @@ class PostViewModel @Inject constructor(
                     }
         }
 
+    }
+    fun tryAgain(){
+        _post.tryEmit(ResourceState.Loading())
+        post = _post
+        Log.d("getPost", "try again Clicked ")
+        getPost()
     }
 }
