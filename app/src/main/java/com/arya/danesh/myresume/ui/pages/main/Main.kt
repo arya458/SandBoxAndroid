@@ -17,6 +17,7 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,13 +36,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -60,6 +61,7 @@ import com.arya.danesh.myresume.ui.controller.route.MainNavigation
 import com.arya.danesh.myresume.ui.core.component.customToolbar.CustomToolBar
 import com.arya.danesh.myresume.ui.core.component.navigation.NavigationBar
 import com.arya.danesh.myresume.ui.pages.main.component.SideMenu
+import com.arya.danesh.myresume.ui.pages.main.component.SubPageTittle
 import com.arya.danesh.utilities.state.MenuState
 import com.arya.danesh.utilities.state.ToolBarAnimationState
 import kotlinx.coroutines.delay
@@ -81,26 +83,28 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
         mutableStateOf(true)
     }
     val stiffness = 260f
-    val drawer:Float = 150f
+    val drawer: Float = 150f
 
     val coroutineScope = rememberCoroutineScope()
 
 
     BackHandler {
-        if (isExitTime.value)
-            (sharedData.getAppContext() as Activity).finish()
-        else{
-            isExitTime.value=true
-            coroutineScope.launch {
-                snackbarHostState.showSnackbar(message = "For Exit Press Back Again", duration = SnackbarDuration.Short)
+        if (sharedData.getMenuState() == MenuState.EXPENDED)
+            sharedData.setMenuState(MenuState.COLLAPSE)
+        else
+            if (isExitTime.value)
+                (sharedData.getAppContext() as Activity).finish()
+            else {
+                isExitTime.value = true
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(message = "For Exit Press Back Again", duration = SnackbarDuration.Short)
+                }
+                coroutineScope.launch {
+                    delay(4000L)
+                    isExitTime.value = false
+                }
             }
-            coroutineScope.launch {
-                delay(4000L)
-                isExitTime.value = false
-            }
-        }
     }
-
 
 
 //    val configuration = LocalConfiguration.current
@@ -315,8 +319,7 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
                         .shadow(mainShadow, shape = RoundedCornerShape(lerp(0, 15, tranX.value / drawer).dp), clip = true)
                         .clickable(enabled = sharedData.getMenuState() == MenuState.EXPENDED) {
                             sharedData.setMenuState(MenuState.COLLAPSE)
-                        }
-                ,
+                        },
                 backgroundColor = Color.Transparent,
                 scaffoldState = scaffoldState,
                 topBar = {
@@ -377,28 +380,30 @@ fun Main(navigateTo: (RootNavigation) -> Unit, sharedData: SharedViewModel = hil
 
 //            setToolbarState:(ToolBarAnimationState)->Unit
 //            Child({toolBarState.value=it})
+                Column(Modifier.fillMaxSize(), Arrangement.Top, Alignment.CenterHorizontally) {
+                    SubPageTittle(sharedData.getCurrentPage(), sharedData.getToolBarState())
+                    NavHost(
+                            modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(),
+                            navController = navController,
+                            startDestination = "Main"
+                    ) {
 
-                NavHost(
-                        modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(),
-                        navController = navController,
-                        startDestination = "Main"
-                ) {
+                        //todo:fix toolbar Collapse Lagggggg !!!!
+                        mainGraph(navigateTo) { isScrollInProgress, canScrollBackward ->
+                            if (isScrollInProgress) {
+                                if (canScrollBackward) {
+                                    sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)
+                                } else {
+                                    sharedData.setToolBarState(ToolBarAnimationState.EXPENDED)
+                                }
 
-                    //todo:fix toolbar Collapse Lagggggg !!!!
-                    mainGraph(navigateTo) { isScrollInProgress, canScrollBackward->
-                        if (isScrollInProgress) {
-                            if (canScrollBackward) {
-                                sharedData.setToolBarState(ToolBarAnimationState.COLLAPSE)
-                            } else {
-                                sharedData.setToolBarState(ToolBarAnimationState.EXPENDED)
                             }
-
                         }
+
+
                     }
-
-
                 }
             }
 

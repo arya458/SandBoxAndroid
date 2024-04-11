@@ -1,4 +1,4 @@
-package com.arya.danesh.coreui.Texts
+package com.arya.danesh.coreui.texts
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,10 +10,10 @@ import androidx.compose.ui.text.style.TextAlign
 
 
 @Composable
-fun TextTittle(modifier: Modifier,
+fun TextCaption(modifier: Modifier,
                text:String,
-               color : Color,
-               style : TextStyle = MaterialTheme.typography.titleMedium,
+               color : Color=MaterialTheme.colorScheme.onSurface,
+               style : TextStyle = MaterialTheme.typography.bodySmall,
                textAlign : TextAlign = TextAlign.Justify,
 ) {
 

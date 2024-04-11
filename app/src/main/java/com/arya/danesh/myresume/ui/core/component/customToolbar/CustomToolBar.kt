@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,6 +35,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.arya.danesh.coreui.texts.TextSubTittle
+import com.arya.danesh.coreui.texts.TextTittle
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
 import com.arya.danesh.utilities.state.ToolBarAnimationState
@@ -162,7 +163,7 @@ fun CustomToolBar(
 
         ProfileImage(toolbarState = sharedData.getToolBarState()) { }
 
-        Text(
+        TextTittle(
                 text = sharedData.getCurrentPage(),
                 modifier = Modifier
                         .fillMaxWidth()
@@ -177,7 +178,7 @@ fun CustomToolBar(
 
                         },
                 color = if (android.os.Build.VERSION.SDK_INT <= 31) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground,
-                style = MaterialTheme.typography.titleMedium,
+//                style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
         )
 
@@ -198,22 +199,22 @@ fun CustomToolBar(
         {
 
 
-            Text(
+            TextTittle(
                     text = profile.displayName + "",
                     modifier = Modifier
                             .wrapContentSize(unbounded = true)
                             .padding(top = 20.dp),
                     color = if (android.os.Build.VERSION.SDK_INT <= 31) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground,
-                    style = MaterialTheme.typography.titleMedium,
+//                    style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center,
             )
-            Text(
+            TextSubTittle(
                     text = "Java And Kotlin Programmer",
                     modifier = Modifier
                             .wrapContentSize(unbounded = true)
                             .padding(top = 5.dp),
                     color = if (android.os.Build.VERSION.SDK_INT <= 31) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground,
-                    style = MaterialTheme.typography.bodyMedium,
+//                    style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.size(15.dp))

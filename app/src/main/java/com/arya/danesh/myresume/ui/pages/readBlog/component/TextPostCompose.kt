@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.coreui.Texts.AnimText
-import com.arya.danesh.coreui.Texts.TextTittle
+import com.arya.danesh.coreui.texts.AnimText
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.myresume.data.response.PostText
 import com.arya.danesh.utilities.state.ComposeItemAnimationState
 
@@ -33,12 +33,12 @@ fun TextPostCompose(postText: PostText) {
             Alignment.CenterHorizontally
     ) {
 
-        TextTittle(
+        TextSubTittle(
                 modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight(),
                 text = postText.tittle,
-                color = androidx.compose.material.MaterialTheme.colors.onSurface,
+                color =MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.size(10.dp))
@@ -52,7 +52,7 @@ fun TextPostCompose(postText: PostText) {
                 softWrap = true,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
-                style = MaterialTheme.typography.labelMedium,
+//                style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(0.6f),
                 durationMillis = 2000,
                 delayMillis = 500

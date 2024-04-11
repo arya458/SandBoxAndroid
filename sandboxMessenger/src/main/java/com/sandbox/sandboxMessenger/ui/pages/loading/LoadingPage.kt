@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -25,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.coreui.AnimLogo
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.coreui.theme.elv_3
 import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.sandbox.sandboxmessenger.R
@@ -155,8 +155,8 @@ fun LoadingPage(
                                 .fillMaxWidth()
                                 .wrapContentHeight()
                                 .padding(bottom = 40.dp), Arrangement.Bottom) {
-                    Text(
-                            text = "Loading",
+                    TextSubTittle(
+                            text = "Loading ...",
                             modifier = Modifier
                                     .fillMaxWidth()
                                     .scale(1f)
@@ -164,7 +164,6 @@ fun LoadingPage(
                                     .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
                                     .wrapContentHeight(),
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.primary,
                     )
 

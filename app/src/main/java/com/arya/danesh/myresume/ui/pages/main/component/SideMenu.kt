@@ -24,7 +24,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
@@ -45,6 +44,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.controller.route.RootNavigation
+import com.arya.danesh.coreui.texts.TextCaption
+import com.arya.danesh.coreui.texts.TextSubTittle
+import com.arya.danesh.coreui.texts.TextTittle
 import com.arya.danesh.coreui.theme.elv_3
 import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.di.viewModels.SharedViewModel
@@ -109,7 +111,7 @@ fun SideMenu(
 
             Column(Modifier.wrapContentSize(), Arrangement.SpaceBetween, Alignment.Start) {
 
-                Text(
+                TextTittle(
                         text = (user.displayName ?: "Name"),
                         modifier = Modifier
                                 .wrapContentSize()
@@ -118,7 +120,7 @@ fun SideMenu(
                         style = MaterialTheme.typography.bodyMedium,
                         textAlign = TextAlign.Center,
                 )
-                Text(
+                TextSubTittle(
                         text = (apiViewModel.userInfo?.full ?: "username:matrix.com"),
                         modifier = Modifier
                                 .wrapContentSize()
@@ -223,7 +225,7 @@ fun SideMenu(
 //                    }
 
 //                }
-            Text(
+            TextCaption(
                     text = "Version " + sharedData.getAppVersion(),
                     modifier = Modifier
                             .fillMaxWidth(),
@@ -259,7 +261,7 @@ fun MenuIconTextButton(onclick: () -> Unit) {
                 contentScale = ContentScale.Inside
 
         )
-        Text(
+        TextCaption(
                 text = "DarkMode",
                 modifier = Modifier
                         .wrapContentSize()
@@ -275,13 +277,13 @@ fun MenuIconTextButton(onclick: () -> Unit) {
 @Composable
 fun MenuItemTitle(modifier: Modifier=Modifier.fillMaxWidth().wrapContentHeight(),text : String = "Menu") {
     Column(modifier, Arrangement.Center, Alignment.CenterHorizontally) {
-        Text(
+        TextSubTittle(
                 text = text,
                 modifier = Modifier
                         .padding(top = 20.dp)
                         .wrapContentSize(),
                 color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.bodyMedium,
+//                style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier

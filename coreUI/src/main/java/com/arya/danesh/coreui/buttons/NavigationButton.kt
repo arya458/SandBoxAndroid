@@ -1,4 +1,4 @@
-package com.arya.danesh.coreui.Buttons
+package com.arya.danesh.coreui.buttons
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.animateColor

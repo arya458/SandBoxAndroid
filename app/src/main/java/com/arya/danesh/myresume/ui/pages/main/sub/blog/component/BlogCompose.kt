@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,7 +28,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.arya.danesh.coreui.Texts.AnimText
+import com.arya.danesh.coreui.texts.AnimText
+import com.arya.danesh.coreui.texts.TextCaption
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.coreui.theme.elv_3
 import com.arya.danesh.myresume.data.response.BlogPost
 import com.arya.danesh.utilities.state.ComposeItemAnimationState
@@ -76,7 +77,7 @@ fun BlogCompose(
             .fillMaxWidth()
             .wrapContentHeight()
             .animateContentSize()
-                .clickable { onclick }
+                .clickable { onclick() }
             .padding(10.dp),
         backgroundColor = MaterialTheme.colorScheme.surface,
         elevation = elv_3,
@@ -90,14 +91,14 @@ fun BlogCompose(
                 .wrapContentHeight()
                 .padding(5.dp), Arrangement.Top
         ) {
-            Text(
+            TextSubTittle(
                 text = post.tittle,
                 modifier = Modifier
                     .alpha(alphaAnim)
                     .fillMaxWidth()
                     .padding(10.dp)
                     .wrapContentHeight(),
-                style = MaterialTheme.typography.titleMedium,
+//                style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface,
             )
@@ -125,12 +126,12 @@ fun BlogCompose(
                 minLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
-                style = MaterialTheme.typography.labelMedium,
+//                style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(0.6f),
                 durationMillis = 2000,
                 delayMillis = 200
             )
-            Text(
+            TextCaption(
                 text = "ReadMore",
                 modifier = Modifier
                     .fillMaxWidth()

@@ -31,57 +31,21 @@ import com.arya.danesh.utilities.state.ToolBarAnimationState
 @Composable
 fun SubMainBase(
         isCollapseListener: (Boolean, Boolean) -> Unit,
-        sharedViewModel: SharedViewModel = hiltViewModel(),
-        child: @Composable (LazyListState, LazyListLayoutInfo, titlePadding: Dp, (Boolean, Boolean) -> Unit) -> Unit
+        child: @Composable (LazyListState, LazyListLayoutInfo, (Boolean, Boolean) -> Unit) -> Unit
 ) {
 
     val lazyState = rememberLazyListState()
     val visibleItems by remember { derivedStateOf { lazyState.layoutInfo } }
-    val titleSize = remember { mutableStateOf(0.dp) }
     val listener by rememberUpdatedState(isCollapseListener)
-    val transition = updateTransition(sharedViewModel.getToolBarState(), label = "ToolBar State")
 
 
-    val pageTitleAlpha by transition.animateFloat(
-            transitionSpec = {
-                spring(
-                        stiffness = 20f,
-                        dampingRatio = 0.36f,
-                )
-//            tween(
-//                durationMillis = 300,
-//                delayMillis = if (toolBarState == ToolBarAnimationState.COLLAPSE) 400 else 0,
-//                easing = FastOutSlowInEasing
-//            )
-            }, label = "color"
 
-
-    ) { state ->
-
-        when (state) {
-            ToolBarAnimationState.EXPENDED -> 1f
-            ToolBarAnimationState.COLLAPSE -> 0f
-
-        }
-    }
 
 
     SideEffect {
         listener(lazyState.isScrollInProgress,
                 lazyState.canScrollBackward)
     }
-    Column(Modifier.fillMaxSize(), Arrangement.Top, Alignment.CenterHorizontally) {
-        MenuItemTitle(modifier =
-        Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .graphicsLayer {
-                    alpha = pageTitleAlpha
-                    titleSize.value = size.height.toDp()
-                },
-                sharedViewModel.getCurrentPage())
-
-    }
-    child(lazyState, visibleItems, titleSize.value, listener)
+    child(lazyState, visibleItems, listener)
 }
 

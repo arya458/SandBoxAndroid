@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,7 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.coreui.AnimLogo
-import com.arya.danesh.coreui.Buttons.CustomIconButton
+import com.arya.danesh.coreui.buttons.CustomIconButton
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.coreui.theme.elv_3
 import com.sandbox.sandboxmessenger.R
 
@@ -79,7 +79,7 @@ fun AuthBase(content: @Composable (modifier: Modifier) -> Unit = {}) {
                         .clip(RoundedCornerShape(15.dp))
                         .weight(0.2f)
                         .background(MaterialTheme.colorScheme.outline))
-                Text(
+                TextSubTittle(
                         text = "Or Use",
                         modifier = Modifier
                                 .fillMaxWidth()
@@ -87,7 +87,7 @@ fun AuthBase(content: @Composable (modifier: Modifier) -> Unit = {}) {
                                 .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
                                 .wrapContentHeight(),
                         textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.titleMedium,
+//                        style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.outline,
                 )
                 Spacer(modifier = Modifier

@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,7 +31,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.arya.danesh.coreui.Texts.AnimText
+import com.arya.danesh.coreui.texts.AnimText
+import com.arya.danesh.coreui.texts.TextCaption
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.coreui.theme.elv_3
 import com.arya.danesh.myresume.data.response.Apps
 import com.arya.danesh.utilities.state.ComposeItemAnimationState
@@ -128,7 +129,7 @@ fun AppsCompose(app: Apps, size: Int, isShowing: (Int) -> ComposeItemAnimationSt
                                 .padding(5.dp), Arrangement.Top
                 ) {
                     //todo add text size
-                    Text(
+                    TextSubTittle(
                             text = app.name,
                             modifier = Modifier
                                     .alpha(alphaAnim)
@@ -136,7 +137,7 @@ fun AppsCompose(app: Apps, size: Int, isShowing: (Int) -> ComposeItemAnimationSt
                                     .padding(5.dp)
                                     .wrapContentHeight(),
                             textAlign = TextAlign.Start,
-                            style = MaterialTheme.typography.titleMedium,
+//                            style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onSurface,
                     )
                     AnimText(
@@ -164,14 +165,14 @@ fun AppsCompose(app: Apps, size: Int, isShowing: (Int) -> ComposeItemAnimationSt
                     Column(
                             Modifier.fillMaxWidth(), Arrangement.Top
                     ) {
-                        Text(
+                        TextCaption(
                                 text = it.tittle,
                                 modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
                                         .wrapContentHeight(),
                                 textAlign = TextAlign.Start,
-                                style = MaterialTheme.typography.labelMedium,
+//                                style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.onSurface,
                         )
                         LinearProgressIndicator(

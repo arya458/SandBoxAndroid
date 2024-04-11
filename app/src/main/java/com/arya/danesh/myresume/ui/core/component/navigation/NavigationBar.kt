@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.arya.danesh.coreui.Buttons.NavigationButton
+import com.arya.danesh.coreui.buttons.NavigationButton
 import com.arya.danesh.coreui.theme.elv_2
 import com.arya.danesh.myresume.ui.controller.route.MainNavigation
 import com.arya.danesh.utilities.state.NavButtonAnimationState

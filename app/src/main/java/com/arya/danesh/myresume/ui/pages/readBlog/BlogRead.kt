@@ -39,7 +39,7 @@ import coil.compose.AsyncImage
 import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.coreui.ErrorPage
 import com.arya.danesh.coreui.SubLoadingPage
-import com.arya.danesh.coreui.Texts.TextTittle
+import com.arya.danesh.coreui.texts.TextTittle
 import com.arya.danesh.myresume.data.response.PostResponse
 import com.arya.danesh.myresume.di.viewModels.PostViewModel
 import com.arya.danesh.myresume.ui.pages.readBlog.component.ImagePostCompose
@@ -219,7 +219,7 @@ fun ReadBlog(
                                     text = postData.blogTittle,
                                     color = MaterialTheme.colorScheme.onSurface,
                                     textAlign = TextAlign.Center,
-                                    style = MaterialTheme.typography.titleLarge
+//                                    style = MaterialTheme.typography.titleLarge
                             )
                         }
                         items(posts.size) {

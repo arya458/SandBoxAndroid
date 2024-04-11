@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +27,9 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.coreui.Buttons.NavigationButton
+import com.arya.danesh.coreui.buttons.NavigationButton
+import com.arya.danesh.coreui.texts.TextCaption
+import com.arya.danesh.coreui.texts.TextTittle
 import com.arya.danesh.coreui.theme.elv_3
 import com.arya.danesh.utilities.state.NavButtonAnimationState
 import com.sandbox.sandboxmessenger.R
@@ -62,16 +63,16 @@ fun MessengerTittleBar(username:String,imageBitmap: ImageBitmap?,isOnline:Boolea
             }
             
             Column(Modifier.wrapContentSize(),Arrangement.Center,Alignment.CenterHorizontally) {
-                Text(
+                TextTittle(
                         text = username,
                         modifier = Modifier
                                 .wrapContentSize(),
-                        style = MaterialTheme.typography.titleMedium,
+//                        style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center,
                         color =MaterialTheme.colorScheme.onSurface,
                 )
 //            if (ToolBarAnimationState.EXPENDED == toolBarState)
-                Text(
+                TextCaption(
                         text = if (isOnline) "Online" else "Offline",
                         modifier = Modifier
                                 .wrapContentSize(),

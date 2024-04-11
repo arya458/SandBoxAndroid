@@ -47,11 +47,11 @@ fun BlogPage(
         is ResourceState.Success -> {
 
             SubMainBase(isCollapseListener)
-            { lazyState, visibleItems,padding, _ ->
+            { lazyState, visibleItems, _ ->
                 val posts = (blogRes as ResourceState.Success<BlogResponse>).data.blog
                 LazyColumn(
                         Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(top = padding, bottom = 140.dp),
+                        contentPadding = PaddingValues( bottom = 140.dp),
                         state = lazyState,
                 ) {
                     items(posts.size) {

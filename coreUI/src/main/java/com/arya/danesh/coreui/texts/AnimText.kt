@@ -1,10 +1,10 @@
-package com.arya.danesh.coreui.Texts
+package com.arya.danesh.coreui.texts
 
 import androidx.compose.animation.core.animateInt
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
-import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -42,7 +42,7 @@ fun AnimText(
         maxLines: Int = Int.MAX_VALUE,
         minLines: Int = 1,
         onTextLayout: ((TextLayoutResult) -> Unit)? = null,
-        style: TextStyle = LocalTextStyle.current,
+        style : TextStyle = MaterialTheme.typography.labelLarge,
         setAnimState :(animState: MutableState<ComposeItemAnimationState>) -> Unit,
         durationMillis:Int=2000,
         delayMillis :Int=500

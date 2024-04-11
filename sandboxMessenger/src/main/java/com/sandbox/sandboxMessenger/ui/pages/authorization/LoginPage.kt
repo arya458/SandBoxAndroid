@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -31,6 +30,8 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.controller.route.RootNavigation
+import com.arya.danesh.coreui.texts.TextCaption
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.sandbox.sandboxMessenger.di.viewModels.MessengerViewModel
 import com.sandbox.sandboxMessenger.ui.pages.authorization.component.AuthBase
 
@@ -76,7 +77,7 @@ fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}, messengerViewModel: Mes
                         value = user.value,
                         onValueChange = { user.value = it },
                         maxLines = 3,
-                        placeholder = { Text(text = "UserName", color = MaterialTheme.colorScheme.onBackground.copy(0.6f)) },
+                        placeholder = { TextCaption( Modifier.fillMaxWidth(),text = "UserName", color = MaterialTheme.colorScheme.onBackground.copy(0.6f)) },
                         singleLine = true,
                         enabled = true,
                         colors = TextFieldDefaults.colors(
@@ -94,7 +95,7 @@ fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}, messengerViewModel: Mes
                         value = pass.value,
                         onValueChange = { pass.value = it },
                         maxLines = 3,
-                        placeholder = { Text(text = "PassWord", color = MaterialTheme.colorScheme.onBackground.copy(0.6f)) },
+                        placeholder = { TextCaption( Modifier.fillMaxWidth(),text = "PassWord", color = MaterialTheme.colorScheme.onBackground.copy(0.6f)) },
                         singleLine = true,
                         enabled = true,
                         colors = TextFieldDefaults.colors(
@@ -121,7 +122,7 @@ fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}, messengerViewModel: Mes
                                 disabledContentColor = Color.Gray
                         )
                 ) {
-                    Text(
+                    TextSubTittle(
                             text = "Login",
                             modifier = Modifier
                                     .fillMaxWidth()
@@ -146,7 +147,7 @@ fun LoginPage(navigateTo: (RootNavigation) -> Unit = {}, messengerViewModel: Mes
                                 disabledContentColor = Color.Gray
                         )
                 ) {
-                    Text(
+                    TextSubTittle(
                             text = "Register",
                             modifier = Modifier
                                     .fillMaxWidth()

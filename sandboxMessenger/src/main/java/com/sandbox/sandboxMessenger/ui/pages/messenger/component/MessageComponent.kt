@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +23,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
+import com.arya.danesh.coreui.texts.TextCaption
 import com.arya.danesh.coreui.theme.elv_3
 import com.arya.danesh.utilities.CoreUtility.MATRIX_TRAGET_USER
 import com.sandbox.sandboxmessenger.R
@@ -73,7 +73,7 @@ private fun SupportMessage(text: String, supportImage: Bitmap?) {
                         10.dp
                 )
         ) {
-            Text(modifier = Modifier
+            TextCaption(modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp), text = text)
 
@@ -111,7 +111,7 @@ private fun UserMessage(text: String, userImage: Bitmap?) {
                         10.dp
                 )
         ) {
-            Text(modifier = Modifier
+            TextCaption(modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp), text = text)
 

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.arya.danesh.coreui.Texts.TextTittle
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.myresume.data.response.PostText
 
 
@@ -32,12 +32,12 @@ fun ImagePostCompose(postText: PostText) {
             Alignment.CenterHorizontally
     ) {
 
-        TextTittle(
+        TextSubTittle(
                 modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight(),
                 text = postText.tittle,
-                color = MaterialTheme.colors.onSurface,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.size(10.dp))

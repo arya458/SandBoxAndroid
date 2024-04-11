@@ -1,11 +1,14 @@
 package com.arya.danesh.coreui
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -15,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.compose.LottieAnimation
@@ -24,14 +26,21 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
-import com.arya.danesh.coreui.Texts.TextTittle
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.utilities.CoreUtility.manipulateColor
 
 
 @Composable
 fun SubLoadingPage(isDark:Boolean){
 
-    Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,Alignment.CenterHorizontally) {
+    Column(
+            Modifier.fillMaxSize().padding(
+                    bottom = WindowInsets.navigationBars
+                            .asPaddingValues()
+                            .calculateBottomPadding()
+            )
+
+            , verticalArrangement = Arrangement.Center,Alignment.CenterHorizontally) {
 
 //        LinearProgressIndicator(Modifier
 //                .fillMaxWidth(0.5f)
@@ -73,7 +82,7 @@ fun SubLoadingPage(isDark:Boolean){
 
         )
         Spacer(modifier = Modifier.size(10.dp))
-        TextTittle(
+        TextSubTittle(
                 modifier = Modifier.fillMaxWidth(),
                 text = "Loading ...",
                 color =MaterialTheme.colorScheme.onSurface,

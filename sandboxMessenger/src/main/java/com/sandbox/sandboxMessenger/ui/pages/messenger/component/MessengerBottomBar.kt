@@ -13,14 +13,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.arya.danesh.coreui.Buttons.NavigationButton
+import com.arya.danesh.coreui.buttons.NavigationButton
+import com.arya.danesh.coreui.texts.TextCaption
 import com.arya.danesh.coreui.theme.elv_2
 import com.arya.danesh.coreui.theme.elv_3
 import com.arya.danesh.utilities.state.NavButtonAnimationState
@@ -64,7 +64,7 @@ fun MessengerBottomBar(userMessage : String,setUserMessage : (text:String)->Unit
                         setUserMessage(it)
                     },
                     maxLines = 3,
-                    placeholder = { Text(text = "Message...", color = MaterialTheme.colorScheme.onBackground.copy(0.6f)) },
+                    placeholder = { TextCaption(Modifier.fillMaxWidth(),text = "Message...", color = MaterialTheme.colorScheme.onBackground.copy(0.6f)) },
                     singleLine = false,
                     enabled = true,
                     colors = TextFieldDefaults.colors(),

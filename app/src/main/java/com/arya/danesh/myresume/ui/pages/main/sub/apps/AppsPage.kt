@@ -18,6 +18,7 @@ import com.arya.danesh.coreui.SubLoadingPage
 import com.arya.danesh.myresume.data.response.AppResponse
 import com.arya.danesh.myresume.di.viewModels.AppsViewModel
 import com.arya.danesh.myresume.ui.pages.main.component.SubMainBase
+import com.arya.danesh.myresume.ui.pages.main.component.SubPageTittle
 import com.arya.danesh.myresume.ui.pages.main.sub.apps.component.AppsCompose
 import com.arya.danesh.utilities.ResourceState
 import com.arya.danesh.utilities.state.ComposeItemAnimationState
@@ -44,12 +45,11 @@ fun AppsPage(
 
         is ResourceState.Success -> {
             val apps = (appsRes as ResourceState.Success<AppResponse>).data.apps
-
             SubMainBase(isCollapseListener)
-            { lazyState, visibleItems,padding, _ ->
+            { lazyState, visibleItems, _ ->
                 LazyColumn(
                         Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(top = padding, bottom = 140.dp),
+                        contentPadding = PaddingValues(bottom = 140.dp),
                         state = lazyState,
 
                         ) {

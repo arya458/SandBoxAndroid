@@ -13,7 +13,7 @@ fun HomePage(
         navigateTo: (RootNavigation) -> Unit,
 ) {
     SubMainBase(isCollapseListener)
-    { lazyState, visibleItems,padding, listener ->
+    { lazyState, visibleItems, listener ->
 
         SubLoadingPage(isDark = isSystemInDarkTheme())
 

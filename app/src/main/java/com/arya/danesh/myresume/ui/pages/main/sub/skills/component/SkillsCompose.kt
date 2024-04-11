@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,7 +25,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.arya.danesh.coreui.Texts.AnimText
+import com.arya.danesh.coreui.texts.AnimText
+import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.coreui.theme.elv_3
 import com.arya.danesh.myresume.data.response.Skills
 import com.arya.danesh.utilities.state.ComposeItemAnimationState
@@ -86,14 +86,14 @@ fun SkillsCompose(onclick: () -> Unit,
             )
 
             Column(Modifier.fillMaxSize().padding(start = 5.dp)) {
-                Text(
+                TextSubTittle(
                         text = skills.tittle,
                         modifier = Modifier
                                 .alpha(alphaAnim)
                                 .fillMaxWidth()
                                 .padding(bottom = 5.dp)
                                 .wrapContentHeight(),
-                        style = MaterialTheme.typography.titleMedium,
+//                        style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Start,
                         color = MaterialTheme.colorScheme.onSurface,
                 )
