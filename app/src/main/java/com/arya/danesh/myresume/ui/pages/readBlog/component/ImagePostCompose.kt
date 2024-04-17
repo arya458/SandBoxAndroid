@@ -14,10 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.arya.danesh.coreui.texts.TextSubTittle
+import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.response.PostText
 
 
@@ -43,6 +45,7 @@ fun ImagePostCompose(postText: PostText) {
         Spacer(modifier = Modifier.size(10.dp))
         AsyncImage(
                 model = postText.data,
+                placeholder = painterResource(id = R.drawable.ph_images),
                 contentDescription = null,
                 modifier = Modifier
                         .padding(start = 5.dp, end = 5.dp)

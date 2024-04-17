@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
@@ -32,6 +33,7 @@ import com.arya.danesh.coreui.texts.AnimText
 import com.arya.danesh.coreui.texts.TextCaption
 import com.arya.danesh.coreui.texts.TextSubTittle
 import com.arya.danesh.coreui.theme.elv_3
+import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.response.BlogPost
 import com.arya.danesh.utilities.state.ComposeItemAnimationState
 
@@ -47,17 +49,17 @@ fun BlogCompose(
     val transition = updateTransition(isShowing(size), label = "Blog State")
 
     val alphaAnim by transition.animateFloat(
-        transitionSpec = {
+            transitionSpec = {
 //            spring(
 //                stiffness = 10000f,
 //                dampingRatio = 0.36f,
 //            )
-            tween(
-                durationMillis = 1000,
-                delayMillis = 50,
+                tween(
+                        durationMillis = 1000,
+                        delayMillis = 50,
 //                easing = FastOutSlowInEasing
-            )
-        }, label = "color"
+                )
+            }, label = "color"
 
 
     ) { state ->
@@ -73,83 +75,85 @@ fun BlogCompose(
 //    val textAnim = rawText.substring(startIndex = 0, endIndex = textMaxAnim)
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .animateContentSize()
-                .clickable { onclick() }
-            .padding(10.dp),
-        backgroundColor = MaterialTheme.colorScheme.surface,
-        elevation = elv_3,
-        shape = RoundedCornerShape(15.dp)
+            modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .animateContentSize()
+                    .clickable { onclick() }
+                    .padding(10.dp),
+            backgroundColor = MaterialTheme.colorScheme.surface,
+            elevation = elv_3,
+            shape = RoundedCornerShape(15.dp)
     ) {
 
 
         Column(
-            Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(5.dp), Arrangement.Top
+                Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(5.dp), Arrangement.Top
         ) {
             TextSubTittle(
-                text = post.tittle,
-                modifier = Modifier
-                    .alpha(alphaAnim)
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .wrapContentHeight(),
+                    text = post.tittle,
+                    modifier = Modifier
+                            .alpha(alphaAnim)
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                            .wrapContentHeight(),
 //                style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onSurface,
             )
             AsyncImage(
-                model = post.image,
-                contentDescription = "",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .alpha(alphaAnim)
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .clip(RoundedCornerShape(15.dp))
-                    .padding(bottom = 10.dp)
-                    .shadow(3.dp, RoundedCornerShape(15.dp), clip = true)
+                    model = post.image,
+                    placeholder = painterResource(id = R.drawable.ph_images),
+
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                            .alpha(alphaAnim)
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .clip(RoundedCornerShape(15.dp))
+                            .padding(bottom = 10.dp)
+                            .shadow(3.dp, RoundedCornerShape(15.dp), clip = true)
             )
             AnimText(
-                rawText = post.detail,
-                setAnimState = {it.value = isShowing(size)},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp)
-                    .wrapContentHeight(),
-                softWrap = true,
-                maxLines = 7,
-                minLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Justify,
+                    rawText = post.detail,
+                    setAnimState = { it.value = isShowing(size) },
+                    modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(5.dp)
+                            .wrapContentHeight(),
+                    softWrap = true,
+                    maxLines = 7,
+                    minLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Justify,
 //                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(0.6f),
-                durationMillis = 2000,
-                delayMillis = 200
+                    color = MaterialTheme.colorScheme.onSurface.copy(0.6f),
+                    durationMillis = 2000,
+                    delayMillis = 200
             )
             TextCaption(
-                text = "ReadMore",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
-                    .wrapContentHeight(),
-                textAlign = TextAlign.Center,
-                style = LocalTextStyle.current.merge(
-                    TextStyle(
-                        platformStyle = PlatformTextStyle(
-                            includeFontPadding = false
-                        ),
-                        lineHeightStyle = LineHeightStyle(
-                            alignment = LineHeightStyle.Alignment.Center,
-                            trim = LineHeightStyle.Trim.None
-                        )
-                    )
-                ),
-                color = MaterialTheme.colorScheme.primary,
+                    text = "ReadMore",
+                    modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
+                            .wrapContentHeight(),
+                    textAlign = TextAlign.Center,
+                    style = LocalTextStyle.current.merge(
+                            TextStyle(
+                                    platformStyle = PlatformTextStyle(
+                                            includeFontPadding = false
+                                    ),
+                                    lineHeightStyle = LineHeightStyle(
+                                            alignment = LineHeightStyle.Alignment.Center,
+                                            trim = LineHeightStyle.Trim.None
+                                    )
+                            )
+                    ),
+                    color = MaterialTheme.colorScheme.primary,
             )
         }
 

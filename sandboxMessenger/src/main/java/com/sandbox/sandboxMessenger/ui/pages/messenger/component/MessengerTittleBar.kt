@@ -24,7 +24,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.arya.danesh.coreui.buttons.NavigationButton
@@ -36,20 +38,20 @@ import com.sandbox.sandboxmessenger.R
 
 
 @Composable
-fun MessengerTittleBar(username:String,imageBitmap: ImageBitmap?,isOnline:Boolean,onBackClick:()->Unit,userOnClick:()->Unit){
+fun MessengerTittleBar(username: String, imageBitmap: ImageBitmap?, isOnline: Boolean, onBackClick: () -> Unit, userOnClick: () -> Unit) {
 
     Surface(Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
-            , color = MaterialTheme.colorScheme.surface, shadowElevation = elv_3){
+            .wrapContentHeight(), color = MaterialTheme.colorScheme.surface, shadowElevation = elv_3) {
 
         Row(Modifier
 
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(end = 10.dp,top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding(),  bottom = 10.dp, start = 10.dp)
-                ,Arrangement.SpaceBetween,Alignment.CenterVertically){
-            
+                .padding(end = 10.dp, top = WindowInsets.systemBars
+                        .asPaddingValues()
+                        .calculateTopPadding(), bottom = 10.dp, start = 10.dp), Arrangement.SpaceBetween, Alignment.CenterVertically) {
+
             //BackButton
             NavigationButton(
                     modifier = Modifier
@@ -61,15 +63,15 @@ fun MessengerTittleBar(username:String,imageBitmap: ImageBitmap?,isOnline:Boolea
             ) {
                 onBackClick()
             }
-            
-            Column(Modifier.wrapContentSize(),Arrangement.Center,Alignment.CenterHorizontally) {
+
+            Column(Modifier.wrapContentSize(), Arrangement.Center, Alignment.CenterHorizontally) {
                 TextTittle(
                         text = username,
                         modifier = Modifier
                                 .wrapContentSize(),
 //                        style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center,
-                        color =MaterialTheme.colorScheme.onSurface,
+                        color = MaterialTheme.colorScheme.onSurface,
                 )
 //            if (ToolBarAnimationState.EXPENDED == toolBarState)
                 TextCaption(
@@ -84,19 +86,18 @@ fun MessengerTittleBar(username:String,imageBitmap: ImageBitmap?,isOnline:Boolea
 
             Surface(Modifier.size(45.dp), color = Color.Transparent) {
 
-                if (imageBitmap != null) {
-                    Image(
-                            bitmap = imageBitmap,
-                            contentDescription = "",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
+                Image(
+                        bitmap = (imageBitmap ?: ImageBitmap.imageResource(R.drawable.ph_profile)),
+                        contentDescription = "",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
 
-                                    .fillMaxSize()
-                                    .clip(CircleShape)
-                                    .shadow(elv_3, CircleShape, clip = true)
-                                    .clickable { userOnClick() },
-                    )
-                }
+                                .fillMaxSize()
+                                .clip(CircleShape)
+                                .shadow(elv_3, CircleShape, clip = true)
+                                .clickable { userOnClick() },
+                )
+
 
 ////        Column(Modifier.fillMaxSize(), Arrangement.Bottom, Alignment.End) {
 //            Surface(Modifier.layout { measurable, constraints ->
@@ -110,8 +111,8 @@ fun MessengerTittleBar(username:String,imageBitmap: ImageBitmap?,isOnline:Boolea
 
 
             }
-            
-            
+
+
         }
 
     }

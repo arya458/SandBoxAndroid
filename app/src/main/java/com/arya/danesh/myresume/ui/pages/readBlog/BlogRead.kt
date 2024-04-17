@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,6 +41,7 @@ import com.arya.danesh.controller.route.RootNavigation
 import com.arya.danesh.coreui.ErrorPage
 import com.arya.danesh.coreui.SubLoadingPage
 import com.arya.danesh.coreui.texts.TextTittle
+import com.arya.danesh.myresume.R
 import com.arya.danesh.myresume.data.response.PostResponse
 import com.arya.danesh.myresume.di.viewModels.PostViewModel
 import com.arya.danesh.myresume.ui.pages.readBlog.component.ImagePostCompose
@@ -165,6 +167,7 @@ fun ReadBlog(
                     {
                         AsyncImage(
                                 postData.blogImage,
+                                placeholder = painterResource(id = R.drawable.ph_images),
                                 contentDescription = "",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
@@ -213,7 +216,7 @@ fun ReadBlog(
                         item {
                             TextTittle(
                                     modifier = Modifier
-                                            .padding(bottom=30.dp, top = 10.dp)
+                                            .padding(bottom = 30.dp, top = 10.dp)
                                             .fillMaxWidth()
                                             .wrapContentHeight(),
                                     text = postData.blogTittle,

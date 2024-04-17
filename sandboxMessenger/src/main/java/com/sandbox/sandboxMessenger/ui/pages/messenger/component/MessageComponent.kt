@@ -55,7 +55,7 @@ private fun SupportMessage(text: String, supportImage: Bitmap?) {
 //        if (item.isLastMessageSenderTheSame)
             Image(
                     bitmap = (supportImage?.asImageBitmap()
-                            ?: ImageBitmap.imageResource(R.drawable.def)),
+                            ?: ImageBitmap.imageResource(R.drawable.ph_profile)),
                     contentDescription = "",
                     Modifier
                             .size(50.dp)
@@ -93,7 +93,7 @@ private fun UserMessage(text: String, userImage: Bitmap?) {
             .wrapContentHeight(), Arrangement.Top, Alignment.End) {
             Image(
                     bitmap = (userImage?.asImageBitmap()
-                            ?: ImageBitmap.imageResource(R.drawable.def)),
+                            ?: ImageBitmap.imageResource(R.drawable.ph_profile)),
                     contentDescription = "",
                     Modifier
                             .size(50.dp)

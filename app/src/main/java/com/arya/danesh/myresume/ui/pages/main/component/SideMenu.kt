@@ -99,7 +99,7 @@ fun SideMenu(
         ) {
 
             Image(
-                    bitmap = (userImage?.asImageBitmap() ?: ImageBitmap.imageResource(R.drawable.def)),
+                    bitmap = (userImage?.asImageBitmap() ?: ImageBitmap.imageResource(R.drawable.ph_profile)),
                     contentDescription = "",
                     Modifier
                             .size(60.dp)
