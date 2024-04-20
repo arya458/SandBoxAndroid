@@ -4,12 +4,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.arya.danesh.controller.route.RootNavigation
@@ -18,7 +16,6 @@ import com.arya.danesh.coreui.SubLoadingPage
 import com.arya.danesh.myresume.data.response.AppResponse
 import com.arya.danesh.myresume.di.viewModels.AppsViewModel
 import com.arya.danesh.myresume.ui.pages.main.component.SubMainBase
-import com.arya.danesh.myresume.ui.pages.main.component.SubPageTittle
 import com.arya.danesh.myresume.ui.pages.main.sub.apps.component.AppsCompose
 import com.arya.danesh.utilities.ResourceState
 import com.arya.danesh.utilities.state.ComposeItemAnimationState
