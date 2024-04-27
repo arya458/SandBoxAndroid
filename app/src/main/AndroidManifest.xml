@@ -24,7 +24,7 @@
         <profileable
             android:shell="true"
             tools:targetApi="tiramisu" />
-        <service android:name="com.sandbox.sandboxMessenger.MessageSync" />
+<!--        <service android:name="com.sandbox.sandboxMessenger.MessageSync" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true"
